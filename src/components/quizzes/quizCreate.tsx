@@ -13,32 +13,31 @@ import { Textarea } from "../ui/textarea"
 import QuizItem from "@/utils/classes/quizItem";
 import React, { FC, useState } from "react"
 
-interface QuizEditProps {
+interface QuizCreateProps {
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>;
-  index: number
 }
 
-export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index }) => {
-  const [answerInitial, setAnswerinitial] = useState<string>(quizItems[index].answer)
-  const [questionInitial, setQuestionInitial] = useState<string>(quizItems[index].question)
+export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
+  const [answerInitial, setAnswerinitial] = useState<string>('')
+  const [questionInitial, setQuestionInitial] = useState<string>('')
 
-  function saveQuizItem() {
-    const quizItemInitial: QuizItem = {
+  function createQuizItem() {
+    const quizItemInitial : QuizItem = {
       question: questionInitial,
       answer: answerInitial
     }
 
-    let quizItemsInitial = [...quizItems]
-    quizItemsInitial[index] = quizItemInitial
-    setQuizItems(quizItemsInitial)
+    setQuizItems([...quizItems, quizItemInitial])
+    setAnswerinitial('')
+    setQuestionInitial('')
   }
 
   return (
-    <div className="ml-auto">
+    <div className="mx-auto mt-8">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Edit</Button>
+          <Button> Create New Quiz Item </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -71,8 +70,8 @@ export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index }) 
             </div>
           </div>
           <DialogClose asChild>
-            <Button type="button" onClick={() => saveQuizItem()}>
-              Save
+            <Button type="button" onClick={() => createQuizItem()}>
+              Create Quiz Item
             </Button>
           </DialogClose>
         </DialogContent>
