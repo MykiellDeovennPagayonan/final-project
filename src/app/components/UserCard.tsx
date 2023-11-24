@@ -44,7 +44,7 @@ export default function Card({ user, pagetype }: Props) {
       {greeting}
       {/* {emailDisplay} */}
       {userImage}
-      <p className="text-2xl text-center">{pagetype} Page!</p>
+      <p className="text-2xl text-center">{pagetype} Page! with auth</p>
     </section>
   );
 }

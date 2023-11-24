@@ -28,7 +28,7 @@ export const options: NextAuthOptions = {
         // Docs: https://next-auth.js.org/configuration/providers/credentials
 
         //! Important! change this to query from database
-        const user = { id: "42", name: "Myk", password: "mykiell" };
+        const user = { id: "42", name: "Scriba", password: "scribaadmin" };
 
         if (
           credentials?.username === user.name &&
