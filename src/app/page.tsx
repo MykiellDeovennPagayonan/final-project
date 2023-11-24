@@ -1,13 +1,11 @@
-import { FC } from "react"
-import { ModeToggle } from "@/components/toggle-mode"
+import { FC } from "react";
+import { options } from "./api/auth/[...nextauth]/options";
+import UserCard from "./components/UserCard";
+import { getServerSession } from "next-auth";
+import { ModeToggle } from "@/components/toggle-mode";
 
-const Home : FC = () => {
-  return (
-    <div className="flex h-screen w-screen bg-inherit">
-      <ModeToggle />
-      <p> hello </p>
-    </div>
-  )
+export default async function Home() {
+  const session = await getServerSession(options);
+
+  return <div className="h-screen w-screen bg-gray-200"></div>;
 }
-
-export default Home
