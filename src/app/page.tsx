@@ -1,9 +1,11 @@
 import { FC } from "react"
+import { ModeToggle } from "@/components/toggle-mode"
 
 const Home : FC = () => {
   return (
-    <div className="h-screen w-screen bg-gray-200">
-
+    <div className="flex h-screen w-screen bg-inherit">
+      <ModeToggle />
+      <p> hello </p>
     </div>
   )
 }

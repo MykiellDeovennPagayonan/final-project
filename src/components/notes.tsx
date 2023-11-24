@@ -57,9 +57,9 @@ const Notes: FC = () => {
   }, [isMounted])
 
   return (
-    <div className="flex h-screen w-full bg-white">
+    <div className="flex h-auto mt-4 mb-8 w-full bg-white">
       <div
-        className="h-auto w-5/6 bg-gray-50 mt-24 m-auto rounded-lg shadow-lg border border-gray-200 p-8"
+        className="h-auto w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8"
         style={{ minHeight: 200 }}
       >
         <div id="editorjs" className="h-full w-full"></div>
