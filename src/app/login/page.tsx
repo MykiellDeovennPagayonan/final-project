@@ -1,10 +1,10 @@
-import SignUpModal from "@/components/login/signup";
+import LoginCard from "./loginCard";
 import { FC } from "react";
 
 const LoginPage: FC = () => {
   return (
-    <div className="bg-white h-screen w-screen">
-      <SignUpModal />
+    <div className="flex bg-white h-screen w-screen">
+      <LoginCard />
     </div>
   );
 };

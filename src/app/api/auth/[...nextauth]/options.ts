@@ -2,8 +2,13 @@ import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { compare } from "bcrypt";
+import { sql } from "@vercel/postgres";
 
 export const options: NextAuthOptions = {
+  session: {
+    strategy: 'jwt'
+  },
   providers: [
     CredentialsProvider({
     name: "Credentials",
@@ -11,7 +16,7 @@ export const options: NextAuthOptions = {
       email: {
         label: "Email:",
         type: "text",
-        placeholder: "your-cemail",
+        placeholder: "your-email",
       },
       password: {
         label: "Password:",
@@ -21,16 +26,21 @@ export const options: NextAuthOptions = {
     },
     async authorize(credentials) {
 
-      const user = { id: "42", email: "Scriba@gmail.com", password: "scribaadmin" };
+      const response = await sql`
+        SELECT * FROM users WHERE email = ${credentials.email}
+      `
+      const user = response.rows[0]
 
-      if (
-        credentials?.email === user.email &&
-        credentials?.password === user.password
-      ) {
-        return user;
-      } else {
-        return null;
+      const correctPassword = await compare(credentials.password, user.password)
+
+      if (correctPassword) {
+        return {
+          id: user.id,
+          email: user.email
+        }
       }
+
+      return null
     },
   }),
     GoogleProvider({
