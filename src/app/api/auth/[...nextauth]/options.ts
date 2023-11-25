@@ -8,10 +8,10 @@ export const options: NextAuthOptions = {
     CredentialsProvider({
     name: "Credentials",
     credentials: {
-      username: {
-        label: "Username:",
+      email: {
+        label: "Email:",
         type: "text",
-        placeholder: "your-cool-username",
+        placeholder: "your-cemail",
       },
       password: {
         label: "Password:",
@@ -20,15 +20,11 @@ export const options: NextAuthOptions = {
       },
     },
     async authorize(credentials) {
-      // This is where you need to retrieve user data
-      // to verify with credentials
-      // Docs: https://next-auth.js.org/configuration/providers/credentials
 
-      //! Important! change this to query from database
-      const user = { id: "42", name: "Scriba", password: "scribaadmin" };
+      const user = { id: "42", email: "Scriba@gmail.com", password: "scribaadmin" };
 
       if (
-        credentials?.username === user.name &&
+        credentials?.email === user.email &&
         credentials?.password === user.password
       ) {
         return user;
