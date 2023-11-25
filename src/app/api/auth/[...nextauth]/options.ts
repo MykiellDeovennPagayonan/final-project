@@ -2,16 +2,21 @@ import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { compare } from "bcrypt";
+import { sql } from "@vercel/postgres";
 
 export const options: NextAuthOptions = {
+  session: {
+    strategy: 'jwt'
+  },
   providers: [
     CredentialsProvider({
     name: "Credentials",
     credentials: {
-      username: {
-        label: "Username:",
+      email: {
+        label: "Email:",
         type: "text",
-        placeholder: "your-cool-username",
+        placeholder: "your-email",
       },
       password: {
         label: "Password:",
@@ -20,21 +25,22 @@ export const options: NextAuthOptions = {
       },
     },
     async authorize(credentials) {
-      // This is where you need to retrieve user data
-      // to verify with credentials
-      // Docs: https://next-auth.js.org/configuration/providers/credentials
 
-      //! Important! change this to query from database
-      const user = { id: "42", name: "Scriba", password: "scribaadmin" };
+      const response = await sql`
+        SELECT * FROM users WHERE email = ${credentials.email}
+      `
+      const user = response.rows[0]
 
-      if (
-        credentials?.username === user.name &&
-        credentials?.password === user.password
-      ) {
-        return user;
-      } else {
-        return null;
+      const correctPassword = await compare(credentials.password, user.password)
+
+      if (correctPassword) {
+        return {
+          id: user.id,
+          email: user.email
+        }
       }
+
+      return null
     },
   }),
     GoogleProvider({
