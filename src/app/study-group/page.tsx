@@ -6,8 +6,8 @@ export const StudyNotes : FC = () => {
   return (
     <div className="flex h-screen w-screen bg-white">
       <SideBar />
-        <div className="grid-flow-col grid">
-        <StudyGroups />
+        <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll ">
+          <StudyGroups />
         </div>
     </div>
   )

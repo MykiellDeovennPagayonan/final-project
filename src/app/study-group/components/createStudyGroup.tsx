@@ -40,7 +40,7 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
   }
 
   return (
-    <div className="mx-auto mt-8">
+    <div className="mt-8">
       <Dialog>
         <DialogTrigger asChild>
           <Button>Create New Study Group</Button>
@@ -75,7 +75,7 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
               </div>
               <div>
               <Label htmlFor="group-description" className="text-right">
-                  Group Name
+                  Group Description
                 </Label>
                 <Input 
                   id="group-description"
