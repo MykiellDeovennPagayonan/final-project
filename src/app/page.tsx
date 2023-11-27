@@ -1,21 +1,12 @@
 import { FC } from "react";
-import { options } from "./api/auth/[...nextauth]/options";
-import UserCard from "./components/UserCard";
-import { getServerSession } from "next-auth";
-import { ModeToggle } from "@/components/toggle-mode";
-import Navbar from "./components/Navbar";
 
-export default async function Home() {
-  const session = await getServerSession(options);
+export default async function Landing() {
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-gray-200">
-      <Navbar />
-      {session ? (
-        <UserCard user={session?.user} pagetype={"Home"} />
-      ) : (
-        <h1 className="text-5xl">You Shall Not Pass!</h1>
-      )}
+    <div className="flex h-screen w-screen bg-gray-100">
+      <div className="h-3/5 w-4/5 bg-green-200 m-auto bg-opacity-50 rounded-3xl border-2 border-gray-200 shadow-md">
+
+      </div>
     </div>
   );
 }

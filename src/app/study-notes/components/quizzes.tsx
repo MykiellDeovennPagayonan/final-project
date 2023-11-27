@@ -1,9 +1,9 @@
 'use client'
 
 import { FC, useState } from "react";
-import { Separator } from "./ui/separator";
-import { QuizEdit } from "./quizzes/quizEdit";
-import { QuizCreate } from "./quizzes/quizCreate";
+import { Separator } from "../../../components/ui/separator";
+import { QuizEdit } from "./quizEdit";
+import { QuizCreate } from "./quizCreate";
 import QuizItem from "@/utils/classes/quizItem";
 
 const Quizzes: FC = () => {

@@ -1,7 +1,7 @@
 import { FC } from "react"
 import SideBar from "@/components/side-bar"
-import Notes from "@/components/notes"
-import Quizzes from "@/components/quizzes"
+import Notes from "@/app/study-notes/components/notes"
+import Quizzes from "@/app/study-notes/components/quizzes"
 import { Separator } from "@/components/ui/separator"
 
 const StudyNotes : FC = () => {
