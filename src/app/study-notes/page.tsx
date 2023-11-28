@@ -1,10 +1,16 @@
-import { FC } from "react"
+'use client'
+
+import { FC, useState } from "react"
 import SideBar from "@/components/side-bar"
-import Notes from "@/app/study-notes/components/notes"
-import Quizzes from "@/app/study-notes/components/quizzes"
+import Notes from "@/app/study-notes/_components/notes"
+import Quizzes from "@/app/study-notes/_components/quizzes"
 import { Separator } from "@/components/ui/separator"
+import { OutputData } from "@editorjs/editorjs"
 
 const StudyNotes : FC = () => {
+  const [ notesData, setNotesData ] = useState<OutputData | null>()
+
+  
   return (
     <div className="flex h-screen w-screen bg-white">
       <SideBar />
