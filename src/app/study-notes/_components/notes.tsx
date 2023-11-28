@@ -11,14 +11,12 @@ const Notes: FC = () => {
   async function initializeEditor() {
     const EditorJS = (await import("@editorjs/editorjs")).default
     const Header = (await import("@editorjs/header")).default
-    const List = (await import("@editorjs/list")).default
 
     if (!ref.current) {
       const editor = new EditorJS({
         holder: "editorjs",
         tools: {
           header: Header,
-          list: List
         },
         onChange: () => {
           ref.current.save().then((outputData) => {
