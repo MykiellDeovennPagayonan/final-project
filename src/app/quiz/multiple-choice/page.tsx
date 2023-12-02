@@ -7,8 +7,10 @@ export default function MultipleChoicePage() {
 
   return (
     <>
-      <div>
-        <MultipleChoiceQuiz />
+      <div className="items-center flex flex-col">
+        <div className="container p-0 m-0">
+          <MultipleChoiceQuiz />
+        </div>
       </div>
     </>
   );
