@@ -46,6 +46,7 @@ const initialAnswerKey: AnswerKey = [
 
 export const MultipleChoiceQuiz: FC = () => {
   const [shuffledAnswerKey, setShuffledAnswerKey] = useState(initialAnswerKey);
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
 
   const shuffleArray = (array: AnswerKey) => {
     return array
@@ -81,6 +82,17 @@ export const MultipleChoiceQuiz: FC = () => {
     setShuffledAnswerKey(shuffleArray(initialAnswerKey));
   };
 
+  const handleAnswerClick = (questionIndex, choiceIndex) => {
+    const isCorrect =
+      shuffledAnswerKey[questionIndex].answers.correctAnswer ===
+      shuffledAnswerKey[questionIndex].answers.choices[choiceIndex];
+
+    setSelectedAnswers((prevSelectedAnswers) => [
+      ...prevSelectedAnswers,
+      { questionIndex, choiceIndex, isCorrect },
+    ]);
+  };
+
   return (
     <>
       <div className="flex justify-between mt-5 mx-10 max-w-full">
@@ -89,27 +101,40 @@ export const MultipleChoiceQuiz: FC = () => {
           Shuffle Quiz
         </Button>
       </div>
+
       <div>
-        {shuffledAnswerKey && shuffledAnswerKey.length > 0 ? (
-          shuffledAnswerKey.map((answer, index) => (
-            <div key={index} className="mb-3">
-              {answer.question && answer.answers && answer.answers.choices && (
-                <>
-                  <div>{answer.question}</div>
-                  <div>
-                    {answer.answers.choices.map((choice, subIndex) => (
-                      <div key={subIndex}>
-                        <Button className="mt-1">{choice}</Button>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          ))
-        ) : (
-          <div>No quizzes available</div>
-        )}
+        {shuffledAnswerKey.map((answer, questionIndex) => (
+          <div key={questionIndex} className="mb-3">
+            {answer.question && answer.answers && answer.answers.choices && (
+              <>
+                <div>{answer.question}</div>
+                <div>
+                  {answer.answers.choices.map((choice, choiceIndex) => (
+                    <div key={choiceIndex}>
+                      <Button
+                        className={`mt-1 ${
+                          selectedAnswers.find(
+                            (a) =>
+                              a.questionIndex === questionIndex &&
+                              a.choiceIndex === choiceIndex &&
+                              !a.isCorrect
+                          )
+                            ? "bg-red-500"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          handleAnswerClick(questionIndex, choiceIndex)
+                        }
+                      >
+                        {choice}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        ))}
       </div>
     </>
   );
