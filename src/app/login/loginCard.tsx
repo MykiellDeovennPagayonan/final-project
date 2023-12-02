@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from 'next/router'
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -12,23 +13,28 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import jwt from "jsonwebtoken"
 
-export default function LoginCard() {
+export default function LoginCard({router}) {
   const [ email, setEmail ] = useState<string>("")
   const [ password, setPassword ] = useState<string>("")
 
   async function handleSubmit() {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',      
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    }).then(res => res.json())
-
-    console.log(jwt.decode(response.token))
+    try{
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',      
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      }).then(res => res.json())
+  
+      console.log(jwt.decode(response.token))
+      router.push('/home')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
