@@ -1,6 +1,6 @@
 import { FC } from "react"
 import SideBar from "@/components/side-bar"
-import { StudyGroups } from "./components/displayStudyGroup"
+import { StudyGroups } from "./_components/displayStudyGroup"
 
 export const StudyNotes : FC = () => {
   return (
