@@ -10,21 +10,25 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
-import { signIn } from "next-auth/react"
+import jwt from "jsonwebtoken"
 
 export default function LoginCard() {
   const [ email, setEmail ] = useState<string>("")
   const [ password, setPassword ] = useState<string>("")
 
   async function handleSubmit() {
-    console.log("success")
-    const response = await signIn('credentials', {
-      email: email,
-      password: password,
-      redirect: false,
-    })
-    console.log(response)
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',      
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    }).then(res => res.json())
+
+    console.log(jwt.decode(response.token))
   }
 
   return (
