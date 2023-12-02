@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 export default function RegisterCard() {
   const [userName, setUserName] = useState<string>("");
@@ -66,6 +67,15 @@ export default function RegisterCard() {
           </div>
         </form>
       </CardContent>
+      <div className="flex justify-center mb-2">
+        <p className="text-xs mr-1">Already have an account? </p>
+        <Link
+          className="text-xs hover:underline-offset-1 hover:underline hover:decoration-blue-900"
+          href={"../login"}
+        >
+          Login
+        </Link>
+      </div>
       <CardFooter className="flex justify-between">
         <Button className="w-full" onClick={() => handleSubmit()}>
           Create New Account

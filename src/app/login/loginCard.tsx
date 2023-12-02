@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import jwt from "jsonwebtoken";
+import Link from "next/link";
 
 export default function LoginCard() {
   const [email, setEmail] = useState<string>("");
@@ -43,7 +44,7 @@ export default function LoginCard() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                placeholder="your email"
+                placeholder="Your email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -59,6 +60,15 @@ export default function LoginCard() {
           </div>
         </form>
       </CardContent>
+      <div className="flex justify-center mb-2">
+        <p className="text-xs mr-1">Dont have an account? </p>
+        <Link
+          className="text-xs hover:underline hover:underline-offset-1 hover:decoration-blue-700"
+          href={"../register"}
+        >
+          Register
+        </Link>
+      </div>
       <CardFooter className="flex justify-between">
         <Button className="w-full" onClick={() => handleSubmit()}>
           Log In

@@ -1,5 +1,6 @@
 import LoginCard from "./loginCard";
 import { FC } from "react";
+import Link from "next/link";
 
 const LoginPage: FC = () => {
   return (
