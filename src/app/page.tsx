@@ -20,7 +20,7 @@ const Landing: FC = () => {
           <p className="font-semibold text-gray-500 text-5xl mt-3 mb-7">
             Scriba
           </p>
-          <Button>
+          <Button className="transform hover:scale-110 transition-transform duration-300 hover:p-5 ease-out">
             <Link href={"./register"}>Get Started</Link>
           </Button>
         </div>
