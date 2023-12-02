@@ -1,33 +1,33 @@
-"use client"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+"use client";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function RegisterCard() {
-  const [ userName, setUserName ] = useState<string>("")
-  const [ email, setEmail ] = useState<string>("")
-  const [ password, setPassword ] = useState<string>("")
+  const [userName, setUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   async function handleSubmit() {
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',      
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         userName: userName,
         email: email,
-        password: password
-      })
-    })
+        password: password,
+      }),
+    });
   }
 
   return (
@@ -40,22 +40,37 @@ export default function RegisterCard() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Username</Label>
-              <Input id="name" placeholder="Your username" onChange={(e) => setUserName(e.target.value)}/>
+              <Input
+                id="name"
+                placeholder="Your username"
+                onChange={(e) => setUserName(e.target.value)}
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Email</Label>
-              <Input id="name" placeholder="your email" onChange={(e) => setEmail(e.target.value)}/>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                placeholder="your email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Password</Label>
-              <Input id="name" placeholder="Your password" onChange={(e) => setPassword(e.target.value)}/>
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Your password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button className="w-full" onClick={() => handleSubmit()}>Create New Account</Button>
+        <Button className="w-full" onClick={() => handleSubmit()}>
+          Create New Account
+        </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
