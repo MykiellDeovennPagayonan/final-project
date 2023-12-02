@@ -12,6 +12,7 @@ export async function POST(request: Request) {
       INSERT INTO users (username, email, password)
       VALUES (${userName}, ${email}, ${hashedPassword})
     `
+    console.log("yes?")
     return NextResponse.json({message: "success"})
   } catch (error) {
     console.log("Error:", error);
