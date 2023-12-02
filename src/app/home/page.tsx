@@ -1,11 +1,8 @@
 import { FC } from "react";
-import { options } from "../api/auth/[...nextauth]/options";
 import UserCard from "../components/UserCard"
-import { getServerSession } from "next-auth";
 import Navbar from "../components/Navbar";
 
 export default async function Home() {
-  const session = await getServerSession(options);
 
   return (
     <div className="flex flex-col h-screen w-screen bg-gray-200">
