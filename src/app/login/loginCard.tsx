@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -61,7 +62,7 @@ export default function LoginCard() {
         </form>
       </CardContent>
       <div className="flex justify-center mb-2">
-        <p className="text-xs mr-1">Dont have an account? </p>
+        <p className="text-xs mr-1">Don't have an account? </p>
         <Link
           className="text-xs hover:underline hover:underline-offset-1 hover:decoration-blue-700"
           href={"../register"}

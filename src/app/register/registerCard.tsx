@@ -51,7 +51,7 @@ export default function RegisterCard() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                placeholder="your email"
+                placeholder="Your email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
