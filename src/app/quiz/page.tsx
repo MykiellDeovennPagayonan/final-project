@@ -1,23 +1,19 @@
-"use client";
+import React from "react";
+import QuizCreation from "./_components/quizCreation";
 
-import { FC } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+type Props = {};
 
-const QuizHomePage: FC = () => {
+export const metadata = {
+  title: "Quiz Scirba",
+};
+
+const QuizPage = async (props: Props) => {
+  // Add an authenticate here to know if user is owner, user
   return (
     <>
-      <div className="max-w-full flex flex-col">
-        <h2 className="mx-3 text-center">This is the Quiz Home Page</h2>
-        <div className="self-center">
-          <p>Multiple Choice Quiz</p>
-          <Button>
-            <Link href={"./quiz/multiple-choice"}>Go to Multiple Quiz</Link>
-          </Button>
-        </div>
-      </div>
+      <QuizCreation />
     </>
   );
 };
 
-export default QuizHomePage;
+export default QuizPage;
