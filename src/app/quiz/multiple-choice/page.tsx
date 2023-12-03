@@ -1,10 +1,8 @@
 "use client";
 
-import { MultipleChoiceQuiz } from "./_components/displayMultipleChoice";
+import { MultipleChoiceQuiz } from "../_components/displayMultipleChoice";
 
 export default function MultipleChoicePage() {
-  
-
   return (
     <>
       <div className="items-center flex flex-col">
