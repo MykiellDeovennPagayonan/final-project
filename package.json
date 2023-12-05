@@ -2,11 +2,10 @@
   "name": "final-project",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "next dev && ts-node src/server/server.ts",
+    "dev": "next dev && node src/server/server.js",
     "build": "next build",
-    "start": "next start && ts-node src/server/server.ts",
+    "start": "next start && node src/server/server.js",
     "lint": "next lint"
   },
   "dependencies": {
