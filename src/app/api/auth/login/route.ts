@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { compare } from "bcrypt";
 import { sql } from "@vercel/postgres";
-import jwt from "jsonwebtoken";
+import generateAccessToken from "@/utils/generateAccessToken";
 
 export async function POST(request: Request) {
   try {
@@ -10,7 +10,8 @@ export async function POST(request: Request) {
 
     const response = await sql`
     SELECT * FROM users WHERE email = ${email}
-  `
+    `
+    
     const user = response.rows[0];
 
     if (response.rows.length === 0) {
@@ -23,14 +24,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "email or password is incorrect"})
     }
 
-    const token = jwt.sign(
-      {
-        email,
-        password,
-      },
-      process.env.JWT_ACCESS_SECRET,
-      { expiresIn: "1h" }
-    );
+    const token = generateAccessToken({ email, password, })
 
     console.log(token);
     return NextResponse.json({ token: token });

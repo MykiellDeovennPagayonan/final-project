@@ -1,6 +1,6 @@
 import { FC } from "react";
-import UserCard from "../components/UserCard"
-import Navbar from "../components/Navbar";
+import UserCard from "../../components/UserCard"
+import Navbar from "../../components/Navbar";
 
 export default async function Home() {
 

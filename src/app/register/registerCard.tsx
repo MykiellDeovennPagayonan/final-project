@@ -12,23 +12,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
-export default function RegisterCard() {
-  const [userName, setUserName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+export default function RegisterCard({router}) {
+  const [ userName, setUserName ] = useState<string>("")
+  const [ email, setEmail ] = useState<string>("")
+  const [ password, setPassword ] = useState<string>("")
 
   async function handleSubmit() {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: userName,
-        email: email,
-        password: password,
-      }),
-    });
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',      
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userName: userName,
+          email: email,
+          password: password
+        })
+      })
+      router.push("/home")
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   return (
