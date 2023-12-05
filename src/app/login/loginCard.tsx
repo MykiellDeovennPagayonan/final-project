@@ -1,7 +1,8 @@
-"use client"
-import { useState } from "react"
-import { useRouter } from 'next/router'
-import { Button } from "@/components/ui/button"
+/* eslint-disable react/no-unescaped-entities */
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,27 +15,27 @@ import { Label } from "@/components/ui/label";
 import jwt from "jsonwebtoken";
 import Link from "next/link";
 
-export default function LoginCard({router}) {
-  const [ email, setEmail ] = useState<string>("")
-  const [ password, setPassword ] = useState<string>("")
+export default function LoginCard({ router }) {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   async function handleSubmit() {
-    try{
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',      
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: email,
-          password: password
-        })
-      }).then(res => res.json())
-  
-      console.log(jwt.decode(response.token))
-      router.push('/home')
+          password: password,
+        }),
+      }).then((res) => res.json());
+
+      console.log(jwt.decode(response.token));
+      router.push("/home");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
