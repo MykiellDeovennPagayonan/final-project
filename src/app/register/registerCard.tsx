@@ -12,29 +12,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
-export default function RegisterCard({router}) {
-  const [ userName, setUserName ] = useState<string>("")
-  const [ email, setEmail ] = useState<string>("")
-  const [ password, setPassword ] = useState<string>("")
+export default function RegisterCard({ router }) {
+  const [userName, setUserName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   async function handleSubmit() {
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',      
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           userName: userName,
           email: email,
-          password: password
-        })
-      })
-      router.push("/home")
+          password: password,
+        }),
+      });
+      router.push("/home");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   }
 
   return (
@@ -76,7 +75,7 @@ export default function RegisterCard({router}) {
       <div className="flex justify-center mb-2">
         <p className="text-xs mr-1">Already have an account? </p>
         <Link
-          className="text-xs hover:underline-offset-1 hover:underline hover:decoration-blue-900"
+          className="text-blue-700 text-xs hover:underline-offset-1 hover:underline hover:decoration-blue-900"
           href={"../login"}
         >
           Login
