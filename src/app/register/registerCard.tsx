@@ -19,18 +19,20 @@ export default function RegisterCard({ router }) {
 
   async function handleSubmit() {
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
+      console.log("yown")
+      const response = await fetch('http://localhost:3001/api/auth/register', {
+        method: 'POST',      
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           userName: userName,
           email: email,
-          password: password,
-        }),
-      });
-      router.push("/home");
+          password: password
+        })
+      })
+      console.log(response)
+      router.push("/home")
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +68,7 @@ export default function RegisterCard({ router }) {
                 id="password"
                 type="password"
                 placeholder="Your password"
+                autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>

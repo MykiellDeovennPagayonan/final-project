@@ -21,7 +21,7 @@ export default function LoginCard({ router }) {
 
   async function handleSubmit() {
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("http://localhost:3001/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function LoginCard({ router }) {
         }),
       }).then((res) => res.json());
 
-      console.log(jwt.decode(response.token));
+      console.log(response);
       router.push("/home");
     } catch (error) {
       console.log(error);
@@ -52,6 +52,7 @@ export default function LoginCard({ router }) {
               <Input
                 id="email"
                 placeholder="Your email"
+                autoComplete="current-password"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
