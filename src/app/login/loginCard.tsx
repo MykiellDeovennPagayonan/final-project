@@ -71,7 +71,7 @@ export default function LoginCard({ router }) {
       <div className="flex justify-center mb-2">
         <p className="text-xs mr-1">Don't have an account? </p>
         <Link
-          className="text-xs hover:underline hover:underline-offset-1 hover:decoration-blue-700"
+          className="text-blue-700 text-xs hover:underline hover:underline-offset-1 hover:decoration-blue-700"
           href={"../register"}
         >
           Register
