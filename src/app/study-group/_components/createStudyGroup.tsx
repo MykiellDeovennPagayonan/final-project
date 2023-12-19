@@ -23,7 +23,6 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
   studyGroupItems,
   setStudyGroupItems,
 }) => {
-  const [studyGroupTopic, setStudyGroupTopic] = useState<string>("");
   const [studyGroupName, setStudyGroupName] = useState<string>("");
   const [studyGroupDescription, setStudyGroupDescription] =
     useState<string>("");
@@ -32,7 +31,6 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
     const createStudyGroupItemInitial = {
       name: studyGroupName,
       description: studyGroupDescription,
-      topic: studyGroupTopic,
     };
 
     setStudyGroupItems([...studyGroupItems, createStudyGroupItemInitial]);
@@ -50,17 +48,6 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
           <DialogHeader>
             <DialogTitle>Create Study Group</DialogTitle>
             <div>
-              <div>
-                <Label htmlFor="group-topic" className="text-right">
-                  Topic
-                </Label>
-                <Input
-                  id="group-topic"
-                  placeholder="Study Topic"
-                  value={studyGroupTopic}
-                  onChange={(e) => setStudyGroupTopic(e.target.value)}
-                />
-              </div>
               <div>
                 <Label htmlFor="group-name" className="text-right">
                   Group Name
