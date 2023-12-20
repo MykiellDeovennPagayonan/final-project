@@ -25,7 +25,7 @@ const Landing: FC = () => {
             </p>
             <Link href={"./register"}>
               <Button className="transform hover:scale-110 transition-transform duration-300 hover:p-5 ease-out">
-                Get Started
+                <p className="tracking-wide">Get Started</p>
               </Button>
             </Link>
           </div>
