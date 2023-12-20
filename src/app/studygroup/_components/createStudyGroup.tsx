@@ -12,18 +12,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FC, useState } from "react";
-import StudyGroupItem from "@/utils/classes/studyGroupItems";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 
-interface CreateStudyGroupProps {
-  studyGroupItems: Array<StudyGroupItem>;
-  setStudyGroupItems: React.Dispatch<
-    React.SetStateAction<Array<StudyGroupItem>>
-  >;
-}
-
-export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({}) => {
+export const StudyGroupCreate: FC = () => {
   const router = useRouter();
 
   const [studyGroupName, setStudyGroupName] = useState<string>("");
