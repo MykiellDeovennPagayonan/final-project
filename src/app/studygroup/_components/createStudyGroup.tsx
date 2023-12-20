@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,35 +8,38 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogClose,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { FC, useState } from "react"
-import StudyGroupItem from "@/utils/classes/studyGroupItems"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { FC, useState } from "react";
+import StudyGroupItem from "@/utils/classes/studyGroupItems";
 
 interface CreateStudyGroupProps {
-  studyGroupItems: Array<StudyGroupItem>
-  setStudyGroupItems: React.Dispatch<React.SetStateAction<Array<StudyGroupItem>>>;
+  studyGroupItems: Array<StudyGroupItem>;
+  setStudyGroupItems: React.Dispatch<
+    React.SetStateAction<Array<StudyGroupItem>>
+  >;
 }
 
 export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
-  studyGroupItems, setStudyGroupItems
+  studyGroupItems,
+  setStudyGroupItems,
 }) => {
-  const [studyGroupTopic, setStudyGroupTopic] = useState<string>('')
-  const [studyGroupName, setStudyGroupName] = useState<string>('')
-  const [studyGroupDescription, setStudyGroupDescription] = useState<string>('')
-
+  const [studyGroupTopic, setStudyGroupTopic] = useState<string>("");
+  const [studyGroupName, setStudyGroupName] = useState<string>("");
+  const [studyGroupDescription, setStudyGroupDescription] =
+    useState<string>("");
 
   function createStudyGroupItem() {
     const createStudyGroupItemInitial = {
       name: studyGroupName,
       description: studyGroupDescription,
-      topic: studyGroupTopic
-    }
+      topic: studyGroupTopic,
+    };
 
-    setStudyGroupItems([...studyGroupItems, createStudyGroupItemInitial])
-    setStudyGroupName('')
-    setStudyGroupDescription('')
+    setStudyGroupItems([...studyGroupItems, createStudyGroupItemInitial]);
+    setStudyGroupName("");
+    setStudyGroupDescription("");
   }
 
   return (
@@ -47,15 +50,13 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>
-              Create Study Group
-            </DialogTitle>
+            <DialogTitle>Create Study Group</DialogTitle>
             <div>
               <div>
                 <Label htmlFor="group-topic" className="text-right">
                   Topic
                 </Label>
-                <Input 
+                <Input
                   id="group-topic"
                   placeholder="Study Topic"
                   value={studyGroupTopic}
@@ -66,7 +67,7 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
                 <Label htmlFor="group-name" className="text-right">
                   Group Name
                 </Label>
-                <Input 
+                <Input
                   id="group-name"
                   placeholder="Group Name"
                   value={studyGroupName}
@@ -74,10 +75,10 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
                 />
               </div>
               <div>
-              <Label htmlFor="group-description" className="text-right">
+                <Label htmlFor="group-description" className="text-right">
                   Group Description
                 </Label>
-                <Input 
+                <Input
                   id="group-description"
                   placeholder="Group Description"
                   value={studyGroupDescription}
@@ -86,7 +87,7 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
               </div>
             </div>
             <DialogClose asChild>
-              <Button type="button" onClick={() => createStudyGroupItem()} >
+              <Button type="button" onClick={() => createStudyGroupItem()}>
                 Create Study Group
               </Button>
             </DialogClose>
@@ -94,5 +95,5 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
         </DialogContent>
       </Dialog>
     </div>
-  )
-}
+  );
+};

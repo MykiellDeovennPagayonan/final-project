@@ -5,45 +5,6 @@ import { FC, useState } from "react";
 import { StudyGroupCreate } from "./createStudyGroup";
 import { Separator } from "../../../components/ui/separator";
 
-const mockData = [
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description:
-      "Defend the homeland adsadsa:'asdasd' Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd' Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-];
-
 export const StudyGroups: FC = () => {
   const [studyGroupItems, setStudyGroupItems] = useState<Array<StudyGroupItem>>(
     []
@@ -58,7 +19,6 @@ export const StudyGroups: FC = () => {
         />
       </div>
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {/* //! Change this later */}
         {studyGroupItems.map((studyGroupItem, index) => {
           return (
             <div
