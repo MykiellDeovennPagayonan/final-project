@@ -5,45 +5,6 @@ import { FC, useState } from "react";
 import { StudyGroupCreate } from "./createStudyGroup";
 import { Separator } from "../../../components/ui/separator";
 
-const mockData = [
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description:
-      "Defend the homeland adsadsa:'asdasd' Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd' Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'Defend the homeland adsadsa:'asdasd'",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-  {
-    name: "Attack On Titans",
-    description: "Defend the homeland",
-    topic: "Anime",
-  },
-];
-
 export const StudyGroups: FC = () => {
   const [studyGroupItems, setStudyGroupItems] = useState<Array<StudyGroupItem>>(
     []
