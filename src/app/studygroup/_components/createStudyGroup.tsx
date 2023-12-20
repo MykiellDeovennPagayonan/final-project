@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FC, useState } from "react";
 import StudyGroupItem from "@/utils/classes/studyGroupItems";
+import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 interface CreateStudyGroupProps {
   studyGroupItems: Array<StudyGroupItem>;
@@ -21,25 +23,31 @@ interface CreateStudyGroupProps {
   >;
 }
 
-export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
-  studyGroupItems,
-  setStudyGroupItems,
-}) => {
-  const [studyGroupTopic, setStudyGroupTopic] = useState<string>("");
+export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({}) => {
+  const router = useRouter();
+
   const [studyGroupName, setStudyGroupName] = useState<string>("");
   const [studyGroupDescription, setStudyGroupDescription] =
     useState<string>("");
 
-  function createStudyGroupItem() {
-    const createStudyGroupItemInitial = {
-      name: studyGroupName,
-      description: studyGroupDescription,
-      topic: studyGroupTopic,
-    };
-
-    setStudyGroupItems([...studyGroupItems, createStudyGroupItemInitial]);
-    setStudyGroupName("");
-    setStudyGroupDescription("");
+  async function createStudyGroup() {
+    try {
+      console.log("creating...");
+      const response = await fetch("http://localhost:3001/studygroup/new", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studyGroupName: studyGroupName,
+          studyGroupDescription: studyGroupDescription,
+        }),
+      });
+      console.log(response);
+      router.push("/studygroup");
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -48,23 +56,12 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
         <DialogTrigger asChild>
           <Button>Create New Study Group</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] py-10">
           <DialogHeader>
             <DialogTitle>Create Study Group</DialogTitle>
-            <div>
-              <div>
-                <Label htmlFor="group-topic" className="text-right">
-                  Topic
-                </Label>
-                <Input
-                  id="group-topic"
-                  placeholder="Study Topic"
-                  value={studyGroupTopic}
-                  onChange={(e) => setStudyGroupTopic(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="group-name" className="text-right">
+            <div className="grid gap-1">
+              <div className="my-1">
+                <Label htmlFor="group-name" className="text-right ">
                   Group Name
                 </Label>
                 <Input
@@ -74,11 +71,12 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
                   onChange={(e) => setStudyGroupName(e.target.value)}
                 />
               </div>
-              <div>
+              <div className="my-1">
                 <Label htmlFor="group-description" className="text-right">
                   Group Description
                 </Label>
-                <Input
+                <Textarea
+                  className="resize-none p-2 overflow-y-clip hover:overflow-y-visible"
                   id="group-description"
                   placeholder="Group Description"
                   value={studyGroupDescription}
@@ -87,7 +85,7 @@ export const StudyGroupCreate: FC<CreateStudyGroupProps> = ({
               </div>
             </div>
             <DialogClose asChild>
-              <Button type="button" onClick={() => createStudyGroupItem()}>
+              <Button type="button" onClick={() => createStudyGroup()}>
                 Create Study Group
               </Button>
             </DialogClose>

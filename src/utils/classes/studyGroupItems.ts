@@ -1,5 +1,4 @@
 export default interface StudyGroupItem {
-  name: string,
-  topic: string,
-  description: string
+  name: string;
+  description: string;
 }
