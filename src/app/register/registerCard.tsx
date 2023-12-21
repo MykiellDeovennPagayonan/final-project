@@ -19,8 +19,7 @@ export default function RegisterCard({ router }) {
 
   async function handleSubmit() {
     try {
-      console.log("yown")
-      const response = await fetch('http://localhost:3001/api/auth/register', {
+      const response : any = await fetch('http://localhost:3001/api/auth/register', {
         method: 'POST',      
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +31,11 @@ export default function RegisterCard({ router }) {
         })
       })
       console.log(response)
-      router.push("/home")
+
+      if (response?.token){
+        localStorage.setItem('token', response.token)
+        router.push("/home")
+      }
     } catch (error) {
       console.log(error);
     }
