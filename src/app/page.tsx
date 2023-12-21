@@ -1,9 +1,24 @@
+"use client"
 import { FC } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useRouter } from 'next/navigation'
 
 const Landing: FC = () => {
+  const router = useRouter()
+
+  function enter() {
+    const token = localStorage.getItem('token') || null
+    console.log(token)
+
+    if (token) {
+      router.push("/home")
+    } else {
+      router.push("/register")
+    }
+  }
+
   return (
     <>
       <div className="h-screen w-screen relative z-10 overflow-hidden">
@@ -23,11 +38,10 @@ const Landing: FC = () => {
             <p className="font-semibold text-gray-500 text-3xl md:text-5xl lg:text-6xl mt-3 mb-5 ">
               Scriba
             </p>
-            <Link href={"./register"}>
-              <Button className="transform hover:scale-110 transition-transform duration-300 hover:p-5 ease-out">
-                <p className="tracking-wide">Get Started</p>
-              </Button>
-            </Link>
+            <Button className="transform hover:scale-110 transition-transform duration-300 hover:p-5 ease-out"
+              onClick={() => enter()}>
+              <p className="tracking-wide">Get Started</p>
+            </Button>
           </div>
           <div className="bg-gradient-to-br from-cyan-500 to-green-300 absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 xl:w-[550px] xl:h-[550px] bg-[#87ebd0] rounded-full"></div>
           <div className="bg-gradient-to-br from-green-300 to-cyan-500 absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 xl:w-[550px] xl:h-[550px] bg-[#87ebd0] rounded-full"></div>

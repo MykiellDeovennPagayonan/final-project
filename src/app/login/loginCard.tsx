@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import jwt from "jsonwebtoken";
 import Link from "next/link";
 
 export default function LoginCard({ router }) {
@@ -33,7 +31,12 @@ export default function LoginCard({ router }) {
       }).then((res) => res.json());
 
       console.log(response);
-      router.push("/home");
+      if (response?.message === "email or password is incorrect") {
+        alert("email or password is incorrect")
+      } else if (response.token) {
+        localStorage.setItem('token', response.token)
+        router.push("/home")
+      }
     } catch (error) {
       console.log(error);
     }
