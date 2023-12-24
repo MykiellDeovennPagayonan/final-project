@@ -8,8 +8,8 @@ interface OpenEndedProps {
 }
 
 const OpenEnded: React.FC<OpenEndedProps> = ({
-  question = "",
-  answer = "",
+  question,
+  answer,
   onSubmit,
 }) => {
   const [userAnswer, setUserAnswer] = useState("");
