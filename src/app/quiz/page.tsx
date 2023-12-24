@@ -1,19 +1,20 @@
 import React from "react";
-import QuizCreation from "./_components/quizCreation";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
 export const metadata = {
-  title: "Quiz Scirba",
+  title: "Quiz | Scriba",
 };
 
 const QuizPage = async (props: Props) => {
-  // Add an authenticate here to know if user is owner, user
-  return (
-    <>
-      <QuizCreation />
-    </>
-  );
+  //! Add authentication here
+  const authenticate: boolean = true;
+  if (!authenticate) {
+    return redirect("/login");
+  }
+
+  return <>Quiz Page</>;
 };
 
 export default QuizPage;
