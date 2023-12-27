@@ -9,15 +9,10 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "../../../components/ui/textarea"
+import { Textarea } from "../ui/textarea"
 import React, { FC, useState } from "react"
 
-interface QuizCreateProps {
-  quizItems: Array<QuizItem>
-  setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>;
-}
-
-export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
+const NotesCardNew: FC = () => {
   const [answerInitial, setAnswerinitial] = useState<string>('')
   const [questionInitial, setQuestionInitial] = useState<string>('')
 
@@ -27,16 +22,15 @@ export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
       answer: answerInitial
     }
 
-    setQuizItems([...quizItems, quizItemInitial])
     setAnswerinitial('')
     setQuestionInitial('')
   }
 
   return (
-    <div className="mx-auto mt-8">
+    <div className="mt-4">
       <Dialog>
         <DialogTrigger asChild>
-          <Button> Create New Quiz Item </Button>
+          <Button> Create New Study Note </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -69,7 +63,7 @@ export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
             </div>
           </div>
           <DialogClose asChild>
-            <Button type="button" onClick={() => createQuizItem()}>
+            <Button type="button">
               Create Quiz Item
             </Button>
           </DialogClose>
@@ -78,3 +72,5 @@ export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
     </div>
   )
 }
+
+export default NotesCardNew
