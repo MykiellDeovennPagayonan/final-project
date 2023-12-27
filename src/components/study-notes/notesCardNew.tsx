@@ -9,10 +9,17 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "../ui/textarea"
 import React, { FC, useState } from "react"
+import TopicSelector from "./topicSelector"
 
-const NotesCardNew: FC = () => {
+interface NotesCardNewProps {
+  topics : Array<{
+    value: string,
+    label: string
+  }>
+}
+
+const NotesCardNew: FC<NotesCardNewProps> = ({topics}) => {
   const [answerInitial, setAnswerinitial] = useState<string>('')
   const [questionInitial, setQuestionInitial] = useState<string>('')
 
@@ -38,11 +45,11 @@ const NotesCardNew: FC = () => {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="answer" className="text-right">
-                Answer
+              <Label htmlFor="title" className="text-right">
+                Title
               </Label>
               <Input
-                id="answer"
+                id="title"
                 placeholder="Set Answer to the Question"
                 className="col-span-3"
                 value={answerInitial}
@@ -50,17 +57,11 @@ const NotesCardNew: FC = () => {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="question" className="text-right">
-                Question
+              <Label htmlFor="topics" className="text-right">
+                Topics
               </Label>
-              <Textarea
-                id="question"
-                placeholder="Set your Quiz Question Here"
-                className="col-span-3"
-                value={questionInitial}
-                onChange={(e) => setQuestionInitial(e.target.value)}
-              />
             </div>
+            <TopicSelector topics={topics}/>
           </div>
           <DialogClose asChild>
             <Button type="button">
