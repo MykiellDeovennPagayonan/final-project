@@ -29,7 +29,7 @@ export default function RegisterCard({ router }) {
           email: email,
           password: password
         })
-      })
+      }).then((res) => res.json())
       console.log(response)
 
       if (response?.token){
