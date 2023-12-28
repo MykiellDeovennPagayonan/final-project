@@ -1,4 +1,3 @@
-// components/FillInTheBlankQuiz.js
 import React, { useState } from "react";
 
 interface OpenEndedProps {
@@ -28,7 +27,8 @@ const OpenEnded: React.FC<OpenEndedProps> = ({
     setUserAnswer("");
   }
 
-  const isAnswerPresent = question.includes(answer);
+  const answerIndex = question.toLowerCase().indexOf(answer.toLowerCase());
+  console.log(answerIndex);
 
   return (
     <div className="grid grid-row-2">
@@ -36,23 +36,18 @@ const OpenEnded: React.FC<OpenEndedProps> = ({
         <div>
           {question && answer ? (
             <>
-              {isAnswerPresent ? (
+              {answerIndex !== -1 ? (
                 <>
-                  {question.split(answer).map((part, index) => (
-                    <React.Fragment key={index}>
-                      {part}{" "}
-                      {index < question.split(answer).length - 1 && (
-                        <input
-                          className="border border-black/70 rounded-sm text-base pl-2 pr-2"
-                          type="text"
-                          value={userAnswer}
-                          onChange={handleChange}
-                          placeholder="Answer"
-                          style={{ width: "110px" }}
-                        />
-                      )}
-                    </React.Fragment>
-                  ))}
+                  {question.substring(0, answerIndex)}
+                  <input
+                    className="border border-black/70 rounded-sm text-base pl-2 pr-2"
+                    type="text"
+                    value={userAnswer}
+                    onChange={handleChange}
+                    placeholder="Answer"
+                    style={{ width: "110px" }}
+                  />
+                  {question.substring(answerIndex + answer.length)}
                 </>
               ) : (
                 <p>

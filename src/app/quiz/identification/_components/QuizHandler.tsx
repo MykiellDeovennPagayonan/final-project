@@ -18,8 +18,8 @@ const HandleQuiz = () => {
     },
     {
       quizID: "2131235",
-      question: "Mount Everest is the highest peak in the Himalayan Mountains.",
-      answer: "Himalayan",
+      question: "Mount Everest is the highest peak in the HIMALAYAN Mountains.",
+      answer: "himalayan",
     },
     {
       quizID: "123252",
