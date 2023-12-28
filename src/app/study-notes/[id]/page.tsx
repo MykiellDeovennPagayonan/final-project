@@ -20,7 +20,7 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   return (
     <div className="flex h-screen w-screen bg-white">
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
-        <h1 className="text-center mt-20"> Notes </h1>
+        <h1 className="text-center mt-20"> {params.id} </h1>
         <Notes />
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>

@@ -23,10 +23,6 @@ type ParagraphBlock = {
 type TextBlock = HeaderBlock | ParagraphBlock
 
 type Topic = {
-  name: string
-}
-
-type AdaptedTopic = {
-  value: string;
-  label: string;
+  name: string,
+  id: number
 }

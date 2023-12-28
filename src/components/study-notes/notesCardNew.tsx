@@ -13,20 +13,17 @@ import React, { FC, useState } from "react"
 import TopicSelector from "./topicSelector"
 
 interface NotesCardNewProps {
-  topics: Array<{
-    value: string,
-    label: string
-  }>
+  topics: Array<Topic>
 }
 
 const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
   const [titleInitial, setTitleInitial] = useState<string>('')
-  const [topicSelected, setTopicSelected] = useState<string>("")
-  const [topicsList, setTopicsList] = useState<Array<string>>([])
+  const [topicSelected, setTopicSelected] = useState<Topic>(null)
+  const [topicsList, setTopicsList] = useState<Array<Topic>>([])
 
   function addTopic() {
     const topicListInitial = [...topicsList, topicSelected]
-    setTopicSelected("")
+    setTopicSelected(null)
     setTopicsList(topicListInitial)
   }
 
@@ -34,6 +31,14 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
     let topicListInitial = [...topicsList]
     topicListInitial.splice(index, 1)
     setTopicsList(topicListInitial)
+  }
+
+  async function createStudyNote() {
+    const information = {
+      title: titleInitial,
+      topics: topicsList
+    }
+    console.log(information)
   }
 
   return (
@@ -69,7 +74,7 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
                   <button className="flex text-xs bg-black h-4 rounded-md text-white items-center justify-center"
                     onClick={() => removeTopic(index)}
                     key={index}>
-                    {topic}
+                    {topic.name}
                   </button>
                   )
                 })}
@@ -83,7 +88,7 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
             </div>
           </div>
           <DialogClose asChild>
-            <Button type="button">
+            <Button type="button" onClick={() => createStudyNote()}>
               Create Study Note
             </Button>
           </DialogClose>

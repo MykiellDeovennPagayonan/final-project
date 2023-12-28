@@ -6,10 +6,9 @@ import { OutputData } from "@editorjs/editorjs"
 import Navbar from "@/components/Navbar"
 import NotesCard from "@/components/study-notes/notesCard"
 import NotesCardNew from "@/components/study-notes/notesCardNew"
-import topicsAdaptor from "@/utils/topicsAdaptor"
 
 const StudyNotes: FC = () => {
-  const [topics, setTopics] = useState<Array<AdaptedTopic>>()
+  const [topics, setTopics] = useState<Array<Topic>>()
   const router = useRouter();
 
   async function getTopics(token) {
@@ -25,7 +24,9 @@ const StudyNotes: FC = () => {
       router.push("/login")
     }
 
-    const topicsInitial = topicsAdaptor(response.body)
+    console.log(response.body)
+
+    const topicsInitial = response.body
     setTopics(topicsInitial)
   }
 
