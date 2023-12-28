@@ -9,38 +9,39 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "../../../components/ui/textarea"
+import { Textarea } from "../ui/textarea"
 import React, { FC, useState } from "react"
 
-interface QuizCreateProps {
+interface QuizEditProps {
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>;
+  index: number
 }
 
-export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
-  const [answerInitial, setAnswerinitial] = useState<string>('')
-  const [questionInitial, setQuestionInitial] = useState<string>('')
+export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index }) => {
+  const [answerInitial, setAnswerinitial] = useState<string>(quizItems[index].answer)
+  const [questionInitial, setQuestionInitial] = useState<string>(quizItems[index].question)
 
-  function createQuizItem() {
-    const quizItemInitial : QuizItem = {
+  function saveQuizItem() {
+    const quizItemInitial: QuizItem = {
       question: questionInitial,
       answer: answerInitial
     }
 
-    setQuizItems([...quizItems, quizItemInitial])
-    setAnswerinitial('')
-    setQuestionInitial('')
+    let quizItemsInitial = [...quizItems]
+    quizItemsInitial[index] = quizItemInitial
+    setQuizItems(quizItemsInitial)
   }
 
   return (
-    <div className="mx-auto mt-8">
+    <div className="ml-auto">
       <Dialog>
         <DialogTrigger asChild>
-          <Button> Create New Quiz Item </Button>
+          <Button variant="outline">Edit</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create Quiz Item</DialogTitle>
+            <DialogTitle>Edit Quiz Item</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -69,8 +70,8 @@ export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
             </div>
           </div>
           <DialogClose asChild>
-            <Button type="button" onClick={() => createQuizItem()}>
-              Create Quiz Item
+            <Button type="button" onClick={() => saveQuizItem()}>
+              Save
             </Button>
           </DialogClose>
         </DialogContent>
