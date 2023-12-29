@@ -1,18 +1,23 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function useFetchData() {
-  const [topics, setTopics] = useState<Array<Topic>>(null);
+export default function useFetchData(url: string) {
+  const [data, setData] = useState<Array<Topic>>(null);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
-  async function getTopics(token) {
-    console.log(token);
-    const response = await fetch(`http://localhost:3001/api/study-notes`, {
+  async function getData(token) {
+    
+    const response = await fetch(url, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .catch((err) => {
+        setError(err);
+      });
 
     if (!response.authenticated) {
       router.push("/login");
@@ -21,13 +26,13 @@ export default function useFetchData() {
     console.log(response.body);
 
     const topicsInitial = response.body;
-    setTopics(topicsInitial);
+    setData(topicsInitial);
   }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    getTopics(token);
+    getData(token);
   }, []);
 
-  return { topics }
+  return { data, error };
 }

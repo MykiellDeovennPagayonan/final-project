@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, useState } from "react"
-import SideBar from "@/components/side-bar"
+import getUserInfo from "@/utils/getUserInfo"
 import Notes from "@/components/study-notes/notes"
 import Quizzes from "@/components/study-notes/quizzes"
 import { Separator } from "@/components/ui/separator"
@@ -17,15 +17,17 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   const [notesData, setNotesData] = useState<OutputData | null>()
   
   async function buttonPress() {
-    const response = await fetch(`http://localhost:3001/api/study-notes/${params.id}`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({message: "hola hola!"})
-    }).then((res => res.json()))
+    // const response = await fetch(`http://localhost:3001/api/study-notes/${params.id}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({message: "hola hola!"})
+    // }).then((res => res.json()))
 
-    console.log(response)
+    // console.log(response)
+
+    getUserInfo()
   }
 
   return (

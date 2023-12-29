@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import React, { FC, useState } from "react"
 import TopicSelector from "./topicSelector"
+import getUserInfo from "@/utils/getUserInfo"
 
 interface NotesCardNewProps {
   topics: Array<Topic>
@@ -35,7 +36,10 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
   }
 
   async function createStudyNote() {
+    const userInfo = getUserInfo()
+
     const information = {
+      userId: userInfo.id,
       title: titleInitial,
       topics: topicsList,
       isPublic: isPublic
@@ -53,10 +57,7 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
     } catch (error) {
       console.log(error);
     }
-
-    
   }
-
 
 
   return (

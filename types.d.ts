@@ -26,3 +26,9 @@ type Topic = {
   name: string,
   id: number
 }
+
+type UserInfo = {
+  email: string,
+  id: number,
+  iat: number
+}
