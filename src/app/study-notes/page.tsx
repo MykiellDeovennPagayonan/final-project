@@ -6,34 +6,14 @@ import { OutputData } from "@editorjs/editorjs"
 import Navbar from "@/components/Navbar"
 import NotesCard from "@/components/study-notes/notesCard"
 import NotesCardNew from "@/components/study-notes/notesCardNew"
+import useFetchData from "@/hooks/useFetchData";
 
 const StudyNotes: FC = () => {
-  const [topics, setTopics] = useState<Array<Topic>>()
-  const router = useRouter();
+  const { topics } = useFetchData()
 
-  async function getTopics(token) {
-    console.log(token)
-    const response = await fetch(`http://localhost:3001/api/study-notes`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then((res) => res.json())
-
-    if (!response.authenticated) {
-      router.push("/login")
-    }
-
-    console.log(response.body)
-
-    const topicsInitial = response.body
-    setTopics(topicsInitial)
+  if (!topics) {
+    return <h1> loading </h1>
   }
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    getTopics(token)
-  }, [])
 
   return (
     <div className="flex flex-col h-screen w-screen bg-white">
