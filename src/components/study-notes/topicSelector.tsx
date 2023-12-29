@@ -19,24 +19,28 @@ import {
 } from "@/components/ui/popover"
 
 interface TopicSelectorProps {
-  topics: Array<AdaptedTopic>
-  setTopicSelected: React.Dispatch<React.SetStateAction<string>>
-  topicSelected: string
-  topicsList: Array<string>
+  topics: Array<Topic>
+  setTopicSelected: React.Dispatch<React.SetStateAction<Topic>>
+  topicSelected: Topic
+  topicsList: Array<Topic>
 }
 
 const TopicSelector: FC<TopicSelectorProps> = ({ topics, setTopicSelected, topicSelected, topicsList }) => {
   const [open, setOpen] = useState<boolean>(false)
-  const [availableTopics, setAvailableTopics] = useState<Array<AdaptedTopic>>([])
+  const [availableTopics, setAvailableTopics] = useState<Array<Topic>>([])
 
   function filtertopics() {
-    const filteredTopics = topics.filter((topic) => !topicsList.includes(topic.value))
+    const filteredTopics = topics.filter((topic) => !topicsList.includes(topic))
     setAvailableTopics(filteredTopics)
   }
 
   useEffect(() => {
     filtertopics()
   }, [topicsList, topics])
+
+  useEffect(() => {
+    console.log(topicSelected)
+  }, [topicSelected])
 
   return (
     <div className="ml-auto">
@@ -49,7 +53,7 @@ const TopicSelector: FC<TopicSelectorProps> = ({ topics, setTopicSelected, topic
             className="w-[200px] justify-between"
           >
             {topicSelected
-              ? availableTopics.find((topic) => topic.value === topicSelected)?.label
+              ? topicSelected?.name
               : "Select topic..."}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -61,20 +65,20 @@ const TopicSelector: FC<TopicSelectorProps> = ({ topics, setTopicSelected, topic
             <CommandGroup>
               {availableTopics.map((topic) => (
                 <CommandItem
-                  key={topic.value}
-                  value={topic.value}
+                  key={topic.name}
+                  value={topic.name}
                   onSelect={(currentValue) => {
-                    setTopicSelected(currentValue === topicSelected ? "" : currentValue)
+                    setTopicSelected(currentValue === topicSelected?.name ? {name: "hi", id: 0} : topic)
                     setOpen(false)
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      topicSelected === topic.value ? "opacity-100" : "opacity-0"
+                      topicSelected === topic ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {topic.label}
+                  {topic.name}
                 </CommandItem>
               ))}
             </CommandGroup>
