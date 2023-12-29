@@ -38,10 +38,6 @@ const TopicSelector: FC<TopicSelectorProps> = ({ topics, setTopicSelected, topic
     filtertopics()
   }, [topicsList, topics])
 
-  useEffect(() => {
-    console.log(topicSelected)
-  }, [topicSelected])
-
   return (
     <div className="ml-auto">
       <Popover open={open} onOpenChange={setOpen}>
