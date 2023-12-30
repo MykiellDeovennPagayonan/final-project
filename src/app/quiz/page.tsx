@@ -14,7 +14,7 @@ const QuizPage = async (props: Props) => {
     return redirect("/login");
   }
 
-  return <>Quiz Page</>;
+  return <></>;
 };
 
 export default QuizPage;
