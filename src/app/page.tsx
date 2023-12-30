@@ -15,7 +15,7 @@ const Landing: FC = () => {
     if (token) {
       router.push("/home")
     } else {
-      router.push("/register")
+      router.push("/login")
     }
   }
 
