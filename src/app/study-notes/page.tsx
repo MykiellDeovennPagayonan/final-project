@@ -6,9 +6,17 @@ import NotesCard from "@/components/study-notes/notesCard"
 import NotesCardNew from "@/components/study-notes/notesCardNew"
 import useFetchData from "@/hooks/useFetchData";
 import { Skeleton } from "@/components/ui/skeleton"
+import toStudyNotes from "@/utils/studyNotesAdaptor"
 
 const StudyNotes: FC = () => {
-  const { data: studyNotes, error } = useFetchData("http://localhost:3001/api/study-notes", true)
+  const [studyNotes, setStudyNotes] = useState<Array<StudyNote>>(null)
+  const { data: studyNotesTopics, error } = useFetchData("http://localhost:3001/api/study-notes", true)
+
+  useEffect(()=> {
+    if (studyNotesTopics) {
+      setStudyNotes(toStudyNotes(studyNotesTopics))
+    }
+  }, [studyNotesTopics])
 
   if (!studyNotes) {
     return (
@@ -39,7 +47,7 @@ const StudyNotes: FC = () => {
           {studyNotes.map((studyNote) => {
           console.log(studyNote)
           return(
-            <NotesCard title={studyNote.title} key={0}/>
+            <NotesCard title={studyNote.title} topics={studyNote.topics} key={0}/>
           )
           })}
           <NotesCardNew />
