@@ -64,7 +64,7 @@ const NotesCardNew: FC = () => {
     <div className="mt-4">
       <Dialog>
         <DialogTrigger asChild>
-          <Button> Create New Study Note </Button>
+          <Button className="m-4"> Create New Study Note </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           {topics ?
