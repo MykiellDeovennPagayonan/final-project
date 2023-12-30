@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import OpenEnded from "./OpenEnded";
+import { Button } from "@/components/ui/button";
 
 const HandleQuiz = () => {
   const mockQuizData = [
@@ -59,15 +60,32 @@ const HandleQuiz = () => {
   };
 
   return (
-    <div className="border-solid lg:p-64 border-black/25 border-2 shadow-xl rounded-lg">
+    <div className="flex flex-col border-solid border-black/30 border-2 rounded-lg h-1/2 w-1/2">
+      {/* Quiz Title */}
+      <div className="flex justify-between items-center border-solid border-b border-black/25 h-12">
+        <div className="pl-10 font-medium">
+          {currentQuestionIndex <= mockQuizData.length - 1 ? (
+            <p>Quiz Number {currentQuestionIndex + 1}</p>
+          ) : (
+            <p>Quiz Done</p>
+          )}
+        </div>
+        <div className="pr-10 font-medium">Quiz TOPIC HERE</div>
+      </div>
       {currentQuestionIndex < mockQuizData.length ? (
         <OpenEnded
           question={mockQuizData[currentQuestionIndex].question}
           answer={mockQuizData[currentQuestionIndex].answer}
           onSubmit={handleQuizSubmit}
+          setCurrentQuestionIndex={setCurrentQuestionIndex}
+          currentQuestionIndex={currentQuestionIndex}
+          mockQuizData={mockQuizData}
         />
       ) : (
-        <p>Congratulations! You've completed the quiz.</p>
+        <>
+          <p>Congratulations! You've completed the quiz.</p>
+          <Button>Try again?</Button>
+        </>
       )}
     </div>
   );
