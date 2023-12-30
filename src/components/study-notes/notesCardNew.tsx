@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
 import React, { FC, useState } from "react"
 import TopicSelector from "./topicSelector"
 import getUserInfo from "@/utils/getUserInfo"
@@ -86,17 +87,17 @@ const NotesCardNew: FC = () => {
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="topics" className="text-right self-start">
+                  <Label htmlFor="topics" className="text-right self-start mt-1">
                     Topics
                   </Label>
                   <div className="col-span-3 grid grid-cols-3 gap-4">
                     {topicsList.map((topic, index) => {
                       return (
-                        <button className="flex text-xs bg-black h-4 rounded-md text-white items-center justify-center"
+                        <Badge className="flex items-center justify-center bg-black hover:bg-red-600 hover:cursor-pointer"
                           onClick={() => removeTopic(index)}
                           key={index}>
                           {topic.name}
-                        </button>
+                        </Badge>
                       )
                     })}
 

@@ -30,9 +30,6 @@ const StudyNotes: FC = () => {
             <Skeleton className="w-80 h-48 p-4 m-4"/>
             <Skeleton className="w-44 h-12 p-4 m-4" />
           </div>
-          <Skeleton className="my-4 h-8 w-60" />
-          <div className="flex flex-wrap h-auto w-full">
-          </div>
         </div>
       </div>
     )
@@ -51,9 +48,6 @@ const StudyNotes: FC = () => {
           )
           })}
           <NotesCardNew />
-        </div>
-        <h2 className="my-4"> Your Study Groups </h2>
-        <div className="flex flex-wrap h-auto w-full">
         </div>
       </div>
     </div>

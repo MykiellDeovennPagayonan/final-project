@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from "react"
+import { FC, useState, useEffect } from "react"
 import getUserInfo from "@/utils/getUserInfo"
 import Notes from "@/components/study-notes/notes"
 import Quizzes from "@/components/study-notes/quizzes"
@@ -14,7 +14,11 @@ interface StudyNoteParameter {
 }
 
 const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
-  const [notesData, setNotesData] = useState<OutputData | null>()
+  const [notesData, setNotesData] = useState<OutputData>()
+
+  useEffect(() => {
+    console.log(notesData)
+  }, [notesData])
   
   async function buttonPress() {
     const response = await fetch(`http://localhost:3001/api/study-notes/${params.id}`, {
@@ -35,7 +39,7 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <button onClick={() => buttonPress()}> Press Me </button>
         <h1 className="text-center mt-20"> {params.id} </h1>
-        <Notes />
+        <Notes setNotesData={setNotesData}/>
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
         <Quizzes />

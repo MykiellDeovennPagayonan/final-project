@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Badge } from "../ui/badge";
 
 interface NotesCardProps {
   title: string,
@@ -13,10 +14,10 @@ const NotesCard: FC<NotesCardProps> = ({ title, topics }) => {
       <div className="flex flex-row w-full">
         {topics.map((topic, index) => {
           return (
-            <div className="flex text-sm mx-[4px] bg-black px-[8px] py-[2px] rounded-full text-white items-center justify-center"
+            <Badge className="flex mx-[4px] bg-black hover:bg-black px-[8px] py-[2px] text-white items-center justify-center"
               key={index}>
               {topic}
-            </div>
+            </Badge>
           )
         })}
       </div>
