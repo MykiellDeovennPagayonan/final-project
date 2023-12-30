@@ -32,3 +32,15 @@ type UserInfo = {
   id: number,
   iat: number
 }
+
+type StudyNoteRawData = {
+  title: string,
+  topicName: string,
+  studyNoteId: number,
+}
+
+type StudyNote = {
+  id: number,
+  title: string,
+  topics: Array<string>
+}
