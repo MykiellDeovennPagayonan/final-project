@@ -72,21 +72,23 @@ const HandleQuiz = () => {
         </div>
         <div className="pr-10 font-medium">Quiz TOPIC HERE</div>
       </div>
-      {currentQuestionIndex < mockQuizData.length ? (
-        <OpenEnded
-          question={mockQuizData[currentQuestionIndex].question}
-          answer={mockQuizData[currentQuestionIndex].answer}
-          onSubmit={handleQuizSubmit}
-          setCurrentQuestionIndex={setCurrentQuestionIndex}
-          currentQuestionIndex={currentQuestionIndex}
-          mockQuizData={mockQuizData}
-        />
-      ) : (
-        <>
-          <p>Congratulations! You've completed the quiz.</p>
-          <Button>Try again?</Button>
-        </>
-      )}
+      <div className=" h-full">
+        {currentQuestionIndex < mockQuizData.length ? (
+          <OpenEnded
+            question={mockQuizData[currentQuestionIndex].question}
+            answer={mockQuizData[currentQuestionIndex].answer}
+            onSubmit={handleQuizSubmit}
+            setCurrentQuestionIndex={setCurrentQuestionIndex}
+            currentQuestionIndex={currentQuestionIndex}
+            mockQuizData={mockQuizData}
+          />
+        ) : (
+          <>
+            <p>Congratulations! You've completed the quiz.</p>
+            <Button>Try again?</Button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
