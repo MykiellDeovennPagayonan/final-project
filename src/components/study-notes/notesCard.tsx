@@ -19,7 +19,6 @@ const NotesCard: FC<NotesCardProps> = ({ title, topics }) => {
             </div>
           )
         })}
-
       </div>
     </div>
   );

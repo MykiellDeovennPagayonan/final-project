@@ -9,7 +9,11 @@ export default function useFetchData(url: string, forUser?: boolean) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    getData(token);
+    if (!token) {
+      router.push("/login")
+    } else {
+      getData(token)
+    }
   }, []);
 
   async function getData(token) {
