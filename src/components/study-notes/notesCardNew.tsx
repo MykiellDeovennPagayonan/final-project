@@ -11,22 +11,21 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import React, { FC, useState } from "react"
 import TopicSelector from "./topicSelector"
+import getUserInfo from "@/utils/getUserInfo"
 
 interface NotesCardNewProps {
-  topics: Array<{
-    value: string,
-    label: string
-  }>
+  topics: Array<Topic>
 }
 
 const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
+  const [isPublic, setIsPublic] = useState<boolean>(false)
   const [titleInitial, setTitleInitial] = useState<string>('')
-  const [topicSelected, setTopicSelected] = useState<string>("")
-  const [topicsList, setTopicsList] = useState<Array<string>>([])
+  const [topicSelected, setTopicSelected] = useState<Topic>(null)
+  const [topicsList, setTopicsList] = useState<Array<Topic>>([])
 
   function addTopic() {
     const topicListInitial = [...topicsList, topicSelected]
-    setTopicSelected("")
+    setTopicSelected(null)
     setTopicsList(topicListInitial)
   }
 
@@ -35,6 +34,31 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
     topicListInitial.splice(index, 1)
     setTopicsList(topicListInitial)
   }
+
+  async function createStudyNote() {
+    const userInfo = getUserInfo()
+
+    const information = {
+      userId: userInfo.id,
+      title: titleInitial,
+      topics: topicsList,
+      isPublic: isPublic
+    }
+
+    try {
+      const response : any = await fetch('http://localhost:3001/api/study-notes', {
+        method: 'POST',      
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(information)
+      }).then((res) => res.json())
+      console.log(response)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   return (
     <div className="mt-4">
@@ -65,12 +89,12 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
               </Label>
               <div className="col-span-3 grid grid-cols-3 gap-4">
                 {topicsList.map((topic, index) => {
-                  return(
-                  <button className="flex text-xs bg-black h-4 rounded-md text-white items-center justify-center"
-                    onClick={() => removeTopic(index)}
-                    key={index}>
-                    {topic}
-                  </button>
+                  return (
+                    <button className="flex text-xs bg-black h-4 rounded-md text-white items-center justify-center"
+                      onClick={() => removeTopic(index)}
+                      key={index}>
+                      {topic.name}
+                    </button>
                   )
                 })}
 
@@ -78,12 +102,25 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ topics }) => {
 
             </div>
             <div className="flex w-full h-auto">
-              <TopicSelector topics={topics} setTopicSelected={setTopicSelected} topicSelected={topicSelected} topicsList={topicsList}/>
+              <TopicSelector topics={topics} setTopicSelected={setTopicSelected} topicSelected={topicSelected} topicsList={topicsList} />
               <Button className="mr-auto ml-5" onClick={() => addTopic()}> Add topic </Button>
+            </div>
+            <div className="flex mx-auto">
+              <Label htmlFor="topics" className="text-right my-auto mr-4">
+                Public?
+              </Label>
+
+              <input
+                type="checkbox"
+                className="form-checkbox h-5 w-5 text-blue-500"
+                checked={isPublic}
+                onChange={(e) => setIsPublic(e.target.checked)}
+              />
+
             </div>
           </div>
           <DialogClose asChild>
-            <Button type="button">
+            <Button type="button" onClick={() => createStudyNote()}>
               Create Study Note
             </Button>
           </DialogClose>
