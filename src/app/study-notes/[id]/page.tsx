@@ -39,7 +39,7 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <button onClick={() => buttonPress()}> Press Me </button>
         <h1 className="text-center mt-20"> {params.id} </h1>
-        <Notes setNotesData={setNotesData}/>
+        <Notes setNotesData={setNotesData} notesData={notesData}/>
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
         <Quizzes />
