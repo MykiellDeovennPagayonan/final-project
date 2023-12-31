@@ -25,7 +25,6 @@ const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance }) => {
         onChange: () => {
           editor.save().then((outputData) => {
             setNotesData(outputData)
-            console.log(outputData)
           });
         }
       })
