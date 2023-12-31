@@ -59,7 +59,7 @@ const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance }) => {
   }, [isMounted])
 
   return (
-    <div id="editorjs" className="h-full w-full bg-green-50"></div>
+    <div id="editorjs" className="h-full w-full"></div>
   );
 };
 

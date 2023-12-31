@@ -44,3 +44,11 @@ type StudyNote = {
   title: string,
   topics: Array<string>
 }
+
+type Sentence = {
+  id: string,
+  text: string,
+  type: "paragraph" | "header",
+  embedding?: Array<number>,
+  studyNoteId: number
+}

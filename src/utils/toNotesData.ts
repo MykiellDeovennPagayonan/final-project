@@ -1,7 +1,7 @@
 import { OutputData } from "@editorjs/editorjs";
 
 // for editor.js version 2.28.2
-function toTextData(time : number, blockdata : Array<TextBlock>) : OutputData {
+export function toNotesData(time : number, blockdata : Array<TextBlock>) : OutputData {
   const textData = {
     time: time,
     blocks: blockdata,
@@ -10,11 +10,11 @@ function toTextData(time : number, blockdata : Array<TextBlock>) : OutputData {
   return textData
 }
 
-function toBlockData(id: string, text : string, type: "header" | "paragraph", level? : number) : TextBlock {
+export function toBlockData(id: string, text : string, type: "header" | "paragraph", level? : number) : TextBlock {
   if (type === "header") {
     const headerBlock : HeaderBlock = {
       data: {
-        level: level,
+        level: level | 2,
         text: text
       },
       id: id,
@@ -45,4 +45,8 @@ function toBlockData(id: string, text : string, type: "header" | "paragraph", le
   }
 
   return emptyBlock
+}
+
+function getCurrentTime() : number {
+  return new Date().getTime()
 }

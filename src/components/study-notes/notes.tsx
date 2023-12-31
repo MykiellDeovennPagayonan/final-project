@@ -8,9 +8,10 @@ import EditorJS, { OutputData } from "@editorjs/editorjs";
 interface NotesProps {
   setNotesData: React.Dispatch<React.SetStateAction<OutputData>>
   notesData: OutputData
+  setTextSelectected: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Notes: FC<NotesProps> = ({ setNotesData, notesData }) => {
+const Notes: FC<NotesProps> = ({ setNotesData, notesData, setTextSelectected }) => {
   const [editorInstance, setEditorInstance] = useState<EditorJS>()
 
   useEffect(() => {
