@@ -49,7 +49,7 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData, setTextSelectected }) 
         className="h-[700px] w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
         style={{ minHeight: 200 }}
       >
-        <NotesEditor setNotesData={setNotesData} setEditorInstance={setEditorInstance} />
+        <NotesEditor notesData={notesData} setNotesData={setNotesData} setEditorInstance={setEditorInstance} />
       </div>
     </div>
   );

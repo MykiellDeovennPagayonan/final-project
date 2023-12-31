@@ -19,7 +19,7 @@ interface StudyNoteParameter {
 
 const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   const studyNoteId = Number(params.id)
-  const { data: studyNotesTopics, error } = useFetchData(`http://localhost:3001/api/study-notes/${studyNoteId}`)
+  const { data: notesDataInitial, error } = useFetchData(`http://localhost:3001/api/study-notes/${studyNoteId}`)
   const [notesData, setNotesData] = useState<OutputData>()
   const [textSelected, setTextSelectected] = useState<string>()
 
@@ -31,22 +31,23 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
     }
   }, [notesData])
 
+  useEffect(() => {
+    console.log(notesDataInitial)
+    if (notesDataInitial) {
+      const moreData = toNotesData(notesDataInitial)
+      setNotesData(moreData)
+    }
+  }, [notesDataInitial])
+
   async function buttonPress() {
     toSaveStudyNotes(studyNoteId, notesData)
-    // if (notesData) {
 
-    // }
-    // const response = await fetch(`http://localhost:3001/api/study-notes/${params.id}`, {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({message: "hola hola!"})
-    // }).then((res => res.json()))
+  }
 
-    // console.log(response)
-
-    // getUserInfo()
+  if (!notesDataInitial) {
+    return (
+      <h1> loading bruh! </h1>
+    )
   }
 
   return (
