@@ -1,58 +1,47 @@
 'use client'
 
+import NotesEditor from "./notesEditor";
+
 import { FC, useState, useEffect, useRef } from "react";
-import EditorJS, {OutputData} from "@editorjs/editorjs";
+import EditorJS, { OutputData } from "@editorjs/editorjs";
 
-const Notes: FC = () => {
-  const [data, setData] = useState<OutputData>(undefined)
-  const [isMounted, setIsMounted] = useState<boolean>(false)
-  const ref = useRef<EditorJS>()
+interface NotesProps {
+  setNotesData: React.Dispatch<React.SetStateAction<OutputData>>
+  notesData: OutputData
+  setTextSelectected: React.Dispatch<React.SetStateAction<string>>
+}
 
-  async function initializeEditor() {
-    const EditorJS = (await import("@editorjs/editorjs")).default
-    const Header = (await import("@editorjs/header")).default
+const Notes: FC<NotesProps> = ({ setNotesData, notesData, setTextSelectected }) => {
+  const [editorInstance, setEditorInstance] = useState<EditorJS>()
 
-    if (!ref.current) {
-      const editor = new EditorJS({
-        holder: "editorjs",
-        tools: {
-          header: Header,
-        },
-        onChange: () => {
-          ref.current.save().then((outputData) => {
-            setData(outputData)
+  useEffect(() => {
+    if (editorInstance) {
+      const holder = document.getElementById("editorjs");
 
-            console.log(outputData)
+      holder.addEventListener("mouseup", function () {
+        document.execCommand('copy')
+
+        navigator.clipboard.readText()
+          .then(text => {
+            console.log(text);
+          })
+          .catch(err => {
+            console.error(err);
           });
-        }
-      })
 
-      ref.current = editor
-    }
-  }
+        navigator.clipboard.writeText("")
+          .then(() => {
+            console.log("Clipboard cleared");
+          })
+          .catch(err => {
+            console.error("Failed to clear clipboard: ", err);
+          });
 
-  useEffect(() => {
-    if (typeof window != "undefined") {
-      setIsMounted(true)
-    }
-  }, [])
-
-  useEffect(() => {
-    async function initialize() {
-      await initializeEditor()
+      });
     }
 
-    if (isMounted) {
-      initialize()
+  }, [editorInstance])
 
-      return () => {
-        if (ref.current) {
-          ref.current.destroy()
-        }
-      }
-    }
-
-  }, [isMounted])
 
   return (
     <div className="flex h-auto mt-4 mb-8 w-full bg-white">
@@ -60,7 +49,7 @@ const Notes: FC = () => {
         className="h-[700px] w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
         style={{ minHeight: 200 }}
       >
-        <div id="editorjs" className="h-full w-full"></div>
+        <NotesEditor setNotesData={setNotesData} setEditorInstance={setEditorInstance} />
       </div>
     </div>
   );

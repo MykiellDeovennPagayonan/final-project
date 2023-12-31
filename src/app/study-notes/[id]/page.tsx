@@ -1,11 +1,12 @@
 'use client'
 
-import { FC, useState } from "react"
+import { FC, useState, useEffect } from "react"
 import getUserInfo from "@/utils/getUserInfo"
 import Notes from "@/components/study-notes/notes"
 import Quizzes from "@/components/study-notes/quizzes"
 import { Separator } from "@/components/ui/separator"
 import { OutputData } from "@editorjs/editorjs"
+import toTableData from "@/utils/toTableData"
 
 interface StudyNoteParameter {
   params: {
@@ -14,20 +15,29 @@ interface StudyNoteParameter {
 }
 
 const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
-  const [notesData, setNotesData] = useState<OutputData | null>()
+  const [notesData, setNotesData] = useState<OutputData>()
+  const [textSelected, setTextSelectected] = useState<string>()
+
+  useEffect(() => {
+    console.log(notesData)
+  }, [notesData])
   
   async function buttonPress() {
-    const response = await fetch(`http://localhost:3001/api/study-notes/${params.id}`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({message: "hola hola!"})
-    }).then((res => res.json()))
+    // const response = await fetch(`http://localhost:3001/api/study-notes/${params.id}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({message: "hola hola!"})
+    // }).then((res => res.json()))
 
-    console.log(response)
+    // console.log(response)
 
-    getUserInfo()
+    // getUserInfo()
+
+    const studyNoteId = Number(params.id)
+
+    toTableData(notesData, studyNoteId)
   }
 
   return (
@@ -35,7 +45,7 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <button onClick={() => buttonPress()}> Press Me </button>
         <h1 className="text-center mt-20"> {params.id} </h1>
-        <Notes />
+        <Notes setNotesData={setNotesData} notesData={notesData} setTextSelectected={setTextSelectected}/>
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
         <Quizzes />
