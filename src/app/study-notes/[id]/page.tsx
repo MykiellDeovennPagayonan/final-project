@@ -1,7 +1,6 @@
 'use client'
 
 import { FC, useState, useEffect } from "react"
-import getUserInfo from "@/utils/getUserInfo"
 import Notes from "@/components/study-notes/notes"
 import Quizzes from "@/components/study-notes/quizzes"
 import { Separator } from "@/components/ui/separator"
@@ -21,7 +20,6 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   const studyNoteId = Number(params.id)
   const { data: notesDataInitial, error } = useFetchData(`http://localhost:3001/api/study-notes/${studyNoteId}`)
   const [notesData, setNotesData] = useState<OutputData>()
-  const [textSelected, setTextSelectected] = useState<string>()
 
   useEffect(() => {
     console.log(notesData)
@@ -55,7 +53,7 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <button onClick={() => buttonPress()}> Press Me </button>
         <h1 className="text-center mt-20"> {params.id} </h1>
-        <Notes setNotesData={setNotesData} notesData={notesData} setTextSelectected={setTextSelectected} />
+        <Notes setNotesData={setNotesData} notesData={notesData}/>
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
         <Quizzes />

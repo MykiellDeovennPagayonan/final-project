@@ -52,3 +52,8 @@ type Sentence = {
   embedding?: Array<number>,
   studyNoteId: number
 }
+
+type Quiz = {
+  question: string
+  answer: string
+}

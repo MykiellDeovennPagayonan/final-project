@@ -30,7 +30,8 @@ const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance, notesDat
           editor.save().then((outputData) => {
             setNotesData(outputData)
           });
-        }
+        },
+        inlineToolbar: false
       })
 
       ref.current = editor

@@ -4,38 +4,31 @@ import NotesEditor from "./notesEditor";
 
 import { FC, useState, useEffect, useRef } from "react";
 import EditorJS, { OutputData } from "@editorjs/editorjs";
+import TextGenerateQuiz from "./textGenerateQuiz";
 
 interface NotesProps {
   setNotesData: React.Dispatch<React.SetStateAction<OutputData>>
   notesData: OutputData
-  setTextSelectected: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Notes: FC<NotesProps> = ({ setNotesData, notesData, setTextSelectected }) => {
+const Notes: FC<NotesProps> = ({ setNotesData, notesData }) => {
   const [editorInstance, setEditorInstance] = useState<EditorJS>()
+  const [xCursorPosition, setXCursorPosition] = useState<number>(0)
+  const [yCursorPosition, setYCursorPosition] = useState<number>(0)
+  const [selectedText, setSelectedText] = useState<string>()
 
   useEffect(() => {
     if (editorInstance) {
       const holder = document.getElementById("editorjs");
 
-      holder.addEventListener("mouseup", function () {
-        document.execCommand('copy')
+      holder.addEventListener("mouseup", function (event) {
+        const text = window.getSelection().toString()
 
-        navigator.clipboard.readText()
-          .then(text => {
-            console.log(text);
-          })
-          .catch(err => {
-            console.error(err);
-          });
+        setXCursorPosition(event.clientX)
+        setYCursorPosition(event.clientY)
 
-        navigator.clipboard.writeText("")
-          .then(() => {
-            console.log("Clipboard cleared");
-          })
-          .catch(err => {
-            console.error("Failed to clear clipboard: ", err);
-          });
+        console.log(text)
+        setSelectedText(text)
 
       });
     }
@@ -45,6 +38,7 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData, setTextSelectected }) 
 
   return (
     <div className="flex h-auto mt-4 mb-8 w-full bg-white">
+      {selectedText?.length > 0 && <TextGenerateQuiz selectedText={selectedText} xCursorPosition={xCursorPosition} yCursorPosition={yCursorPosition}/>}
       <div
         className="h-[700px] w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
         style={{ minHeight: 200 }}
