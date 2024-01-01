@@ -8,7 +8,8 @@ import { OutputData } from "@editorjs/editorjs"
 import toTableData from "@/utils/toTableData"
 import toNotesData from "@/utils/toNotesData"
 import useFetchData from "@/hooks/useFetchData"
-import toSaveStudyNotes from "@/utils/saveStudyNotes"
+import toSaveNotes from "@/utils/saveStudyNotes"
+import toSaveQuiz from "@/utils/saveQuiz"
 
 interface StudyNoteParameter {
   params: {
@@ -18,7 +19,7 @@ interface StudyNoteParameter {
 
 const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   const studyNoteId = Number(params.id)
-  const { data: notesDataInitial, error } = useFetchData(`http://localhost:3001/api/study-notes/${studyNoteId}`)
+  const { data: notesDataInitial, error } = useFetchData(`http://localhost:3001/api/study-notes/notes/${studyNoteId}`)
   const [notesData, setNotesData] = useState<OutputData>()
   const [quizItems, setQuizItems] = useState<Array<QuizItem>>([])
 
@@ -39,8 +40,8 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   }, [notesDataInitial])
 
   async function buttonPress() {
-    toSaveStudyNotes(studyNoteId, notesData)
-
+    toSaveNotes(studyNoteId, notesData)
+    toSaveQuiz(studyNoteId, quizItems)
   }
 
   if (!notesDataInitial) {

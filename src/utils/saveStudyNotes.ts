@@ -1,11 +1,11 @@
 import { OutputData } from "@editorjs/editorjs"
 import toTableData from "./toTableData"
 
-export default async function toSaveStudyNotes(studyNoteId: number, notesData : OutputData) {
+export default async function toSaveNotes(studyNoteId: number, notesData : OutputData) {
   const token = localStorage.getItem("token")
   const sentences = toTableData(notesData, studyNoteId)
 
-  const response = await fetch(`http://localhost:3001/api/study-notes/${studyNoteId}`, {
+  const response = await fetch(`http://localhost:3001/api/study-notes/notes/${studyNoteId}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
