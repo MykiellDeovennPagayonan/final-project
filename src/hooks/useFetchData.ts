@@ -57,7 +57,7 @@ export default function useFetchData(url: string, forUser?: boolean) {
           setError(err);
         });
 
-      if (!response.authenticated) {
+      if (!response?.authenticated) {
         router.push("/login");
       }
 

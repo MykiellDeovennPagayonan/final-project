@@ -52,3 +52,4 @@ type Sentence = {
   embedding?: Array<number>,
   studyNoteId: number
 }
+
