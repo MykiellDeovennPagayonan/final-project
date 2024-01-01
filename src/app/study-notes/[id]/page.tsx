@@ -20,6 +20,7 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   const studyNoteId = Number(params.id)
   const { data: notesDataInitial, error } = useFetchData(`http://localhost:3001/api/study-notes/${studyNoteId}`)
   const [notesData, setNotesData] = useState<OutputData>()
+  const [quizItems, setQuizItems] = useState<Array<QuizItem>>([])
 
   useEffect(() => {
     console.log(notesData)
@@ -53,10 +54,10 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <button onClick={() => buttonPress()}> Press Me </button>
         <h1 className="text-center mt-20"> {params.id} </h1>
-        <Notes setNotesData={setNotesData} notesData={notesData}/>
+        <Notes setNotesData={setNotesData} notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems}/>
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
-        <Quizzes />
+        <Quizzes quizItems={quizItems} setQuizItems={setQuizItems}/>
       </div>
     </div>
   )

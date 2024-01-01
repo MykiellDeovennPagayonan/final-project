@@ -9,9 +9,11 @@ import TextGenerateQuiz from "./textGenerateQuiz";
 interface NotesProps {
   setNotesData: React.Dispatch<React.SetStateAction<OutputData>>
   notesData: OutputData
+  quizItems: Array<QuizItem>
+  setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>
 }
 
-const Notes: FC<NotesProps> = ({ setNotesData, notesData }) => {
+const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItems }) => {
   const [editorInstance, setEditorInstance] = useState<EditorJS>()
   const [xCursorPosition, setXCursorPosition] = useState<number>(0)
   const [yCursorPosition, setYCursorPosition] = useState<number>(0)
@@ -27,9 +29,7 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData }) => {
         setXCursorPosition(event.clientX)
         setYCursorPosition(event.clientY)
 
-        console.log(text)
         setSelectedText(text)
-
       });
     }
 
@@ -38,7 +38,7 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData }) => {
 
   return (
     <div className="flex h-auto mt-4 mb-8 w-full bg-white">
-      {selectedText?.length > 0 && <TextGenerateQuiz selectedText={selectedText} xCursorPosition={xCursorPosition} yCursorPosition={yCursorPosition}/>}
+      {selectedText?.length > 0 && <TextGenerateQuiz quizItems={quizItems} setQuizItems={setQuizItems} selectedText={selectedText} xCursorPosition={xCursorPosition} yCursorPosition={yCursorPosition}/>}
       <div
         className="h-[700px] w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
         style={{ minHeight: 200 }}

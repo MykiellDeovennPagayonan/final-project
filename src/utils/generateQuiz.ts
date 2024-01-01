@@ -1,12 +1,12 @@
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 
-export default async function generateQuiz(content : string) {
-  let quiz : Quiz = {
+export default async function generateQuiz(content : string) : Promise<QuizItem> {
+  let quiz : QuizItem = {
     question: "",
     answer: ""
   }
@@ -17,14 +17,14 @@ export default async function generateQuiz(content : string) {
     if (repetitions > 2) {
       break
     }
-    
+
     let quizText = await generateQuizText(content)
     quiz = assembleQuiz(quizText)
 
     repetitions++
   }
 
-  console.log(quiz)
+  return quiz
 }
 
 async function generateQuizText(content : string) {

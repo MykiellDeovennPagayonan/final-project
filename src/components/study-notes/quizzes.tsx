@@ -5,8 +5,12 @@ import { Separator } from "../ui/separator";
 import { QuizEdit } from "./quizEdit";
 import { QuizCreate } from "./quizCreate";
 
-const Quizzes: FC = () => {
-  const [quizItems, setQuizItems] = useState<Array<QuizItem>>([])
+interface QuizzzesProps {
+  quizItems: Array<QuizItem>
+  setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>
+}
+
+const Quizzes: FC<QuizzzesProps> = ({quizItems, setQuizItems}) => {
 
   return (
     <div className="flex flex-col h-auto mb-8 w-full">
