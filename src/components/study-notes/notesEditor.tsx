@@ -6,9 +6,10 @@ import EditorJS, { OutputData } from "@editorjs/editorjs";
 interface NotesProps {
   setNotesData: React.Dispatch<React.SetStateAction<OutputData>>
   setEditorInstance: React.Dispatch<React.SetStateAction<EditorJS>>
+  notesData: OutputData
 }
 
-const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance }) => {
+const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance, notesData }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const ref = useRef<EditorJS>()
 
@@ -16,18 +17,21 @@ const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance }) => {
     const EditorJS = (await import("@editorjs/editorjs")).default
     const Header = (await import("@editorjs/header")).default
 
+    console.log(notesData)
+
     if (!ref.current) {
       const editor = new EditorJS({
         holder: "editorjs",
         tools: {
           header: Header,
         },
+        data: notesData,
         onChange: () => {
           editor.save().then((outputData) => {
             setNotesData(outputData)
-            console.log(outputData)
           });
-        }
+        },
+        inlineToolbar: false
       })
 
       ref.current = editor

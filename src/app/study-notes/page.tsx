@@ -41,13 +41,16 @@ const StudyNotes: FC = () => {
       <div className="flex flex-col h-full w-screen p-12 overflow-hidden overflow-y-scroll">
         <h2 className="my-4"> Recent Study Notes </h2>
         <div className="flex flex-wrap h-auto w-full mb-8">
-          {studyNotes.map((studyNote) => {
-          console.log(studyNote)
+          {studyNotes.map((studyNote, index) => {
           return(
-            <NotesCard title={studyNote.title} topics={studyNote.topics} key={0}/>
+            <NotesCard
+              title={studyNote.title}
+              topics={studyNote.topics}
+              key={index}
+              index={studyNote.id}/>
           )
           })}
-          <NotesCardNew />
+          <NotesCardNew/>
         </div>
       </div>
     </div>
