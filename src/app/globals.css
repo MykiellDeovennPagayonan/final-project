@@ -91,3 +91,12 @@ h6 {
     @apply bg-background text-foreground;
   }
 }
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px darkgreen; /* for WebKit browsers */
+  text-stroke: 1px black; /* standard for other browsers, but not widely supported yet */
+}
+
+.text-mint-green {
+  color: #6bd9bf; /* This is the hex code for mint green */
+}
