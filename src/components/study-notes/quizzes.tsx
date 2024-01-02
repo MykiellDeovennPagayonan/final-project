@@ -9,6 +9,7 @@ import cosineSimilarity from "@/utils/cosineSimilarity";
 import getEmbeddings from "@/utils/getEmbeddings";
 import { OutputData } from "@editorjs/editorjs";
 import ReferenceTextCard from "./referenceTextCard";
+import { DeleteQuizItem } from "./deleteQuizItem";
 
 interface QuizzesProps {
   quizItems: Array<QuizItem>
@@ -62,6 +63,7 @@ const Quizzes: FC<QuizzesProps> = ({quizItems, setQuizItems, studyNoteId, notesD
             <Separator orientation="vertical" className="mx-4 w-[2px]" />
             <p className="w-3/6 h-auto"> {quizItem.question} </p>
             <QuizEdit quizItems={quizItems} setQuizItems={setQuizItems} index={index} studyNoteId={studyNoteId}/>
+            <DeleteQuizItem quizItemId={quizItem.id} index={index} quizItems={quizItems} setQuizItems={setQuizItems}/>
           </div>
         )
       })}

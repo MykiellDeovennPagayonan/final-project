@@ -27,6 +27,8 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItem
       holder.addEventListener("mouseup", function (event) {
         const text = window.getSelection().toString()
 
+        console.log(text)
+
         setXCursorPosition(event.clientX)
         setYCursorPosition(event.clientY)
 
