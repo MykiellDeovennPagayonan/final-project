@@ -3,23 +3,25 @@ import Link from 'next/link'
 import { Button } from './ui/button'
 import { useRouter } from 'next/navigation'
 
-export default function Navbar () {
+export default function Navbar() {
   const router = useRouter()
 
-  function logout () {
+  function logout() {
     localStorage.clear()
     router.push('/')
   }
 
   return (
-    <nav className='bg-gray-300 w-screen h-20 p-4 flex border-b-1.5 border-gray-600'>
-          <div className="flex items-center">
-        <img src="/scriba-landing-img-png.png" alt="Logo" className="h-12 mr-2"/>
-        <span className="text-3xl text-stroke font-bold text-mint-green " >Scriba</span>
+    <nav className='bg-gray-300 w-screen h-20 p-4 flex'>
+      <Link href="/home">
+      <div className="flex items-center">
+        <img src="/scriba-landing-img-png.png" alt="Logo" className="h-12 mr-2" />
+        <span className="text-3xl font-bold text-green-500 outlined-text">Scriba</span>
 
 
 
-    </div>
+      </div>
+      </Link>
       <div className='ml-auto'>
         {' '}
         <Link href='/study-notes'>
