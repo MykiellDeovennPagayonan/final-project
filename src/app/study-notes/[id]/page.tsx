@@ -8,6 +8,7 @@ import { OutputData } from "@editorjs/editorjs"
 import toNotesData from "@/utils/toNotesData"
 import useFetchData from "@/hooks/useFetchData"
 import toSaveNotes from "@/utils/saveStudyNotes"
+import DeleteStudyNoteButton from "@/components/study-notes/deleteStudyNoteButton"
 
 interface StudyNoteParameter {
   params: {
@@ -25,8 +26,8 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
 
   useEffect(() => {
     if (quizzesDataInitial) {
-      const quizItemsInitial : Array<QuizItem> = quizzesDataInitial.map(quizzesDataInitial => {
-        return({
+      const quizItemsInitial: Array<QuizItem> = quizzesDataInitial.map(quizzesDataInitial => {
+        return ({
           id: quizzesDataInitial.id as number,
           question: quizzesDataInitial.question as string,
           answer: quizzesDataInitial.answer as string
@@ -59,10 +60,11 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <button onClick={() => save()}> Save! </button>
         <h1 className="text-center mt-20"> {title} </h1>
-        <Notes studyNoteId={studyNoteId} setNotesData={setNotesData} notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems}/>
+        <Notes studyNoteId={studyNoteId} setNotesData={setNotesData} notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems} />
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
-        <Quizzes notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems} studyNoteId={studyNoteId}/>
+        <Quizzes notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems} studyNoteId={studyNoteId} />
+        <DeleteStudyNoteButton studyNoteId={studyNoteId}/>
       </div>
     </div>
   )

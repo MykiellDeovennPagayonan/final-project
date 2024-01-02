@@ -17,6 +17,7 @@ export default function useFetchData(url: string, forUser?: boolean) {
   }, []);
 
   async function getData(token) {
+    console.log(url)
     if (forUser) {
       const userInfo = getUserInfo()
       const userId = userInfo.id
@@ -43,8 +44,8 @@ export default function useFetchData(url: string, forUser?: boolean) {
 
       console.log(response.body);
 
-      const topicsInitial = response.body;
-      setData(topicsInitial);
+      const dataInitial = response.body;
+      setData(dataInitial);
 
     } else {
       const response = await fetch(url, {
@@ -65,8 +66,8 @@ export default function useFetchData(url: string, forUser?: boolean) {
 
       console.log(response.body);
 
-      const topicsInitial = response.body;
-      setData(topicsInitial);
+      const dataInitial = response.body;
+      setData(dataInitial);
     }
   }
 

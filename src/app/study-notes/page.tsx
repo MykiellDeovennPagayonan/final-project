@@ -10,13 +10,14 @@ import toStudyNotes from "@/utils/studyNotesAdaptor"
 
 const StudyNotes: FC = () => {
   const [studyNotes, setStudyNotes] = useState<Array<StudyNote>>(null)
-  const { data: studyNotesTopics, error } = useFetchData("http://localhost:3001/api/study-notes", true)
+  const { data: studyNotesInitial, error } = useFetchData("http://localhost:3001/api/study-notes", true)
 
   useEffect(()=> {
-    if (studyNotesTopics) {
-      setStudyNotes(toStudyNotes(studyNotesTopics))
+    if (studyNotesInitial) {
+      console.log(studyNotesInitial)
+      setStudyNotes(toStudyNotes(studyNotesInitial))
     }
-  }, [studyNotesTopics])
+  }, [studyNotesInitial])
 
   if (!studyNotes) {
     return (

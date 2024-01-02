@@ -21,6 +21,7 @@ const Quizzes: FC<QuizzesProps> = ({quizItems, setQuizItems, studyNoteId, notesD
   const [referenceText, setReferenceText] = useState<string>("")
 
   async function embed(question : string) {
+    setReferenceText("")
     const sentences = toTableData(notesData, studyNoteId)
     const sentencesText = sentences.map((sentence) => {
       return sentence.text
@@ -56,7 +57,7 @@ const Quizzes: FC<QuizzesProps> = ({quizItems, setQuizItems, studyNoteId, notesD
       {quizItems.map((quizItem, index) => {
         return (
           <div key={index} className="flex w-5/6 h-auto mt-8 bg-gray-50 mx-auto rounded-lg shadow-lg borderborderborder p-8">
-            <ReferenceTextCard embed={embed} quizItem={quizItem} referenceText={referenceText} setReferenceText={setReferenceText}/>
+            <ReferenceTextCard embed={embed} quizItem={quizItem} referenceText={referenceText}/>
             <p className="w-2/6 h-auto"> {quizItem.answer} </p>
             <Separator orientation="vertical" className="mx-4 w-[2px]" />
             <p className="w-3/6 h-auto"> {quizItem.question} </p>
