@@ -14,6 +14,7 @@ interface TextGenerateQuizProps {
 const TextGenerateQuiz : FC<TextGenerateQuizProps> = ( {xCursorPosition, yCursorPosition, setSelectedText, selectedText, quizItems, setQuizItems, studyNoteId} ) => {
   async function CreateQuizItemFromText() {
     let newQuizItem = await generateQuiz(selectedText)
+    console.log(newQuizItem)
     const token = localStorage.getItem("token");
 
     const response = await fetch(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`, {

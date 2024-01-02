@@ -60,7 +60,6 @@ const NotesCardNew: FC = () => {
     }
   }
 
-
   return (
     <div className="mt-4">
       <Dialog>
