@@ -1,20 +1,35 @@
 import { OutputData } from "@editorjs/editorjs";
 
 // for editor.js version 2.28.2
-function toTextData(time : number, blockdata : Array<TextBlock>) : OutputData {
-  const textData = {
+export default function toNotesData(sentences : Array<Sentence>) : OutputData {
+  const time = getCurrentTime()
+
+  console.log(time)
+
+  const blockData = sentences.map((sentence) => {
+    const id = sentence.id
+    const text = sentence.text
+    const type = sentence.type
+    
+    const blockDataInitial = toBlockData(id, text, type)
+
+    return blockDataInitial
+  })
+
+  const NotesData = {
     time: time,
-    blocks: blockdata,
+    blocks: blockData,
     version: '2.28.2'
   }
-  return textData
+
+  return NotesData
 }
 
 function toBlockData(id: string, text : string, type: "header" | "paragraph", level? : number) : TextBlock {
   if (type === "header") {
     const headerBlock : HeaderBlock = {
       data: {
-        level: level,
+        level: level | 2,
         text: text
       },
       id: id,
@@ -45,4 +60,8 @@ function toBlockData(id: string, text : string, type: "header" | "paragraph", le
   }
 
   return emptyBlock
+}
+
+function getCurrentTime() : number {
+  return new Date().getTime()
 }

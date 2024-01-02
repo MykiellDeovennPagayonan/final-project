@@ -8,8 +8,10 @@ export const metadata = {
 
 const IdentificationQuiz = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="absolute top-0 mt-10">Test your knowledge!</h1>
+    <div className="flex flex-col items-center justify-center h-screen w-screen">
+      <h1 className="absolute top-0 mt-10 md:text-3xl text-xl">
+        Test your knowledge!
+      </h1>
       <HandleQuiz />
     </div>
   );

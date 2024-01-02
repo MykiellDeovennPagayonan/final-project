@@ -16,14 +16,27 @@ interface QuizEditProps {
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>;
   index: number
+  studyNoteId: number
 }
 
-export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index }) => {
+export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index, studyNoteId }) => {
   const [answerInitial, setAnswerinitial] = useState<string>(quizItems[index].answer)
   const [questionInitial, setQuestionInitial] = useState<string>(quizItems[index].question)
 
-  function saveQuizItem() {
+  async function saveQuizItem() {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ id: quizItems[index].id,  question: questionInitial, answer: answerInitial })
+    }).then(res => res.json())
+
+
     const quizItemInitial: QuizItem = {
+      id: 20,
       question: questionInitial,
       answer: answerInitial
     }
