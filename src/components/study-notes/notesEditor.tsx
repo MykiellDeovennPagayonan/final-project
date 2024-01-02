@@ -52,12 +52,6 @@ const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance, notesDat
 
     if (isMounted) {
       initialize()
-
-      return () => {
-        if (ref.current) {
-          ref.current.destroy()
-        }
-      }
     }
 
   }, [isMounted])

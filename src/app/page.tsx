@@ -9,7 +9,6 @@ const Landing: FC = () => {
 
   function enter() {
     const token = localStorage.getItem('token') || null
-    console.log(token)
 
     if (token) {
       router.push("/home")
@@ -45,9 +44,7 @@ const Landing: FC = () => {
           <div className="bg-gradient-to-br from-cyan-500 to-green-300 absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 xl:w-[550px] xl:h-[550px] bg-[#87ebd0] rounded-full"></div>
           <div className="bg-gradient-to-br from-green-300 to-cyan-500 absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 xl:w-[550px] xl:h-[550px] bg-[#87ebd0] rounded-full"></div>
         </div>
-        {/* Circle in the top-left corner */}
         <div className="blur absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 -z-10 md:w-[700px] md:h-[700px] bg-[#4cc2a2] rounded-full"></div>
-        {/* Circle in the bottom-right corner */}
         <div className="blur absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 -z-10 md:w-[700px] md:h-[700px] bg-[#4cc2a2]  rounded-full"></div>
       </div>
     </>

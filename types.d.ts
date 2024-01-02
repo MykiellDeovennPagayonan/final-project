@@ -1,6 +1,8 @@
 type QuizItem = {
+  id: number,
   question: string,
-  answer: string
+  answer: string,
+  embedding?: Array<number>
 }
 
 type HeaderBlock = {
