@@ -1,22 +1,20 @@
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "@/components/ui/dialog"
-import React, { FC, useState } from "react"
+import React, { FC } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface ReferenceTextCardProps {
   embed(question: string): Promise<void>
   quizItem: QuizItem
   referenceText: string
-  setReferenceText: React.Dispatch<React.SetStateAction<string>>
+
 }
 
-const ReferenceTextCard: FC<ReferenceTextCardProps> = ({ embed, quizItem, referenceText, setReferenceText }) => {
+const ReferenceTextCard: FC<ReferenceTextCardProps> = ({ embed, quizItem, referenceText
+}) => {
 
   return (
     <div className="">
@@ -26,16 +24,19 @@ const ReferenceTextCard: FC<ReferenceTextCardProps> = ({ embed, quizItem, refere
             <i className="fas fa-search"></i>
           </button>
         </DialogTrigger>
-        <DialogContent className="fixed h-4/5 w-4/5">
-          <DialogTitle>Create New Study Note</DialogTitle>
-          <div className="flex p-4">
-            {referenceText}
+        <DialogContent className="w-4/5">
+          <div className="flex flex-col p-4">
+            {referenceText.length > 0 ?
+              <p>{ referenceText }</p>
+              :
+              <>
+                <Skeleton className="w-full h-8" />
+                <Skeleton className="w-4/6 h-8 mt-4" />
+                <Skeleton className="w-5/6 h-8 mt-4" />
+              </>
+            }
           </div>
-          <DialogClose asChild>
-            <Button onClick={() => setReferenceText("")}>
-              Close
-            </Button>
-          </DialogClose>
+
         </DialogContent>
       </Dialog>
     </div>

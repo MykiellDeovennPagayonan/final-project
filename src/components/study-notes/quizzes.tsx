@@ -9,6 +9,7 @@ import cosineSimilarity from "@/utils/cosineSimilarity";
 import getEmbeddings from "@/utils/getEmbeddings";
 import { OutputData } from "@editorjs/editorjs";
 import ReferenceTextCard from "./referenceTextCard";
+import { DeleteQuizItem } from "./deleteQuizItem";
 
 interface QuizzesProps {
   quizItems: Array<QuizItem>
@@ -21,6 +22,7 @@ const Quizzes: FC<QuizzesProps> = ({quizItems, setQuizItems, studyNoteId, notesD
   const [referenceText, setReferenceText] = useState<string>("")
 
   async function embed(question : string) {
+    setReferenceText("")
     const sentences = toTableData(notesData, studyNoteId)
     const sentencesText = sentences.map((sentence) => {
       return sentence.text
@@ -56,11 +58,12 @@ const Quizzes: FC<QuizzesProps> = ({quizItems, setQuizItems, studyNoteId, notesD
       {quizItems.map((quizItem, index) => {
         return (
           <div key={index} className="flex w-5/6 h-auto mt-8 bg-gray-50 mx-auto rounded-lg shadow-lg borderborderborder p-8">
-            <ReferenceTextCard embed={embed} quizItem={quizItem} referenceText={referenceText} setReferenceText={setReferenceText}/>
+            <ReferenceTextCard embed={embed} quizItem={quizItem} referenceText={referenceText}/>
             <p className="w-2/6 h-auto"> {quizItem.answer} </p>
             <Separator orientation="vertical" className="mx-4 w-[2px]" />
             <p className="w-3/6 h-auto"> {quizItem.question} </p>
             <QuizEdit quizItems={quizItems} setQuizItems={setQuizItems} index={index} studyNoteId={studyNoteId}/>
+            <DeleteQuizItem quizItemId={quizItem.id} index={index} quizItems={quizItems} setQuizItems={setQuizItems}/>
           </div>
         )
       })}
