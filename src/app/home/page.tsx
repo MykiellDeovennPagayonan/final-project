@@ -38,7 +38,7 @@ export default function Home() {
                 className="border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-green-400 flex-grow p-2"
               />
               <button className="bg-green-500 border border-gray-300 text-white  rounded-r-lg px-10 h-10 hover:bg-green-400 focus:ring-2 focus:ring-green-400 focus:outline-none">
-                JOIN
+                JOIN!
               </button>
             </div>
           </div>
