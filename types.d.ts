@@ -55,3 +55,8 @@ type Sentence = {
   studyNoteId: number
 }
 
+type StudyGroup = {
+  id: number,
+  name: string,
+  description: string
+}

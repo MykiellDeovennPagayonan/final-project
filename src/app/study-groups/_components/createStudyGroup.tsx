@@ -14,18 +14,21 @@ import { Label } from "@/components/ui/label";
 import { FC, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
+import getUserInfo from "@/utils/getUserInfo";
 
 export const StudyGroupCreate: FC = () => {
   const router = useRouter();
 
   const [studyGroupName, setStudyGroupName] = useState<string>("");
-  const [studyGroupDescription, setStudyGroupDescription] =
-    useState<string>("");
+  const [studyGroupDescription, setStudyGroupDescription] = useState<string>("");
 
   async function createStudyGroup() {
+    const userInfo = getUserInfo()
+    const userId = userInfo.id
+
     try {
       console.log("creating...");
-      const response = await fetch("http://localhost:3001/studygroup/new", {
+      const response = await fetch("http://localhost:3001/api/study-groups/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,10 +36,11 @@ export const StudyGroupCreate: FC = () => {
         body: JSON.stringify({
           studyGroupName: studyGroupName,
           studyGroupDescription: studyGroupDescription,
+          userId: userId
         }),
       });
       console.log(response);
-      router.push("/studygroup");
+      // router.push("/studygroup");
     } catch (err) {
       console.log(err);
     }

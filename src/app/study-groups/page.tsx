@@ -1,5 +1,4 @@
 import { FC } from "react";
-import SideBar from "@/components/side-bar";
 import { StudyGroups } from "./_components/displayStudyGroup";
 
 const StudyNotes: FC = () => {
