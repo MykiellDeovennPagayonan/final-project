@@ -1,50 +1,66 @@
 'use client'
 
-import NotesEditor from "./notesEditor";
-
 import { FC, useState, useEffect, useRef } from "react";
-import EditorJS, { OutputData } from "@editorjs/editorjs";
-import TextGenerateQuiz from "./textGenerateQuiz";
+import EditorJS, {OutputData} from "@editorjs/editorjs";
 
-interface NotesProps {
-  setNotesData: React.Dispatch<React.SetStateAction<OutputData>>
-  notesData: OutputData
-  quizItems: Array<QuizItem>
-  setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>
-  studyNoteId: number
-}
+const Notes: FC = () => {
+  const [data, setData] = useState<OutputData>(undefined)
+  const [isMounted, setIsMounted] = useState<boolean>(false)
+  const ref = useRef<EditorJS>()
 
-const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItems, studyNoteId }) => {
-  const [editorInstance, setEditorInstance] = useState<EditorJS>()
-  const [xCursorPosition, setXCursorPosition] = useState<number>(0)
-  const [yCursorPosition, setYCursorPosition] = useState<number>(0)
-  const [selectedText, setSelectedText] = useState<string>()
+  async function initializeEditor() {
+    const EditorJS = (await import("@editorjs/editorjs")).default
+    const Header = (await import("@editorjs/header")).default
+
+    if (!ref.current) {
+      const editor = new EditorJS({
+        holder: "editorjs",
+        tools: {
+          header: Header,
+        },
+        onChange: () => {
+          ref.current.save().then((outputData) => {
+            setData(outputData)
+
+            console.log(outputData)
+          });
+        }
+      })
+
+      ref.current = editor
+    }
+  }
 
   useEffect(() => {
-    if (editorInstance) {
-      const holder = document.getElementById("editorjs");
+    if (typeof window != "undefined") {
+      setIsMounted(true)
+    }
+  }, [])
 
-      holder.addEventListener("mouseup", function (event) {
-        const text = window.getSelection().toString()
-
-        setXCursorPosition(event.clientX)
-        setYCursorPosition(event.clientY)
-
-        setSelectedText(text)
-      });
+  useEffect(() => {
+    async function initialize() {
+      await initializeEditor()
     }
 
-  }, [editorInstance])
+    if (isMounted) {
+      initialize()
 
+      return () => {
+        if (ref.current) {
+          ref.current.destroy()
+        }
+      }
+    }
+
+  }, [isMounted])
 
   return (
     <div className="flex h-auto mt-4 mb-8 w-full bg-white">
-      {selectedText?.length > 0 && <TextGenerateQuiz setSelectedText={setSelectedText} studyNoteId={studyNoteId} quizItems={quizItems} setQuizItems={setQuizItems} selectedText={selectedText} xCursorPosition={xCursorPosition} yCursorPosition={yCursorPosition}/>}
       <div
         className="h-[700px] w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
         style={{ minHeight: 200 }}
       >
-        <NotesEditor notesData={notesData} setNotesData={setNotesData} setEditorInstance={setEditorInstance} />
+        <div id="editorjs" className="h-full w-full"></div>
       </div>
     </div>
   );

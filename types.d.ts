@@ -1,8 +1,6 @@
 type QuizItem = {
-  id: number,
   question: string,
-  answer: string,
-  embedding?: Array<number>
+  answer: string
 }
 
 type HeaderBlock = {
@@ -34,24 +32,3 @@ type UserInfo = {
   id: number,
   iat: number
 }
-
-type StudyNoteRawData = {
-  title: string,
-  topicName: string,
-  studyNoteId: number,
-}
-
-type StudyNote = {
-  id: number,
-  title: string,
-  topics: Array<string>
-}
-
-type Sentence = {
-  id: string,
-  text: string,
-  type: "paragraph" | "header",
-  embedding?: Array<number>,
-  studyNoteId: number
-}
-

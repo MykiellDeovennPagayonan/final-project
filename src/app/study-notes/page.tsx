@@ -6,19 +6,11 @@ import NotesCard from "@/components/study-notes/notesCard"
 import NotesCardNew from "@/components/study-notes/notesCardNew"
 import useFetchData from "@/hooks/useFetchData";
 import { Skeleton } from "@/components/ui/skeleton"
-import toStudyNotes from "@/utils/studyNotesAdaptor"
 
 const StudyNotes: FC = () => {
-  const [studyNotes, setStudyNotes] = useState<Array<StudyNote>>(null)
-  const { data: studyNotesTopics, error } = useFetchData("http://localhost:3001/api/study-notes", true)
+  const { data: topics, error } = useFetchData("http://localhost:3001/api/study-notes")
 
-  useEffect(()=> {
-    if (studyNotesTopics) {
-      setStudyNotes(toStudyNotes(studyNotesTopics))
-    }
-  }, [studyNotesTopics])
-
-  if (!studyNotes) {
+  if (!topics) {
     return (
       <div className="flex flex-col h-screen w-screen bg-white">
         <Navbar />
@@ -29,6 +21,9 @@ const StudyNotes: FC = () => {
             <Skeleton className="w-80 h-48 p-4 m-4"/>
             <Skeleton className="w-80 h-48 p-4 m-4"/>
             <Skeleton className="w-44 h-12 p-4 m-4" />
+          </div>
+          <h2 className="my-4"> Your Study Groups </h2>
+          <div className="flex flex-wrap h-auto w-full">
           </div>
         </div>
       </div>
@@ -41,16 +36,11 @@ const StudyNotes: FC = () => {
       <div className="flex flex-col h-full w-screen p-12 overflow-hidden overflow-y-scroll">
         <h2 className="my-4"> Recent Study Notes </h2>
         <div className="flex flex-wrap h-auto w-full mb-8">
-          {studyNotes.map((studyNote, index) => {
-          return(
-            <NotesCard
-              title={studyNote.title}
-              topics={studyNote.topics}
-              key={index}
-              index={studyNote.id}/>
-          )
-          })}
-          <NotesCardNew/>
+          <NotesCard title="Hello" />
+          <NotesCardNew topics={topics} />
+        </div>
+        <h2 className="my-4"> Your Study Groups </h2>
+        <div className="flex flex-wrap h-auto w-full">
         </div>
       </div>
     </div>

@@ -15,28 +15,14 @@ import React, { FC, useState } from "react"
 interface QuizCreateProps {
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>;
-  studyNoteId: number
 }
 
-export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems, studyNoteId}) => {
+export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems}) => {
   const [answerInitial, setAnswerinitial] = useState<string>('')
   const [questionInitial, setQuestionInitial] = useState<string>('')
 
-  async function createQuizItem() {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({question: questionInitial, answer: answerInitial, studyNoteId})
-    }).then(res => res.json())
-
-    const id = response.body.id
-
+  function createQuizItem() {
     const quizItemInitial : QuizItem = {
-      id: id,
       question: questionInitial,
       answer: answerInitial
     }
