@@ -9,9 +9,10 @@ interface QuizzzesProps {
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>
   embed: (question: string) => Promise<void>
+  studyNoteId: number
 }
 
-const Quizzes: FC<QuizzzesProps> = ({quizItems, setQuizItems, embed}) => {
+const Quizzes: FC<QuizzzesProps> = ({quizItems, setQuizItems, embed, studyNoteId}) => {
 
   return (
     <div className="flex flex-col h-auto mb-8 w-full">
@@ -24,11 +25,11 @@ const Quizzes: FC<QuizzzesProps> = ({quizItems, setQuizItems, embed}) => {
             <p className="w-2/6 h-auto"> {quizItem.answer} </p>
             <Separator orientation="vertical" className="mx-4 w-[2px]" />
             <p className="w-3/6 h-auto"> {quizItem.question} </p>
-            <QuizEdit quizItems={quizItems} setQuizItems={setQuizItems} index={index} />
+            <QuizEdit quizItems={quizItems} setQuizItems={setQuizItems} index={index} studyNoteId={studyNoteId}/>
           </div>
         )
       })}
-      <QuizCreate quizItems={quizItems} setQuizItems={setQuizItems} />
+      <QuizCreate quizItems={quizItems} setQuizItems={setQuizItems} studyNoteId={studyNoteId}/>
     </div>
   );
 };

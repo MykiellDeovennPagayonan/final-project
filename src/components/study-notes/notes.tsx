@@ -11,9 +11,10 @@ interface NotesProps {
   notesData: OutputData
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>
+  studyNoteId: number
 }
 
-const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItems }) => {
+const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItems, studyNoteId }) => {
   const [editorInstance, setEditorInstance] = useState<EditorJS>()
   const [xCursorPosition, setXCursorPosition] = useState<number>(0)
   const [yCursorPosition, setYCursorPosition] = useState<number>(0)
@@ -38,7 +39,7 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItem
 
   return (
     <div className="flex h-auto mt-4 mb-8 w-full bg-white">
-      {selectedText?.length > 0 && <TextGenerateQuiz quizItems={quizItems} setQuizItems={setQuizItems} selectedText={selectedText} xCursorPosition={xCursorPosition} yCursorPosition={yCursorPosition}/>}
+      {selectedText?.length > 0 && <TextGenerateQuiz setSelectedText={setSelectedText} studyNoteId={studyNoteId} quizItems={quizItems} setQuizItems={setQuizItems} selectedText={selectedText} xCursorPosition={xCursorPosition} yCursorPosition={yCursorPosition}/>}
       <div
         className="h-[700px] w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
         style={{ minHeight: 200 }}

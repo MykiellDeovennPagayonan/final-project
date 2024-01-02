@@ -8,7 +8,8 @@ const openai = new OpenAIApi(configuration);
 export default async function generateQuiz(content : string) : Promise<QuizItem> {
   let quiz : QuizItem = {
     question: "",
-    answer: ""
+    answer: "",
+    id: null
   }
 
   let repetitions = 0
@@ -66,5 +67,5 @@ function assembleQuiz(quizText : string) {
     }
   }
 
-  return({ question, answer })
+  return({ question, answer, id: null })
 }
