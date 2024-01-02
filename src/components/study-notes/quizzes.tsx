@@ -8,16 +8,17 @@ import { QuizCreate } from "./quizCreate";
 interface QuizzzesProps {
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>
+  embed: (question: string) => Promise<void>
 }
 
-const Quizzes: FC<QuizzzesProps> = ({quizItems, setQuizItems}) => {
+const Quizzes: FC<QuizzzesProps> = ({quizItems, setQuizItems, embed}) => {
 
   return (
     <div className="flex flex-col h-auto mb-8 w-full">
       {quizItems.map((quizItem, index) => {
         return (
           <div key={index} className="flex w-5/6 h-auto mt-8 bg-gray-50 mx-auto rounded-lg shadow-lg borderborderborder p-8">
-            <button className="text-white h-8 w-8 my-auto mr-8 bg-black rounded-full">
+            <button className="text-white h-8 w-8 my-auto mr-8 bg-black rounded-full" onClick={() => embed(quizItem.question)}>
               <i className="fas fa-search"></i>
             </button>
             <p className="w-2/6 h-auto"> {quizItem.answer} </p>
