@@ -13,8 +13,7 @@ interface ReferenceTextCardProps {
 
 }
 
-const ReferenceTextCard: FC<ReferenceTextCardProps> = ({ embed, quizItem, referenceText
-}) => {
+const ReferenceTextCard: FC<ReferenceTextCardProps> = ({ embed, quizItem, referenceText }) => {
 
   return (
     <div className="">
