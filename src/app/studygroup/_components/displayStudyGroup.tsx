@@ -32,7 +32,7 @@ export const StudyGroups: FC = () => {
         <div className="grid gap-5 md:grid-cols-5 xl:grid-cols-4 ">
             {studyGroups.map((studyGroupItem) => {
                 return (
-                    <Link href={`/home${studyGroupItem.id}`} key={studyGroupItem.id}>
+                    <Link href={`/studygroup/${studyGroupItem.id}`} key={studyGroupItem.id}>
                         <div
                             key={studyGroupItem.id}
                             className=" hover:bg-gray-200 hover:shadow-lg hover:border hover:border-gray-300 hover:text-black md:h-36 flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-8 flex-col"
