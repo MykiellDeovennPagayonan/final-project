@@ -11,5 +11,7 @@ export default async function getEmbeddings(sentencesText : Array<string>) {
     model: "text-embedding-ada-002" })
   }).then(res => res.json())
 
+  console.log(response.data)
+
   return (response.data)
 }

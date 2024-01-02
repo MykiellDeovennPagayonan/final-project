@@ -31,8 +31,6 @@ const Quizzes: FC<QuizzesProps> = ({quizItems, setQuizItems, studyNoteId, notesD
     const sentencesEmbedding = await getEmbeddings(sentencesText)
     const questionEmbedding = await getEmbeddings([question])
     let sentencesComplete = []
-
-    console.log(questionEmbedding)
     
     for (let i = 0; i < sentencesEmbedding.length; i++) {
       const similarity = cosineSimilarity(sentencesEmbedding[i].embedding, questionEmbedding[0].embedding)
@@ -47,6 +45,8 @@ const Quizzes: FC<QuizzesProps> = ({quizItems, setQuizItems, studyNoteId, notesD
     }
 
     sentencesComplete.sort((a, b) => b.similarity - a.similarity)
+
+    console.log(sentencesComplete)
 
     const bestText = sentencesComplete[0].text
 
