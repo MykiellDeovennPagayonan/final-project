@@ -7,6 +7,7 @@ interface NotesProps {
   setNotesData: React.Dispatch<React.SetStateAction<OutputData>>
   setEditorInstance: React.Dispatch<React.SetStateAction<EditorJS>>
   notesData: OutputData
+
 }
 
 const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance, notesData }) => {

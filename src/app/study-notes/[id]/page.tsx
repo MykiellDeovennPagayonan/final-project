@@ -1,14 +1,15 @@
 'use client'
 
 import { FC, useState, useEffect } from "react"
-import Notes from "@/components/study-notes/notes"
-import Quizzes from "@/components/study-notes/quizzes"
+import Notes from "@/app/study-notes/_components/notes"
+import Quizzes from "@/app/study-notes/_components/quizzes"
 import { Separator } from "@/components/ui/separator"
 import { OutputData } from "@editorjs/editorjs"
 import toNotesData from "@/utils/toNotesData"
 import useFetchData from "@/hooks/useFetchData"
 import toSaveNotes from "@/utils/saveStudyNotes"
-import DeleteStudyNoteButton from "@/components/study-notes/deleteStudyNoteButton"
+import DeleteStudyNoteButton from "@/app/study-notes/_components/deleteStudyNoteButton"
+import Navbar from "@/components/Navbar"
 
 interface StudyNoteParameter {
   params: {
@@ -56,15 +57,16 @@ const StudyNote: FC<StudyNoteParameter> = ({ params }) => {
   }
 
   return (
-    <div className="flex h-screen w-screen bg-white">
+    <div className="flex flex-col h-screen w-screen bg-gray-200">
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
+        <Navbar />
         <button onClick={() => save()}> Save! </button>
         <h1 className="text-center mt-20"> {title} </h1>
         <Notes studyNoteId={studyNoteId} setNotesData={setNotesData} notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems} />
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
         <Quizzes notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems} studyNoteId={studyNoteId} />
-        <DeleteStudyNoteButton studyNoteId={studyNoteId}/>
+        <DeleteStudyNoteButton studyNoteId={studyNoteId} />
       </div>
     </div>
   )

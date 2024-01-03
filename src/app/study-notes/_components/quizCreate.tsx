@@ -9,52 +9,52 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "../ui/textarea"
+import { Textarea } from "../../../components/ui/textarea"
 import React, { FC, useState } from "react"
 
-interface QuizEditProps {
+interface QuizCreateProps {
   quizItems: Array<QuizItem>
   setQuizItems: React.Dispatch<React.SetStateAction<Array<QuizItem>>>;
-  index: number
   studyNoteId: number
 }
 
-export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index, studyNoteId }) => {
-  const [answerInitial, setAnswerinitial] = useState<string>(quizItems[index].answer)
-  const [questionInitial, setQuestionInitial] = useState<string>(quizItems[index].question)
+export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems, studyNoteId}) => {
+  const [answerInitial, setAnswerinitial] = useState<string>('')
+  const [questionInitial, setQuestionInitial] = useState<string>('')
 
-  async function saveQuizItem() {
+  async function createQuizItem() {
     const token = localStorage.getItem("token");
     const response = await fetch(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ id: quizItems[index].id,  question: questionInitial, answer: answerInitial })
+      body: JSON.stringify({question: questionInitial, answer: answerInitial, studyNoteId})
     }).then(res => res.json())
 
+    const id = response.body.id
 
-    const quizItemInitial: QuizItem = {
-      id: 20,
+    const quizItemInitial : QuizItem = {
+      id: id,
       question: questionInitial,
       answer: answerInitial
     }
 
-    let quizItemsInitial = [...quizItems]
-    quizItemsInitial[index] = quizItemInitial
-    setQuizItems(quizItemsInitial)
+    setQuizItems([...quizItems, quizItemInitial])
+    setAnswerinitial('')
+    setQuestionInitial('')
   }
 
   return (
-    <div className="ml-auto">
+    <div className="mx-auto mt-8">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Edit</Button>
+          <Button> Create New Quiz Item </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Edit Quiz Item</DialogTitle>
+            <DialogTitle>Create Quiz Item</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -83,8 +83,8 @@ export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index, st
             </div>
           </div>
           <DialogClose asChild>
-            <Button type="button" onClick={() => saveQuizItem()}>
-              Save
+            <Button type="button" onClick={() => createQuizItem()}>
+              Create Quiz Item
             </Button>
           </DialogClose>
         </DialogContent>

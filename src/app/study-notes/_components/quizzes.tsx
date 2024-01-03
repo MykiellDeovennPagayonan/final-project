@@ -1,7 +1,7 @@
 'use client'
 
 import { FC, useState } from "react";
-import { Separator } from "../ui/separator";
+import { Separator } from "../../../components/ui/separator";
 import { QuizEdit } from "./quizEdit";
 import { QuizCreate } from "./quizCreate";
 import toTableData from "@/utils/toTableData";

@@ -13,7 +13,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className='bg-gray-300 w-screen h-20 p-4 flex'>
+    <nav className='bg-gray-300 w-screen h-20 p-4 px-8 flex'>
       <Link href="/home">
         <div className="flex items-center">
           <Image width={50} height={50} src="/scriba-landing-img-png.png" alt="Logo" className="h-12 mr-2" />

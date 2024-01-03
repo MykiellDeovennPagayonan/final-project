@@ -15,7 +15,12 @@ import TopicSelector from "./topicSelector"
 import getUserInfo from "@/utils/getUserInfo"
 import useFetchData from "@/hooks/useFetchData"
 
-const NotesCardNew: FC = () => {
+interface NotesCardNewProps {
+  setStudyNotes: React.Dispatch<React.SetStateAction<Array<StudyNote>>>
+  studyNotes: Array<StudyNote>
+}
+
+const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
   const { data: topics, error } = useFetchData("http://localhost:3001/api/topics")
   const [isPublic, setIsPublic] = useState<boolean>(false)
   const [titleInitial, setTitleInitial] = useState<string>('')
@@ -47,14 +52,30 @@ const NotesCardNew: FC = () => {
     }
 
     try {
-      const response: any = await fetch('http://localhost:3001/api/study-notes/new', {
+      const response = await fetch('http://localhost:3001/api/study-notes/new', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(information)
       }).then((res) => res.json())
-      console.log(response)
+      
+      const studyNoteId = response.body
+
+      const studyNoteInitial: StudyNote = {
+        id: studyNoteId,
+        title: titleInitial,
+        topics: topicsList.map((topic) => {
+          return topic.name
+        })
+      }
+
+      const studyNotesInitial = [...studyNotes, studyNoteInitial]
+
+      console.log(studyNotesInitial)
+
+      setStudyNotes(studyNotesInitial)
+
     } catch (error) {
       console.log(error);
     }

@@ -4,7 +4,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import React, { FC } from "react"
-import { Button } from "../ui/button"
+import { Button } from "../../../components/ui/button"
 import { useRouter } from "next/navigation"
 import toDelete from "@/utils/toDelete"
 

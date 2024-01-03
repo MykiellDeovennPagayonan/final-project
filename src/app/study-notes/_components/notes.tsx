@@ -22,13 +22,10 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItem
 
   useEffect(() => {
     if (editorInstance) {
-      const holder = document.getElementById("editorjs");
+      const pageHolder = document.getElementById("study-note")
 
-      holder.addEventListener("mouseup", function (event) {
+      pageHolder.addEventListener("mouseup", function (event) {
         const text = window.getSelection().toString()
-
-        console.log(text)
-
         setXCursorPosition(event.clientX)
         setYCursorPosition(event.clientY)
 
@@ -40,11 +37,11 @@ const Notes: FC<NotesProps> = ({ setNotesData, notesData, quizItems, setQuizItem
 
 
   return (
-    <div className="flex h-auto mt-4 mb-8 w-full bg-white">
+    <div className="flex h-auto mt-4 mb-8 w-full bg-gray-200" id="study-note">
       {selectedText?.length > 0 && <TextGenerateQuiz setSelectedText={setSelectedText} studyNoteId={studyNoteId} quizItems={quizItems} setQuizItems={setQuizItems} selectedText={selectedText} xCursorPosition={xCursorPosition} yCursorPosition={yCursorPosition}/>}
       <div
-        className="h-[700px] w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
-        style={{ minHeight: 200 }}
+        className="w-5/6 bg-gray-50 m-auto rounded-lg shadow-lg border border-gray-200 p-8 overflow-hidden overflow-y-scroll"
+        style={{ minHeight: 500 }}
       >
         <NotesEditor notesData={notesData} setNotesData={setNotesData} setEditorInstance={setEditorInstance} />
       </div>

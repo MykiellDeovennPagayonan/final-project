@@ -2,8 +2,8 @@
 
 import { FC, useState, useEffect } from "react"
 import Navbar from "@/components/Navbar"
-import NotesCard from "@/components/study-notes/notesCard"
-import NotesCardNew from "@/components/study-notes/notesCardNew"
+import NotesCard from "@/app/study-notes/_components/notesCard"
+import NotesCardNew from "@/app/study-notes/_components/notesCardNew"
 import useFetchData from "@/hooks/useFetchData";
 import { Skeleton } from "@/components/ui/skeleton"
 import toStudyNotes from "@/utils/studyNotesAdaptor"
@@ -21,7 +21,7 @@ const StudyNotes: FC = () => {
 
   if (!studyNotes) {
     return (
-      <div className="flex flex-col h-screen w-screen bg-white">
+      <div className="flex flex-col h-screen w-screen bg-gray-200">
         <Navbar />
         <div className="flex flex-col h-full w-screen p-12 overflow-hidden overflow-y-scroll">
           <Skeleton className="my-4 h-8 w-60" />
@@ -37,7 +37,7 @@ const StudyNotes: FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-white">
+    <div className="flex flex-col h-screen w-screen bg-gray-200">
       <Navbar />
       <div className="flex flex-col h-full w-screen p-12 overflow-hidden overflow-y-scroll">
         <h2 className="my-4"> Recent Study Notes </h2>
@@ -48,10 +48,10 @@ const StudyNotes: FC = () => {
               title={studyNote.title}
               topics={studyNote.topics}
               key={index}
-              index={studyNote.id}/>
+              id={studyNote.id}/>
           )
           })}
-          <NotesCardNew/>
+          <NotesCardNew studyNotes={studyNotes} setStudyNotes={setStudyNotes}/>
         </div>
       </div>
     </div>
