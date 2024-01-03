@@ -8,7 +8,7 @@ import useFetchData from "@/hooks/useFetchData";
 import { Skeleton } from "@/components/ui/skeleton"
 import toStudyNotes from "@/utils/studyNotesAdaptor"
 
-const StudyNotes: FC = () => {
+const StudyNotesPage: FC = () => {
   const [studyNotes, setStudyNotes] = useState<Array<StudyNote>>(null)
   const { data: studyNotesInitial, error } = useFetchData("http://localhost:3001/api/study-notes", true)
 
@@ -58,4 +58,4 @@ const StudyNotes: FC = () => {
   )
 }
 
-export default StudyNotes
+export default StudyNotesPage

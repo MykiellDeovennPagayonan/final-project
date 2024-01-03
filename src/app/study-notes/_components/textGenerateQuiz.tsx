@@ -22,7 +22,6 @@ interface TextGenerateQuizProps {
 }
 
 const TextGenerateQuiz: FC<TextGenerateQuizProps> = ({ xCursorPosition, yCursorPosition, setSelectedText, selectedText, quizItems, setQuizItems, studyNoteId }) => {
-  const [quizCount, setQuizCount] = useState<number>(0)
 
   async function CreateQuizItemFromText() {
     setSelectedText("")

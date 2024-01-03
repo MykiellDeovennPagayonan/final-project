@@ -64,6 +64,7 @@ function assembleQuiz(quizText : string) {
         answer += quizText[i]
         i++
       }
+      answer = answer.trim()
     }
   }
 

@@ -11,13 +11,13 @@ import toSaveNotes from "@/utils/saveStudyNotes"
 import DeleteStudyNoteButton from "@/app/study-notes/_components/deleteStudyNoteButton"
 import Navbar from "@/components/Navbar"
 
-interface StudyNoteProps {
+interface StudyNotePageProps {
   params: {
     id: string
   }
 }
 
-const StudyNote: FC<StudyNoteProps> = ({ params }) => {
+const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const studyNoteId = Number(params.id)
   const { data: notesDataInitial, error: notesDataError } = useFetchData(`http://localhost:3001/api/study-notes/notes/${studyNoteId}`)
   const { data: title, error: titleError } = useFetchData(`http://localhost:3001/api/study-notes/${studyNoteId}`)
@@ -72,4 +72,4 @@ const StudyNote: FC<StudyNoteProps> = ({ params }) => {
   )
 }
 
-export default StudyNote
+export default StudyNotePage

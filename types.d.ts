@@ -60,3 +60,9 @@ type StudyGroup = {
   name: string,
   description: string
 }
+
+type SharedNote = {
+  id: number
+  studyNoteId: number
+  userId: number
+}

@@ -18,7 +18,7 @@ export const StudyGroups: FC = () => {
   }, [studyGroupsInitial]);
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-gray-200">
+    <div className="flex flex-col h-full w-full bg-gray-200">
       <Navbar />
       <div className="flex justify-center ">
         <div className="flex flex-col w-full max-w-screen-xl">

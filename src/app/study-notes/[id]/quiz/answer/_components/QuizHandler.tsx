@@ -13,64 +13,22 @@ interface StudyNoteProps {
 }
 
 const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
-  const { data: quizIetms, error} = useFetchData(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`)
-
-  const mockQuizData: Array<QuizItem> = [
-    {
-      id: 109382019921,
-      question: "The largest continent on Earth. ",
-      answer: "Asia",
-    },
-    {
-      id: 123125,
-      question: "The Declaration of Independence was signed in 1776.",
-      answer: "1776",
-    },
-    {
-      id: 2131235,
-      question: "Mount Everest is the highest peak in the HIMALAYAN Mountains.",
-      answer: "himalayan",
-    },
-    {
-      id: 123252,
-      question: "The currency of Japan is the Yen.",
-      answer: "Yen",
-    },
-    {
-      id: 123,
-      question: "The Great Wall of China is over 21,000 kilometers long.",
-      answer: "21,000",
-    },
-    {
-      id: 10214912,
-      question: "The capital of France is Paris.",
-      answer: "Paris",
-    },
-    {
-      id: 17,
-      question: "The largest mammal on Earth is the blue whale.",
-      answer: "blue whale",
-    },
-  ];
-
+  const { data: quizItems, error} = useFetchData(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [correctScore, setCorrectScore] = useState<number>(0);
   const [incorrectScore, setIncorrectScore] = useState<number>(0);
-  const [initialDataLength, setInitialDataLength] = useState<number>(0);
   const [progressValue, setProgressValue] = useState<number>(100);
 
   useEffect(() => {
-    setProgressValue(100 - (currentQuestionIndex / mockQuizData.length) * 100);
-  }, [currentQuestionIndex, mockQuizData.length]);
-
-  useEffect(() => {
-    setInitialDataLength(mockQuizData.length);
-  }, []);
+    if (quizItems) {
+      setProgressValue(100 - (currentQuestionIndex / quizItems.length) * 100);
+    }
+  }, [currentQuestionIndex, quizItems]);
 
   const handleQuizSubmit = (userAnswer: string) => {
-    const currentQuestion = mockQuizData[currentQuestionIndex];
+    const currentQuestion = quizItems[currentQuestionIndex];
 
-    if (userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase()) {
+    if (userAnswer.toLowerCase().trim() === currentQuestion.answer.toLowerCase().trim()) {
       setCorrectScore((prevScore) => prevScore + 1);
       alert("Correct!");
     } else {
@@ -81,7 +39,7 @@ const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
-  if (!quizIetms) {
+  if (!quizItems) {
     return <div> I am waiting </div>
   }
 
@@ -90,20 +48,20 @@ const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
       <QuizNavbar
         correctScore={correctScore}
         incorrectScore={incorrectScore}
-        initialDataLength={initialDataLength}
+        initialDataLength={quizItems.length}
         progressValue={progressValue}
         currentQuestionIndex={currentQuestionIndex}
       />
 
       <Card className="mt-7 h-fit bg-slate-400 w-full rounded-none">
-        {currentQuestionIndex < mockQuizData.length ? (
+        {currentQuestionIndex < quizItems.length ? (
           <OpenEnded
-            question={mockQuizData[currentQuestionIndex].question}
-            answer={mockQuizData[currentQuestionIndex].answer}
+            question={quizItems[currentQuestionIndex].question}
+            answer={quizItems[currentQuestionIndex].answer}
             onSubmit={handleQuizSubmit}
             setCurrentQuestionIndex={setCurrentQuestionIndex}
             currentQuestionIndex={currentQuestionIndex}
-            mockQuizData={mockQuizData}
+            mockQuizData={quizItems}
           />
         ) : (
           <>
