@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import HandleQuiz from "./_components/QuizHandler";
-import QuizNavbar from "./_components/QuizNavbar";
 
 export const metadata = {
   title: "Quiz | Scriba",
@@ -10,7 +9,7 @@ export const metadata = {
 const IdentificationQuiz = () => {
   return (
     <>
-      <div className="flex flex-row justify-center px-10 h-screen w-screen bg-gray-200">
+      <div className="flex flex-row justify-center h-screen max-w-screen-xl bg-gray-200 mx-auto">
         <HandleQuiz />
       </div>
     </>
