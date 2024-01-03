@@ -1,13 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import OpenEnded from "./OpenEnded";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import QuizNavbar from "./QuizNavbar";
+import useFetchData from "@/hooks/useFetchData";
 
-const HandleQuiz = () => {
+interface StudyNoteProps {
+  studyNoteId: number
+}
+
+const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
+  const { data: quizIetms, error} = useFetchData(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`)
+
   const mockQuizData: Array<QuizItem> = [
     {
       id: 109382019921,
@@ -58,7 +65,6 @@ const HandleQuiz = () => {
 
   useEffect(() => {
     setInitialDataLength(mockQuizData.length);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleQuizSubmit = (userAnswer: string) => {
@@ -74,6 +80,10 @@ const HandleQuiz = () => {
 
     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
+
+  if (!quizIetms) {
+    return <div> I am waiting </div>
+  }
 
   return (
     <div className="flex w-full h-full ">
