@@ -8,12 +8,11 @@ export const metadata = {
 
 const IdentificationQuiz = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen">
-      <h1 className="absolute top-0 mt-10 md:text-3xl text-xl">
-        Test your knowledge!
-      </h1>
-      <HandleQuiz />
-    </div>
+    <>
+      <div className="flex flex-row justify-center h-screen max-w-screen-xl bg-gray-200 mx-auto">
+        <HandleQuiz />
+      </div>
+    </>
   );
 };
 
