@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import React, { FC, useEffect, useState } from "react";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 
 interface QuizNavbarProps {
   correctScore: number;
@@ -29,16 +30,17 @@ const QuizNavbar: FC<QuizNavbarProps> = ({
   }, [correctScore, incorrectScore, initialDataLength, currentQuestionIndex]);
 
   return (
-    <div className="grid grid-rows-2 h-screen w-48 bg-blue-300">
-      <div className="grid grid-rows-2">
-        <div className="grid grid-rows-2 items-center">
-          <div className="">
-            <Button>
+    <div className="grid grid-rows-2 h-screen w-56 bg-[#0a092d]">
+      <div className="grid grid-rows-2 ">
+        <div className="grid grid-rows-2 items-center ">
+          <div className="w-full flex flex-col">
+            <Button className="hover:bg-transparent bg-transparent py-2 w-full flex h-full items-center justify-start px-3">
               <svg
                 width="20"
-                height="20"
-                viewBox="0 0 15 15"
+                height="30"
+                viewBox="5 0 10 15"
                 fill="none"
+                className="hover:text-blue-500"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -48,45 +50,53 @@ const QuizNavbar: FC<QuizNavbarProps> = ({
                   clipRule="evenodd"
                 ></path>
               </svg>
-              Back
+
+              <p className="text-xs">Back</p>
             </Button>
+            <Separator className="bg-gray-500 my-2" />
           </div>
-          <div>
-            <h2>Quiz</h2>
+          <div className="px-3">
+            <h2 className="text-white">Quiz</h2>
           </div>
         </div>
-        <div className="grid grid-rows-3">
+        <div className="grid grid-rows-3 px-3 text-sm">
           <div className="grid grid-rows-2">
             <div className="flex items-end">
-              <Progress value={progressValue} />
+              <Progress className="rounded-none h-3" value={progressValue} />
             </div>
             <div className="flex justify-between">
-              <div>Remaining</div>
-              <div>{initialDataLength - currentQuestionIndex}</div>
+              <div className="text-white">Remaining</div>
+              <div className="text-white">
+                {initialDataLength - currentQuestionIndex}
+              </div>
             </div>
           </div>
           <div className="grid grid-rows-2">
             <div className="flex items-end">
-              <Progress value={incorrectProgressValue} />
+              <Progress
+                className="rounded-none h-3"
+                value={incorrectProgressValue}
+              />
             </div>
             <div className="flex justify-between">
-              <div>Incorrect</div>
-              <div>{incorrectScore}</div>
+              <div className="text-white">Incorrect</div>
+              <div className="text-white">{incorrectScore}</div>
             </div>
           </div>
           <div className="grid grid-rows-2">
             <div className="flex items-end">
-              <Progress value={correctProgressValue} />
+              <Progress
+                className="rounded-none h-3"
+                value={correctProgressValue}
+              />
             </div>
             <div className="flex justify-between">
-              <div>Correct</div>
-              <div>{correctScore}</div>
+              <div className="text-white">Correct</div>
+              <div className="text-white">{correctScore}</div>
             </div>
           </div>
         </div>
       </div>
-
-      <div>3</div>
     </div>
   );
 };

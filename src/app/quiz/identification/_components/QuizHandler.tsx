@@ -11,8 +11,8 @@ const HandleQuiz = () => {
   const mockQuizData: Array<QuizItem> = [
     {
       id: 109382019921,
-      question: "The largest ocean on Earth.",
-      answer: "Pacific",
+      question: "The largest continent on Earth. ",
+      answer: "Asia",
     },
     {
       id: 123125,
@@ -76,7 +76,7 @@ const HandleQuiz = () => {
   };
 
   return (
-    <div className="flex w-screen ">
+    <div className="flex w-full h-full ">
       <QuizNavbar
         correctScore={correctScore}
         incorrectScore={incorrectScore}
@@ -84,25 +84,24 @@ const HandleQuiz = () => {
         progressValue={progressValue}
         currentQuestionIndex={currentQuestionIndex}
       />
-      <div className=" max-h-fit w-full">
-        <Card className="my-7 bg-slate-400 max-h-fit w-full">
-          {currentQuestionIndex < mockQuizData.length ? (
-            <OpenEnded
-              question={mockQuizData[currentQuestionIndex].question}
-              answer={mockQuizData[currentQuestionIndex].answer}
-              onSubmit={handleQuizSubmit}
-              setCurrentQuestionIndex={setCurrentQuestionIndex}
-              currentQuestionIndex={currentQuestionIndex}
-              mockQuizData={mockQuizData}
-            />
-          ) : (
-            <>
-              <p>Congratulations! You've completed the quiz.</p>
-              <Button>Try again?</Button>
-            </>
-          )}
-        </Card>
-      </div>
+
+      <Card className="mt-7 h-fit bg-slate-400 w-full rounded-none">
+        {currentQuestionIndex < mockQuizData.length ? (
+          <OpenEnded
+            question={mockQuizData[currentQuestionIndex].question}
+            answer={mockQuizData[currentQuestionIndex].answer}
+            onSubmit={handleQuizSubmit}
+            setCurrentQuestionIndex={setCurrentQuestionIndex}
+            currentQuestionIndex={currentQuestionIndex}
+            mockQuizData={mockQuizData}
+          />
+        ) : (
+          <>
+            <p>Congratulations! You've completed the quiz.</p>
+            <Button>Try again?</Button>
+          </>
+        )}
+      </Card>
     </div>
   );
 };

@@ -55,26 +55,26 @@ const OpenEnded: FC<OpenEndedProps> = ({
 
   return (
     <>
-      <CardContent className="px-10">
-        <form className="text-lg" onSubmit={handleSubmit}>
+      <CardContent className="px-10 py-8 w-full">
+        <form className="text-base" onSubmit={handleSubmit}>
           {question && answer ? (
             <>
-              <div className="flex flex-col pt-8">
-                <p>{question}</p>
+              <div className="flex flex-col">
+                <p className="text-white break-words ">{question}</p>
                 <div>
-                  <Separator className="bg-black my-8" />
+                  <Separator className="bg-black my-8 h-0.5" />
                   <div className="flex w-full">
                     <div className="flex flex-col w-full pr-4">
                       <input
                         id="answerInput"
-                        className="border-b-2 border-white bg-inherit active:border-none focus:border-green-500 focus:border-b-4 focus:ease-in-out focus:duration-200 focus:ring-0 focus:outline-none rounded-none text-base pl-2 h-8 w-full focus:shadow-md"
+                        className="border-b-2 border-white bg-inherit active:border-none focus:border-green-500 focus:border-b-4 focus:ease-in-out direction-reverse focus:duration-75 focus:ring-0 focus:outline-none rounded-none text-base pl-2 h-8 w-full focus:shadow-md mb-1"
                         type="text"
                         value={userAnswer}
                         onChange={handleChange}
                         placeholder="Answer"
                       />
 
-                      <p>Type The Answer</p>
+                      <p className="text-sm text-white">Type The Answer</p>
                     </div>
                     <div>
                       <Button
