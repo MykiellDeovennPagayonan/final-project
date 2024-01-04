@@ -9,6 +9,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import generateQuiz from "@/utils/generateQuiz"
+import { toast } from "sonner"
 
 interface TextGenerateQuizProps {
   xCursorPosition: number
@@ -21,12 +22,13 @@ interface TextGenerateQuizProps {
 }
 
 const TextGenerateQuiz: FC<TextGenerateQuizProps> = ({ xCursorPosition, yCursorPosition, setSelectedText, selectedText, quizItems, setQuizItems, studyNoteId }) => {
-  const [quizCount, setQuizCount] = useState<number>(0)
 
   async function CreateQuizItemFromText() {
+    setSelectedText("")
     let newQuizItem = await generateQuiz(selectedText)
     console.log(newQuizItem)
-    const token = localStorage.getItem("token");
+
+    const token = localStorage.getItem("token")
 
     const response = await fetch(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`, {
       method: "POST",
@@ -42,8 +44,12 @@ const TextGenerateQuiz: FC<TextGenerateQuizProps> = ({ xCursorPosition, yCursorP
     newQuizItem.id = id
 
     const quizItemsInitial = [...quizItems, newQuizItem]
+
     setQuizItems(quizItemsInitial)
-    setSelectedText("")
+
+    toast("Quiz Item has been Created!", {
+      description: `Question: ${newQuizItem.question}`,
+    })
   }
 
   return (
@@ -52,24 +58,17 @@ const TextGenerateQuiz: FC<TextGenerateQuizProps> = ({ xCursorPosition, yCursorP
         <button className=" bg-white border text-sm p-[10px] shadow-md fixed"
           style={{ top: `${yCursorPosition}px`, left: `${xCursorPosition}px`, zIndex: 5 }}
           id="generate-quiz"
-          onClick={() => setQuizCount(0)}
         >
           Qenerate Quiz
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]" style={{ zIndex: 99 }}>
         <DialogHeader>
-          <DialogTitle className="text-center">How many quiz Questions do you want to generate?</DialogTitle>
+          <DialogTitle className="text-center">Generate quiz from</DialogTitle>
         </DialogHeader>
-        <div className="w-full flex">
-          <Button className="ml-auto" onClick={() => setQuizCount(quizCount - 1)}>
-            <i className="fas fa-angle-down"></i>
-          </Button>
-          <h3 className="my-auto mx-4"> {quizCount} </h3>
-          <Button className="mr-auto" onClick={() => setQuizCount(quizCount + 1)}>
-            <i className="fas fa-angle-up"></i>
-          </Button>
-        </div>
+        <h4>
+          {selectedText}
+        </h4>
         <DialogClose asChild>
           <Button type="button" onClick={() => CreateQuizItemFromText()}>
             Qenerate Quiz

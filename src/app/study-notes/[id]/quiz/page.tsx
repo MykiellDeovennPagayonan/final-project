@@ -3,14 +3,13 @@ import React from "react";
 import QuizMeCard from "./_components/QuizMeCard";
 import HistoryCard from "./_components/HistoryCard";
 
-type Props = {};
+type Props = {}
 
 export const metadata = {
   title: "Dashboard | Scriba",
-};
+}
 
 async function Dashboard(props: Props) {
-  //! Add authentication here
   const authenticate: boolean = true;
   if (!authenticate) {
     return redirect("/login");
