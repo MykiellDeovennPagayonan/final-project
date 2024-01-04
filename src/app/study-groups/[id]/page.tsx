@@ -24,6 +24,7 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
   useEffect(() => {
     if (studyNotesInitial) {
       const studyNotesAdapted = toStudyNotes(studyNotesInitial)
+      console.log(studyNotesAdapted)
       setStudyNotes(studyNotesAdapted)
     }
   }, [studyNotesInitial])
@@ -45,7 +46,9 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
             </div>
             <div className="w-full mt-8 sm:w-2/6 sm:mt-2 px-4 md:px-8">
               <h3> Invitation Code: </h3>
-              <div className="border-2 rounded-md p-2 shadow-md my-4 border-solid border-black"> Link Here Heheh </div>
+              <div className="border-2 rounded-md p-2 shadow-md my-4 border-solid border-black">
+                {`study-groups/${studyGroupId}`}
+              </div>
               <div className="flex items-center bg-white rounded-lg shadow-md border p-4 w-full">
                 <AddStudyNote studyGroupId={studyGroupId}/>
               </div>
