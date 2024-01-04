@@ -36,7 +36,7 @@ const Landing: FC = () => {
             <p className="font-semibold text-gray-500 text-3xl md:text-5xl lg:text-6xl mt-3 mb-5 ">
               Scriba
             </p>
-            <Button className="transform hover:scale-110 transition-transform duration-300 hover:p-5 ease-out"
+            <Button className="transform hover:scale-110 transition-transform duration-300 hover:p-5 ease-out font-semibold bg-emerald-400"
               onClick={() => enter()}>
               <p className="tracking-wide">Get started</p>
             </Button>
