@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 
 import { FC, useState, useEffect } from "react"
 import Navbar from "@/components/Navbar"
@@ -11,11 +12,12 @@ import getUserInfo from "@/utils/getUserInfo"
 
 interface StudyGroupPageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
+
   const userInfo = getUserInfo()
   const userId = userInfo.id
   const studyGroupId = Number(params.id)
@@ -33,7 +35,8 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
       const studyNotesAdapted = toStudyNotes(studyNotesInitial)
       setStudyNotes(studyNotesAdapted)
     }
-  }, [studyNotesInitial])
+  }, [studyNotesInitial]);
+
 
   useEffect(() => {
     if (membersInitial) {
@@ -98,6 +101,7 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
 
   if (!studyGroup || !studyNotesInitial || !members || !admins) {
     return <div> laoding </div>
+
   }
 
   return (
@@ -105,6 +109,7 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <Navbar />
         <div className="w-full h-48 mt-12 px-8 md:px-20 lg:px-40">
+
           <h1 className="text-4xl lg:text-5xl"> {studyGroup[0].name} </h1>
           <p className="mt-4"> {studyGroup[0].description} </p>
           <Separator className="mt-8 h-[2px] bg-gray-400" />
@@ -141,7 +146,7 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StudyNotePage
+export default StudyNotePage;
