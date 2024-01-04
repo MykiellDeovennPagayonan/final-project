@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { FC } from "react"
-import { useRouter } from "next/router"
 import Link from "next/link"
 
 interface NotesMembersTabsProps {

@@ -52,7 +52,7 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/study-notes/new', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/new`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

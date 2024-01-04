@@ -28,7 +28,7 @@ export const StudyGroupCreate: FC = () => {
 
     try {
       console.log("creating...");
-      const response = await fetch("http://localhost:3001/api/study-groups/new", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/new`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

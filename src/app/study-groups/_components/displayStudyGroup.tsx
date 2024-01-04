@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar";
 import useFetchData from "@/hooks/useFetchData";
 
 export const StudyGroups: FC = () => {
-  const { data: studyGroupsInitial, error } = useFetchData("http://localhost:3001/api/study-groups", true)
+  const { data: studyGroupsInitial, error } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups`, true)
   const [studyGroups, setStudyGroups] = useState<Array<StudyGroup>>([]);
 
   useEffect(() => {

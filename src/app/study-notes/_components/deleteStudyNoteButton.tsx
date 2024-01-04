@@ -16,7 +16,7 @@ const DeleteStudyNoteButton: FC<DeleteStudyNoteButtonProps> = ({studyNoteId}) =>
   const router = useRouter()
 
   async function deleteStudyNote() {
-    await toDelete("http://localhost:3001/api/study-notes/delete", studyNoteId)
+    await toDelete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/delete`, studyNoteId)
 
     router.push("/study-notes")
   }
