@@ -1,31 +1,28 @@
-import { redirect } from "next/navigation";
-import React from "react";
-import QuizMeCard from "./_components/QuizMeCard";
-import HistoryCard from "./_components/HistoryCard";
+/* eslint-disable react/no-unescaped-entities */
 
-type Props = {}
+import HandleQuiz from "./_components/QuizHandler";
+import { FC } from "react";
 
 export const metadata = {
-  title: "Dashboard | Scriba",
-}
+  title: "Quiz | Scriba",
+};
 
-async function Dashboard(props: Props) {
-  const authenticate: boolean = true;
-  if (!authenticate) {
-    return redirect("/login");
+interface StudyNoteProps {
+  params: {
+    id: string
   }
-
-  return (
-    <main className="p-8 mx-auto max-w-7xl">
-      <div className="flex items-center">
-        <h2 className="mr-2 text-3xl font-bold tracking-tight">Dashboard</h2>
-      </div>
-      <div className="grid gap-4 mt-4 md:grid-cols-2">
-        <QuizMeCard />
-        <HistoryCard />
-      </div>
-    </main>
-  );
 }
 
-export default Dashboard;
+const IdentificationQuiz : FC<StudyNoteProps> = ({params}) => {
+
+  const studyNoteId = Number(params.id)
+  return (
+    <>
+      <div className="flex flex-row justify-center h-screen max-w-screen-xl bg-gray-200 mx-auto">
+        <HandleQuiz studyNoteId={studyNoteId}/>
+      </div>
+    </>
+  );
+};
+
+export default IdentificationQuiz;

@@ -10,6 +10,7 @@ import {
 import React, { FC, useState, useEffect } from "react"
 import useFetchData from "@/hooks/useFetchData"
 import toDelete from "@/utils/toDelete"
+import getUserInfo from "@/utils/getUserInfo"
 
 interface AddStudyNoteProps {
   studyGroupId: number
@@ -24,7 +25,12 @@ export const AddStudyNote: FC<AddStudyNoteProps> = ({ studyGroupId }) => {
     if (isSharedNote) {
       await toDelete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/shared-notes/delete`, id)
 
-      console.log("deleted!")
+      const index = sharedNotesByUser.findIndex((sharedNoteByUser) => {sharedNoteByUser.id = id})
+      console.log(index, id)
+      console.log(sharedNotesByUser)
+      let sharedNotesByUserIni = [...sharedNotesByUser]
+      sharedNotesByUserIni.splice(index, 1)
+      setSharedNotesByUser(sharedNotesByUserIni)
     } else {
       const token = localStorage.getItem("token");
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/shared-notes/new`, {
@@ -40,7 +46,19 @@ export const AddStudyNote: FC<AddStudyNoteProps> = ({ studyGroupId }) => {
           console.log(err);
         });
 
-      console.log("Added!")
+      const userInfo = getUserInfo()
+      const userId = userInfo.id
+
+      const sharedNoteId = response.body
+
+      const sharedNoteByUser: SharedNote = {
+        id: sharedNoteId,
+        studyNoteId: id,
+        userId: userId
+      }
+
+      const sharedNotesByUserIni = [...sharedNotesByUser, sharedNoteByUser]
+      setSharedNotesByUser(sharedNotesByUserIni)
     }
   }
 
@@ -74,14 +92,14 @@ export const AddStudyNote: FC<AddStudyNoteProps> = ({ studyGroupId }) => {
           </DialogHeader>
           <div className="flex flex-col">
             {studyNotesByUser.map((studyNote, index) => {
-              const foundElement = sharedNotesByUser.find(sharedNoteByUser => sharedNoteByUser.studyNoteId === studyNote.id)
+              const sharedNote = sharedNotesByUser.find(sharedNoteByUser => sharedNoteByUser.studyNoteId === studyNote.id)
 
-              if (foundElement) {
+              if (sharedNote) {
                 return (
                   <button
                     key={index}
                     className="text-center min-h-24 w-full mx-auto flex my-2 bg-green-200 rounded-lg shadow-lg border border-gray-200 p-4 flex-col"
-                    onClick={() => toggleSharedNotes(foundElement.id, true)}>
+                    onClick={() => toggleSharedNotes(sharedNote.id, true)}>
                     {studyNote.title}
                   </button>
                 )
