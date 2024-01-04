@@ -56,6 +56,7 @@ export default function LoginCard({ router }) {
                 id="email"
                 placeholder="Your email"
                 autoComplete="current-password"
+                className="focus-visible:ring-emerald-400"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -65,6 +66,7 @@ export default function LoginCard({ router }) {
                 id="password"
                 type="password"
                 placeholder="Your password"
+                className="focus-visible:ring-emerald-400"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -81,7 +83,7 @@ export default function LoginCard({ router }) {
         </Link>
       </div>
       <CardFooter className="flex justify-between">
-        <Button className="w-full" onClick={() => handleSubmit()}>
+        <Button className="w-full bg-emerald-400 hover:bg-emerald-600" onClick={() => handleSubmit()}>
           Log In
         </Button>
       </CardFooter>
