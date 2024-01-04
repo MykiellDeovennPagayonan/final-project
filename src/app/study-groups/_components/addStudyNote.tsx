@@ -26,8 +26,6 @@ export const AddStudyNote: FC<AddStudyNoteProps> = ({ studyGroupId }) => {
       await toDelete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/shared-notes/delete`, id)
 
       const index = sharedNotesByUser.findIndex((sharedNoteByUser) => {sharedNoteByUser.id = id})
-      console.log(index, id)
-      console.log(sharedNotesByUser)
       let sharedNotesByUserIni = [...sharedNotesByUser]
       sharedNotesByUserIni.splice(index, 1)
       setSharedNotesByUser(sharedNotesByUserIni)

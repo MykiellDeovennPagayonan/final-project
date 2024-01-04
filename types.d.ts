@@ -68,3 +68,8 @@ type SharedNote = {
   studyNoteId: number
   userId: number
 }
+
+type Members = {
+  userID: number
+  username: string
+}

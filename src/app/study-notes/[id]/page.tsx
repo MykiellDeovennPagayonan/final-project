@@ -72,8 +72,11 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
     toSaveNotes(studyNoteId, notesData);
   }
 
-  if (!notesDataInitial) {
-    return <h1> loading bruh! </h1>;
+
+  if (!notesDataInitial || !studyNote) {
+    return (
+      <h1> loading bruh! </h1>
+    )
   }
 
   return (

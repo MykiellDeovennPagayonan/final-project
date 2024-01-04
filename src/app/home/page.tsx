@@ -1,29 +1,53 @@
-import { FC } from "react";
+"use client"
+import { FC, useState } from "react";
 import UserCard from "../../components/UserCard"
 import Navbar from "../../components/Navbar";
 import * as React from "react"
-
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter()
+  const [joinCode, setJoinCode] = useState<string>("")
+
+  async function handleJoinStudyGroup() {
+    const openTo = joinCode.split("/")[0] || null
+    let id = Number(joinCode.split("/")[1] || null)
+
+    if ((openTo === "study-notes" || openTo === "study-groups") && id) {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/${openTo}/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .catch((err) => {
+          console.log(err);
+        })
+      
+      if (response.body.length === 0) {
+        alert("does not exist")
+      } else {
+        if (openTo !== "study-notes") {
+          router.push(`../${joinCode}`)
+        } else {
+          const isPublic = response.body[0].isPublic
+
+          if (isPublic) {
+            router.push(`../${joinCode}`)
+          } else {
+            alert("Study Note is not public")
+          }
+        }
+      }
+      
+    } else {
+      alert("Code is invalid")
+    }
+  }
+
   return (
     <div className="flex flex-col h-screen w-screen bg-gray-200">
       <Navbar />
@@ -38,19 +62,21 @@ export default function Home() {
                 type="text"
                 placeholder="Enter a join code"
                 className="border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-emerald-400 flex-grow p-2"
+                onChange={(e) => setJoinCode(e.target.value)}
               />
-              <button className="bg-emerald-400 border border-gray-300 text-white  rounded-r-lg px-10 h-10 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none">
+              <button className="bg-emerald-400 border border-gray-300 text-white  rounded-r-lg px-10 h-10 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none"
+                onClick={() => handleJoinStudyGroup()}
+              >
                 JOIN!
-
               </button>
             </div>
           </div>
 
-          <div className="flex items-center bg-white rounded-lg shadow-md border p-4 w-full"> 
-  <button className="bg-emerald-400 border border-spacing-2 border-green-700 mx-auto text-white rounded-lg px-10 py-7 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none text-lg">
-    Create Study Notes
-  </button>
-</div>
+          <div className="flex items-center bg-white rounded-lg shadow-md border p-4 w-full">
+            <button className="bg-emerald-400 border border-spacing-2 border-green-700 mx-auto text-white rounded-lg px-10 py-7 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none text-lg">
+              Create Study Notes
+            </button>
+          </div>
 
         </div>
       </div>
