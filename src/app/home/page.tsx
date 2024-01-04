@@ -36,15 +36,21 @@ export default function Home() {
               <input
                 id="name"
                 type="text"
-                placeholder="Enter code"
-                className="border border-gray-300 rounded-l-lg flex-grow p-2"
+                placeholder="Enter a join code"
+                className="border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-emerald-400 flex-grow p-2"
               />
-              <button className="bg-green-500 border border-gray-300 text-white  rounded-r-lg px-10 h-10 hover:bg-green-400 focus:ring-2 focus:ring-green-400 focus:outline-none">
-                JOIN
+              <button className="bg-emerald-400 border border-gray-300 text-white  rounded-r-lg px-10 h-10 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none">
+                JOIN!
+
               </button>
             </div>
           </div>
 
+          <div className="flex items-center bg-white rounded-lg shadow-md border p-4 w-full"> 
+  <button className="bg-emerald-400 border border-spacing-2 border-green-700 mx-auto text-white rounded-lg px-10 py-7 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none text-lg">
+    Create Study Notes
+  </button>
+</div>
 
           <div className="flex items-center bg-white rounded-lg shadow-md border p-4 w-full">
             <button className="bg-green-400 border border-spacing-2 border-green-700 mx-auto text-white rounded-lg px-10 py-7 hover:bg-green-500 focus:ring-2 focus:ring-green-400 focus:outline-none text-lg">
