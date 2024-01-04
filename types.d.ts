@@ -55,3 +55,14 @@ type Sentence = {
   studyNoteId: number
 }
 
+type StudyGroup = {
+  id: number,
+  name: string,
+  description: string
+}
+
+type SharedNote = {
+  id: number
+  studyNoteId: number
+  userId: number
+}
