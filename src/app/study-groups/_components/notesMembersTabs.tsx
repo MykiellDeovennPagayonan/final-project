@@ -11,10 +11,12 @@ import Link from "next/link"
 
 interface NotesMembersTabsProps {
   studyNotes: Array<StudyNote>
+  members: Array<Members>
+  admins: Array<Members>
 }
 
-export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes }) => {
-  
+export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes, members, admins }) => {
+
   return (
     <Tabs defaultValue="account" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -23,7 +25,6 @@ export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes }) => {
       </TabsList>
       <TabsContent value="account">
         <div className="flex flex-col">
-
           {studyNotes.map((studyNote, index) => {
             return (
               <Link key={index} href={`/study-notes/${studyNote.id}`} className="hover:bg-gray-200 min-h-24 hover:shadow-lg hover:border hover:text-black flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col">
@@ -47,15 +48,20 @@ export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes }) => {
       </TabsContent>
       <TabsContent value="password">
         <div className="flex flex-row flex-wrap">
-          <div className="text-center min-h-24 w-[30%] mx-auto flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col">
-            Sibato
-          </div>
-          <div className="text-center min-h-24 w-[30%] mx-auto flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col">
-            Sibato
-          </div>
-          <div className="text-center min-h-24 w-[30%] mx-auto flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col">
-            Sibato
-          </div>
+          {admins.map((admin, index) => {
+            return (
+              <div key={index} className="text-center font-semibold min-h-24 w-[31%] mx-[1%] flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col">
+                {admin.username}
+              </div>
+            )
+          })}
+          {members.map((member, index) => {
+            return (
+              <div key={index} className="text-center min-h-24 w-[31%] mx-[1%] flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col">
+                {member.username}
+              </div>
+            )
+          })}
 
         </div>
       </TabsContent>

@@ -30,11 +30,11 @@ const QuizNavbar: FC<QuizNavbarProps> = ({
   }, [correctScore, incorrectScore, initialDataLength, currentQuestionIndex]);
 
   return (
-    <div className="grid grid-rows-2 h-screen w-56 bg-[#0a092d]">
-      <div className="grid grid-rows-2 ">
+    <div className="grid grid-rows-2 h-full w-56 bg-white border shadow-xl">
+      <div className="grid grid-rows-2 w-full ">
         <div className="grid grid-rows-2 items-center ">
           <div className="w-full flex flex-col">
-            <Button className="hover:bg-transparent bg-transparent py-2 w-full flex h-full items-center justify-start px-3">
+            <Button className="hover:bg-yellow-500 bg-yellow-500 py-2 w-full flex h-full items-center justify-start ">
               <svg
                 width="20"
                 height="30"
@@ -51,22 +51,25 @@ const QuizNavbar: FC<QuizNavbarProps> = ({
                 ></path>
               </svg>
 
-              <p className="text-xs">Back</p>
+              <p className="text-xs text-black">Back</p>
             </Button>
-            <Separator className="bg-gray-500 my-2" />
+            <Separator className="bg-gray-500 my-2  " />
           </div>
           <div className="px-3">
-            <h2 className="text-white">Quiz</h2>
+            <h2 className="">Quiz</h2>
           </div>
         </div>
-        <div className="grid grid-rows-3 px-3 text-sm">
+        <div className="grid grid-rows-3 px-3 text-base">
           <div className="grid grid-rows-2">
             <div className="flex items-end">
-              <Progress className="rounded-none h-3" value={progressValue} />
+              <Progress
+                className="rounded-none h-3 bg-[#4257b24d]"
+                value={progressValue}
+              />
             </div>
             <div className="flex justify-between">
-              <div className="text-white">Remaining</div>
-              <div className="text-white">
+              <div className="text-black">Remaining</div>
+              <div className="text-black">
                 {initialDataLength - currentQuestionIndex}
               </div>
             </div>
@@ -74,25 +77,25 @@ const QuizNavbar: FC<QuizNavbarProps> = ({
           <div className="grid grid-rows-2">
             <div className="flex items-end">
               <Progress
-                className="rounded-none h-3"
+                className="rounded-none h-3 bg-[#ff725b4d]"
                 value={incorrectProgressValue}
               />
             </div>
             <div className="flex justify-between">
-              <div className="text-white">Incorrect</div>
-              <div className="text-white">{incorrectScore}</div>
+              <div className="text-black">Incorrect</div>
+              <div className="text-black">{incorrectScore}</div>
             </div>
           </div>
           <div className="grid grid-rows-2">
             <div className="flex items-end">
               <Progress
-                className="rounded-none h-3"
+                className="rounded-none h-3 bg-[#23b26d4d]"
                 value={correctProgressValue}
               />
             </div>
             <div className="flex justify-between">
-              <div className="text-white">Correct</div>
-              <div className="text-white">{correctScore}</div>
+              <div className="text-black">Correct</div>
+              <div className="text-black">{correctScore}</div>
             </div>
           </div>
         </div>

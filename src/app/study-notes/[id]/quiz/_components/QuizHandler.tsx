@@ -9,11 +9,13 @@ import QuizNavbar from "./QuizNavbar";
 import useFetchData from "@/hooks/useFetchData";
 
 interface StudyNoteProps {
-  studyNoteId: number
+  studyNoteId: number;
 }
 
-const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
-  const { data: quizItems, error} = useFetchData(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`)
+const HandleQuiz: FC<StudyNoteProps> = ({ studyNoteId }) => {
+  const { data: quizItems, error } = useFetchData(
+    `http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`
+  );
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [correctScore, setCorrectScore] = useState<number>(0);
   const [incorrectScore, setIncorrectScore] = useState<number>(0);
@@ -28,7 +30,10 @@ const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
   const handleQuizSubmit = (userAnswer: string) => {
     const currentQuestion = quizItems[currentQuestionIndex];
 
-    if (userAnswer.toLowerCase().trim() === currentQuestion.answer.toLowerCase().trim()) {
+    if (
+      userAnswer.toLowerCase().trim() ===
+      currentQuestion.answer.toLowerCase().trim()
+    ) {
       setCorrectScore((prevScore) => prevScore + 1);
       alert("Correct!");
     } else {
@@ -40,7 +45,7 @@ const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
   };
 
   if (!quizItems) {
-    return <div> I am waiting </div>
+    return <div> I am waiting </div>;
   }
 
   return (
@@ -53,7 +58,7 @@ const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
         currentQuestionIndex={currentQuestionIndex}
       />
 
-      <Card className="mt-7 h-fit bg-slate-400 w-full rounded-none">
+      <Card className="mt-7 h-fit bg-white w-full rounded-none">
         {currentQuestionIndex < quizItems.length ? (
           <OpenEnded
             question={quizItems[currentQuestionIndex].question}
@@ -65,8 +70,10 @@ const HandleQuiz : FC<StudyNoteProps> = ( {studyNoteId} ) => {
           />
         ) : (
           <>
-            <p>Congratulations! You've completed the quiz.</p>
-            <Button>Try again?</Button>
+            <div className="flex p-5 justify-between">
+              <p>Congratulations! You've completed the quiz.</p>
+              <Button className="mt-5">Try again?</Button>
+            </div>
           </>
         )}
       </Card>
