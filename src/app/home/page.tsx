@@ -52,11 +52,6 @@ export default function Home() {
   </button>
 </div>
 
-          <div className="flex items-center bg-white rounded-lg shadow-md border p-4 w-full">
-            <button className="bg-green-400 border border-spacing-2 border-green-700 mx-auto text-white rounded-lg px-10 py-7 hover:bg-green-500 focus:ring-2 focus:ring-green-400 focus:outline-none text-lg">
-              Create A Study Notes
-            </button>
-          </div>
         </div>
       </div>
     </div>
