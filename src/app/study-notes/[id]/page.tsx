@@ -20,7 +20,7 @@ interface StudyNotePageProps {
 const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const studyNoteId = Number(params.id)
   const { data: notesDataInitial, error: notesDataError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/notes/${studyNoteId}`)
-  const { data: title, error: titleError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/${studyNoteId}`)
+  const { data: studyNote, error: titleError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/${studyNoteId}`)
   const { data: quizzesDataInitial, error: quizzesDataError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`)
   const [notesData, setNotesData] = useState<OutputData>()
   const [quizItems, setQuizItems] = useState<Array<QuizItem>>([])
@@ -50,7 +50,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
     toSaveNotes(studyNoteId, notesData)
   }
 
-  if (!notesDataInitial) {
+  if (!notesDataInitial || !studyNote) {
     return (
       <h1> loading bruh! </h1>
     )
@@ -61,7 +61,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <Navbar />
         <button onClick={() => save()}> Save! </button>
-        <h1 className="text-center mt-20"> {title} </h1>
+        <h1 className="text-center mt-20"> {studyNote[0].title} </h1>
         <Notes studyNoteId={studyNoteId} setNotesData={setNotesData} notesData={notesData} quizItems={quizItems} setQuizItems={setQuizItems} />
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <h1 className="text-center mt-8"> Quizzes </h1>
