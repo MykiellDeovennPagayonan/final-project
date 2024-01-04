@@ -54,6 +54,7 @@ export default function RegisterCard({ router }) {
               <Input
                 id="name"
                 placeholder="Your username"
+                className="focus-visible:ring-emerald-400"
                 onChange={(e) => setUserName(e.target.value)}
               />
             </div>
@@ -62,6 +63,7 @@ export default function RegisterCard({ router }) {
               <Input
                 id="email"
                 placeholder="Your email"
+                className="focus-visible:ring-emerald-400"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -72,6 +74,7 @@ export default function RegisterCard({ router }) {
                 type="password"
                 placeholder="Your password"
                 autoComplete="current-password"
+                className="focus-visible:ring-emerald-400"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -88,7 +91,7 @@ export default function RegisterCard({ router }) {
         </Link>
       </div>
       <CardFooter className="flex justify-between">
-        <Button className="w-full" onClick={() => handleSubmit()}>
+        <Button className="w-full bg-emerald-400 hover:bg-emerald-600" onClick={() => handleSubmit()}>
           Create New Account
         </Button>
       </CardFooter>
