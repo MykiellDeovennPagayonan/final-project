@@ -36,9 +36,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const { data: notesDataInitial, error: notesDataError } = useFetchData(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/notes/${studyNoteId}`
   );
-  const { data: title, error: titleError } = useFetchData(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/${studyNoteId}`
-  );
+  const { data: studyNote, error: titleError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/${studyNoteId}`)
   const { data: quizzesDataInitial, error: quizzesDataError } = useFetchData(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`
   );
@@ -86,7 +84,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
         <button onClick={() => save()}> Save! </button>
         <div className="w-full mt-12 px-8 md:px-20 lg:px-40">
           <div>
-            <h1 className="text-center mt-20"> {title} </h1>
+            <h1 className="text-center mt-20"> {studyNote[0].title} </h1>
           </div>
         </div>
 
