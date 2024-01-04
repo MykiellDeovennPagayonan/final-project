@@ -23,18 +23,6 @@ export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes }) => {
       </TabsList>
       <TabsContent value="account">
         <div className="flex flex-col">
-          <div className="hover:bg-gray-200 min-h-24 min hover:shadow-lg hover:border hover:border-gray-300 hover:text-black flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col">
-            <div className="flex">
-              <div className="flex flex-wrap">
-                <Badge className="flex mx-[4px] m-1 bg-gray-400 hover:bg-gray-400 px-[8px] py-[2px] text-black items-center justify-center">
-                  science!
-                </Badge>
-
-              </div>
-              <p className="ml-auto font-semibold text-md"> Sibato </p>
-            </div>
-            <h3 className="mt-2"> Study Note Title </h3>
-          </div>
 
           {studyNotes.map((studyNote, index) => {
             return (
@@ -49,14 +37,12 @@ export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes }) => {
                       )
                     })}
                   </div>
-                  <p className="ml-auto font-semibold text-md"> Sibato </p>
+                  <p className="ml-auto font-semibold text-md"> {studyNote.userName} </p>
                 </div>
                 <h3 className="mt-2"> {studyNote.title} </h3>
               </Link>
             )
           })}
-
-
         </div>
       </TabsContent>
       <TabsContent value="password">
