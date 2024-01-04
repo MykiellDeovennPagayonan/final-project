@@ -17,7 +17,8 @@ interface StudyGroupPageProps {
 const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
   const studyGroupId = Number(params.id)
   const [studyNotes, setStudyNotes] = useState<Array<StudyNote>>([])
-  const {data : studyNotesInitial, error : studyNotesInitialError} = useFetchData(`http://localhost:3001/api/study-groups/study-notes/${studyGroupId}`)
+  const {data : studyNotesInitial, error : studyNotesInitialError} = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/study-notes/${studyGroupId}`)
+  const { data: title, error: titleError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/${studyGroupId}`)
   // const {data : members, error : membersError} = useFetchData(`http://localhost:3001/api/study-groups/members/${studyGroupId}`)
 
   useEffect(() => {
@@ -27,12 +28,16 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
     }
   }, [studyNotesInitial])
 
+  if (!title || !studyNotesInitial) {
+    return <div> laoding </div>
+  }
+
   return (
     <div className="flex flex-col h-screen w-screen bg-gray-200">
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <Navbar />
         <div className="w-full h-48 mt-12 px-8 md:px-20 lg:px-40">
-          <h1 className="text-4xl lg:text-5xl"> Title </h1>
+          <h1 className="text-4xl lg:text-5xl"> {title} </h1>
           <Separator className="mt-8 h-[2px] bg-gray-400" />
           <div className="flex flex-col sm:flex-row w-full h-48 mt-8">
             <div className="w-full sm:w-4/6 px-4 md:px-8">
