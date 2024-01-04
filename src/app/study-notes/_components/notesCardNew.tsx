@@ -85,7 +85,7 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
     <div className="mt-4">
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="m-4"> Create New Study Note </Button>
+          <Button className="m-4 bg-emerald-400 hover:bg-emerald-600"> Create New Study Note </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           {topics ?
@@ -94,19 +94,19 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
                 <DialogTitle>Create New Study Note</DialogTitle>
               </DialogHeader>
               <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
+                <div className="grid grid-cols-4 items-center gap-3 pr-8">
                   <Label htmlFor="title" className="text-right">
                     Title
                   </Label>
                   <Input
                     id="title"
                     placeholder="Title of Study Note"
-                    className="col-span-3"
+                    className="col-span-3 focus-visible:ring-emerald-400"
                     value={titleInitial}
                     onChange={(e) => setTitleInitial(e.target.value)}
                   />
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
+                <div className="grid grid-cols-4 items-center gap-4 pl-3">
                   <Label htmlFor="topics" className="text-right self-start mt-1">
                     Topics
                   </Label>
@@ -126,7 +126,7 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
                 </div>
                 <div className="flex w-full h-auto">
                   <TopicSelector topics={topics} setTopicSelected={setTopicSelected} topicSelected={topicSelected} topicsList={topicsList} />
-                  <Button className="mr-auto ml-5" onClick={() => addTopic()}> Add topic </Button>
+                  <Button className="mr-auto ml-5 bg-emerald-400 hover:bg-emerald-600" onClick={() => addTopic()}> Add topic </Button>
                 </div>
                 <div className="flex mx-auto">
                   <Label htmlFor="topics" className="text-right my-auto mr-4">
@@ -143,7 +143,7 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
                 </div>
               </div>
               <DialogClose asChild>
-                <Button type="button" onClick={() => createStudyNote()}>
+                <Button className="bg-emerald-400 hover:bg-emerald-600" type="button" onClick={() => createStudyNote()}>
                   Create Study Note
                 </Button>
               </DialogClose>

@@ -39,12 +39,14 @@ type StudyNoteRawData = {
   title: string,
   topicName: string,
   studyNoteId: number,
+  userName?: string
 }
 
 type StudyNote = {
   id: number,
   title: string,
   topics: Array<string>
+  userName?: string
 }
 
 type Sentence = {
