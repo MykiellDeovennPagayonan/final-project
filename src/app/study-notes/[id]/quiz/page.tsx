@@ -9,19 +9,20 @@ export const metadata = {
 
 interface StudyNoteProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
-const IdentificationQuiz : FC<StudyNoteProps> = ({params}) => {
-
-  const studyNoteId = Number(params.id)
+const IdentificationQuiz: FC<StudyNoteProps> = ({ params }) => {
+  const studyNoteId = Number(params.id);
   return (
     <>
-      <div className="flex flex-row justify-center h-screen max-w-screen-xl bg-gray-200 mx-auto">
-        <HandleQuiz studyNoteId={studyNoteId}/>
+      <div className="flex flex-row justify-center h-screen max-w-screen-xl mx-auto">
+        <HandleQuiz studyNoteId={studyNoteId} />
       </div>
+      <div className="max-h"></div>
     </>
+    
   );
 };
 
