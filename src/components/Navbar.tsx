@@ -33,7 +33,7 @@ export default function Navbar () {
             <p className='hidden sm:block'>Study Notes</p>
           </Button>
         </Link>
-        <Link href='/study-notes'>
+        <Link href='/study-groups'>
           {' '}
           <Button className='w-0 md:w-12 lg:w-24 h-full bg-transparent ml-auto mr-2 text-gray-700 hover:bg-transparent focus:bg-transparent hover:text-green-600 focus:text-green-600 hover:border-b-4 focus:border-b-4 hover:rounded-none focus:rounded-none hover:border-green-900 focus:border-green-900 font-semibold py-2 px-4 focus:outline-none'>
             {' '}
