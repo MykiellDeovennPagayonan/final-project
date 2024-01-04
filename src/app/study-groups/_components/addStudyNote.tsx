@@ -17,17 +17,17 @@ interface AddStudyNoteProps {
 
 export const AddStudyNote: FC<AddStudyNoteProps> = ({ studyGroupId }) => {
   const [sharedNotesByUser, setSharedNotesByUser] = useState<Array<SharedNote>>([])
-  const { data: studyNotesByUser, error: studyNotesByUserError } = useFetchData(`http://localhost:3001/api/study-groups/study-notes`, true)
-  const { data: sharedNotesByUserInitial, error: sharedNotesByUserInitialError } = useFetchData(`http://localhost:3001/api/study-groups/shared-notes/${studyGroupId}`, true)
+  const { data: studyNotesByUser, error: studyNotesByUserError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/study-notes`, true)
+  const { data: sharedNotesByUserInitial, error: sharedNotesByUserInitialError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/shared-notes/${studyGroupId}`, true)
 
   async function toggleSharedNotes(id: number, isSharedNote: boolean) {
     if (isSharedNote) {
-      await toDelete(`http://localhost:3001/api/study-groups/shared-notes/delete`, id)
+      await toDelete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/shared-notes/delete`, id)
 
       console.log("deleted!")
     } else {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3001/api/study-groups/shared-notes/new`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/shared-notes/new`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

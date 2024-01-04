@@ -10,7 +10,7 @@ import toStudyNotes from "@/utils/studyNotesAdaptor"
 
 const StudyNotesPage: FC = () => {
   const [studyNotes, setStudyNotes] = useState<Array<StudyNote>>(null)
-  const { data: studyNotesInitial, error } = useFetchData("http://localhost:3001/api/study-notes", true)
+  const { data: studyNotesInitial, error } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes`, true)
 
   useEffect(()=> {
     if (studyNotesInitial) {

@@ -20,7 +20,7 @@ interface DeleteQuizItemProps {
 export const DeleteQuizItem: FC<DeleteQuizItemProps> = ({ quizItemId, index, quizItems, setQuizItems }) => {
 
   async function handleDeleteQuizItem() {
-    await toDelete("http://localhost:3001/api/study-notes/quizzes/delete", quizItemId)
+    await toDelete(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/delete`, quizItemId)
 
     let quizItemsInitial = [...quizItems]
 

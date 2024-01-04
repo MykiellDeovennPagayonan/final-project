@@ -24,7 +24,7 @@ export const QuizCreate: FC<QuizCreateProps> = ({quizItems, setQuizItems, studyN
 
   async function createQuizItem() {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

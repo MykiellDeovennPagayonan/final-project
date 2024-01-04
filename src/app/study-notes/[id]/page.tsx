@@ -19,9 +19,9 @@ interface StudyNotePageProps {
 
 const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const studyNoteId = Number(params.id)
-  const { data: notesDataInitial, error: notesDataError } = useFetchData(`http://localhost:3001/api/study-notes/notes/${studyNoteId}`)
-  const { data: title, error: titleError } = useFetchData(`http://localhost:3001/api/study-notes/${studyNoteId}`)
-  const { data: quizzesDataInitial, error: quizzesDataError } = useFetchData(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`)
+  const { data: notesDataInitial, error: notesDataError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/notes/${studyNoteId}`)
+  const { data: title, error: titleError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/${studyNoteId}`)
+  const { data: quizzesDataInitial, error: quizzesDataError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`)
   const [notesData, setNotesData] = useState<OutputData>()
   const [quizItems, setQuizItems] = useState<Array<QuizItem>>([])
 

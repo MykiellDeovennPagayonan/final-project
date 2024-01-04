@@ -25,7 +25,7 @@ export const QuizEdit: FC<QuizEditProps> = ({ quizItems, setQuizItems, index, st
 
   async function saveQuizItem() {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
