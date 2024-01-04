@@ -20,7 +20,7 @@ export default function Navbar () {
             alt='Logo'
             className='h-12 mr-2'
           />
-          <span className='text-3xl font-bold text-green-500 outlined-text'>
+          <span className='text-3xl font-bold text-green-600 outlined-text'>
             Scriba
           </span>
         </div>
