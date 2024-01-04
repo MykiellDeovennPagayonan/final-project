@@ -25,12 +25,22 @@ export default function Home() {
         .then((res) => res.json())
         .catch((err) => {
           console.log(err);
-        });
+        })
       
       if (response.body.length === 0) {
         alert("does not exist")
       } else {
-        router.push(`../${joinCode}`)
+        if (openTo !== "study-notes") {
+          router.push(`../${joinCode}`)
+        } else {
+          const isPublic = response.body[0].isPublic
+
+          if (isPublic) {
+            router.push(`../${joinCode}`)
+          } else {
+            alert("Study Note is not public")
+          }
+        }
       }
       
     } else {
