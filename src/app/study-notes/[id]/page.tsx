@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 interface StudyNotePageProps {
   params: {
@@ -32,6 +33,7 @@ interface StudyNotePageProps {
 
 const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const studyNoteId = Number(params.id);
+  const router = useRouter()
 
   const { data: notesDataInitial, error: notesDataError } = useFetchData(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/notes/${studyNoteId}`
@@ -70,6 +72,10 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
     toSaveNotes(studyNoteId, notesData);
   }
 
+  function changeTitle() {
+
+  }
+
 
   if (!notesDataInitial || !studyNote) {
     return (
@@ -97,6 +103,11 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
         />
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <div className="flex justify-end mr-40 gap-2">
+          <button className="border-2 border-[#d9dde8] rounded-md" onClick={() => router.push(`./${studyNoteId}/quiz`)}>
+            <div className="py-1.5 px-3 text-[#586380]">
+              Answer Quiz
+            </div>
+          </button>
           <div className="border-2 border-[#d9dde8] rounded-md ">
             <Dialog>
               <DialogTrigger className="py-1.5 px-3 text-[#586380]">
@@ -108,11 +119,10 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
                   <DialogDescription className="h-28">
                     <p className="text-black">Invitation Code: </p>
                     <Input
-                      className={`p-2 border-0 ${
-                        isFocused
+                      className={`p-2 border-0 ${isFocused
                           ? "focus-visible:border-b-2 focus-visible:border-black focus-visible:ring-0 rounded-none focus-visible:ring-transparent"
                           : ""
-                      }`}
+                        }`}
                       type="text"
                       value={`study-notes/${studyNoteId}`}
                       onFocus={() => setFocused(true)}

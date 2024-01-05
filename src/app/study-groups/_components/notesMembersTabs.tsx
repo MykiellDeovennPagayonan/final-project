@@ -32,7 +32,7 @@ export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes, member
                   <div className="flex flex-wrap">
                     {studyNote.topics.map((topic, index) => {
                       return (
-                        <Badge key={index} className="flex mx-[4px] m-1 bg-gray-400 hover:bg-gray-400 px-[8px] py-[2px] text-black items-center justify-center">
+                        <Badge key={index} className="flex mx-[4px] m-1 bg-blue-200 hover:bg-blue-200 px-[8px] py-[2px] text-black items-center justify-center">
                           {topic}
                         </Badge>
                       )
