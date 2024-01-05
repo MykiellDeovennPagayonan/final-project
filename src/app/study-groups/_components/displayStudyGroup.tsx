@@ -32,11 +32,11 @@ export const StudyGroups: FC = () => {
                 <Link href={`/study-groups/${studyGroupItem.id}`} key={studyGroupItem.id}>
                   <div
                     key={studyGroupItem.id}
-                    className=" hover:bg-gray-200 hover:shadow-lg hover:border hover:border-gray-300 hover:text-black md:h-36 flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-8 flex-col"
+                    className="min-w-80 hover:bg-gray-200 hover:shadow-lg hover:border hover:border-gray-300 hover:text-black md:h-36 flex my-2 bg-gray-50 rounded-lg shadow-lg border border-gray-200 p-4 flex-col"
                   >
                     <p className="font-bold text-xl mt-1">{studyGroupItem.name}</p>
                     <Separator orientation="horizontal" className="w-full bg-gray-300" />
-                    <p className="mt-3 overflow-y-auto">
+                    <p className="mt-2 overflow-y-auto text-sm">
                       {studyGroupItem.description}
                     </p>
                   </div>

@@ -27,8 +27,8 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
   const [members, setMembers] = useState<Array<Members>>([])
   const { data: studyNotesInitial, error: studyNotesInitialError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/study-notes/${studyGroupId}`)
   const { data: studyGroup, error: titleError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/${studyGroupId}`)
-  const { data: membersInitial, error: membersError } = useFetchData(`http://localhost:3001/api/study-groups/members/${studyGroupId}`)
-  const { data: admins, error: adminsError } = useFetchData(`http://localhost:3001/api/study-groups/admins/${studyGroupId}`)
+  const { data: membersInitial, error: membersError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/members/${studyGroupId}`)
+  const { data: admins, error: adminsError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/admins/${studyGroupId}`)
 
   useEffect(() => {
     if (studyNotesInitial) {
