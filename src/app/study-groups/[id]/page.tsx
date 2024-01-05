@@ -115,7 +115,7 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
           <Separator className="mt-8 h-[2px] bg-gray-400" />
           <div className="flex flex-col sm:flex-row w-full h-48 mt-8">
             <div className="w-full sm:w-4/6 px-4 md:px-8">
-              <NotesMembersTabs studyNotes={studyNotes} members={members} admins={admins} />
+              <NotesMembersTabs studyNotes={studyNotes} members={members} admins={admins} setMembers={setMembers}/>
             </div>
             <div className="w-full mt-8 sm:w-2/6 sm:mt-2 px-4 md:px-8">
               <h3> Invitation Code: </h3>
