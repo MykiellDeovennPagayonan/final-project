@@ -40,7 +40,6 @@ export const StudyGroupCreate: FC = () => {
         }),
       });
       console.log(response);
-      // router.push("/studygroup");
     } catch (err) {
       console.log(err);
     }

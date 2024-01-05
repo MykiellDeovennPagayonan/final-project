@@ -13,9 +13,10 @@ interface NotesMembersTabsProps {
   studyNotes: Array<StudyNote>
   members: Array<Members>
   admins: Array<Members>
+  setMembers: React.Dispatch<React.SetStateAction<Array<Members>>>
 }
 
-export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes, members, admins }) => {
+export const NotesMembersTabs: FC<NotesMembersTabsProps> = ({ studyNotes, members, admins, setMembers, }) => {
 
   return (
     <Tabs defaultValue="account" className="w-full">
