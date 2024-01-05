@@ -28,13 +28,13 @@ export default function LoginCard({ router }) {
           email: email,
           password: password,
         }),
-      }).then((res) => res.json());
+      })
 
-      console.log(response);
-      if (response?.message === "email or password is incorrect") {
+      if (!response.ok && response.status === 401) {
         alert("email or password is incorrect")
-      } else if (response.token) {
-        localStorage.setItem('token', response.token)
+      } else {
+        const responseBody = await response.json()
+        localStorage.setItem('token', responseBody.body.token)
         router.push("/home")
       }
     } catch (error) {
