@@ -49,6 +49,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const [quizItems, setQuizItems] = useState<Array<QuizItem>>([]);
   const [isFocused, setFocused] = useState<boolean>(false);
   const [currentTitle, setCurrentTitle] = useState<string>("");
+  const [open, setOpen] = useState(false);
 
   console.log(currentTitle);
 
@@ -174,7 +175,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
             </Dialog>
           </div>
           <div className="border-2 border-[#d9dde8] rounded-md">
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger className="py-1.5 px-3 text-[#586380]">
                 Edit
               </DialogTrigger>
@@ -201,7 +202,12 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit" onClick={() => updateTitleData()}>
+                  <Button
+                    type="submit"
+                    onClick={() => {
+                      updateTitleData(), setOpen(false);
+                    }}
+                  >
                     Save changes
                   </Button>
                 </DialogFooter>
