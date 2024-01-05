@@ -73,3 +73,10 @@ type Members = {
   userID: number
   username: string
 }
+
+
+type StudyNoteChanges = {
+  addedBlocks: Array<TextBlock>,
+  editedBlocks: Array<TextBlock>,
+  deletedBlocks: Array<TextBlock>
+}

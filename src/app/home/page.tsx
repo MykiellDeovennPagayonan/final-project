@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import Navbar from "../../components/Navbar";
 import * as React from "react"
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter()
@@ -54,16 +55,16 @@ export default function Home() {
 
         <div className="grid grid-cols-3 space-x-4 mt-4" style={{ width: '85%' }}>
           <div className="flex-col col-span-2 h-40 flex items-center justify-center bg-white rounded-lg shadow-md p-4">
-            <div className="ml-[20%] mb-1.5 text-gray-400 mr-auto">Join a Study Group:</div>
-            <div className="flex flex-row w-3/5 border-2 border-gray-500 p-1 rounded-lg">
+            <div className="ml-[5%] md:ml-[20%] mb-1.5 text-gray-400 mr-auto">Enter a code:</div>
+            <div className="flex flex-row w-[90%] md:w-3/5 border-2 border-gray-500 p-1 rounded-lg">
               <input
                 id="name"
                 type="text"
                 placeholder="Enter a join code"
-                className="border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-emerald-400 flex-grow p-2"
+                className="border border-gray-300 w-3/5 text-md rounded-l-lg focus:ring-2 focus:ring-emerald-400 flex-grow p-2"
                 onChange={(e) => setJoinCode(e.target.value)}
               />
-              <button className="bg-emerald-400 border border-gray-300 text-white  rounded-r-lg px-10 h-10 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none"
+              <button className="bg-emerald-400 border w-2/5 border-gray-300 text-white  rounded-r-lg px:3 md:px-10 h-10 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none"
                 onClick={() => handleJoinStudyGroup()}
               >
                 JOIN!
@@ -72,7 +73,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center bg-white rounded-lg shadow-md border p-4 w-full">
-            <button className="bg-emerald-400 border border-spacing-2 border-green-700 mx-auto text-white rounded-lg px-10 py-7 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none text-lg">
+            <button className="bg-emerald-400 border border-spacing-2 border-green-700 mx-auto text-white rounded-lg px-5 py-4 md:px-10 md:py-7 hover:bg-emerald-500 focus:ring-2 focus:ring-green-400 focus:outline-none text-md md:text-lg"
+              onClick={() => router.push(`/study-notes`)}
+            >
               Create Study Notes
             </button>
           </div>
