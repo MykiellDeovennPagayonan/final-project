@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, SetStateAction } from "react";
 import Notes from "@/app/study-notes/_components/notes";
 import Quizzes from "@/app/study-notes/_components/quizzes";
 import { Separator } from "@/components/ui/separator";
@@ -33,18 +33,24 @@ interface StudyNotePageProps {
 
 const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const studyNoteId = Number(params.id);
-  const router = useRouter()
+  const router = useRouter();
 
   const { data: notesDataInitial, error: notesDataError } = useFetchData(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/notes/${studyNoteId}`
   );
-  const { data: studyNote, error: titleError } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/${studyNoteId}`)
+  const { data: studyNote, error: titleError } = useFetchData(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/${studyNoteId}`
+  );
   const { data: quizzesDataInitial, error: quizzesDataError } = useFetchData(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`
   );
+
   const [notesData, setNotesData] = useState<OutputData>();
   const [quizItems, setQuizItems] = useState<Array<QuizItem>>([]);
-  const [isFocused, setFocused] = useState(false);
+  const [isFocused, setFocused] = useState<boolean>(false);
+  const [currentTitle, setCurrentTitle] = useState<string>("");
+
+  console.log(currentTitle);
 
   useEffect(() => {
     if (quizzesDataInitial) {
@@ -72,15 +78,47 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
     toSaveNotes(studyNoteId, notesData);
   }
 
-  function changeTitle() {
+  useEffect(() => {
+    if (studyNote?.length > 0) {
+      setCurrentTitle(studyNote[0].title);
+    }
+  }, [studyNote]);
 
+  function handleChangeTitle(event: React.ChangeEvent<HTMLInputElement>) {
+    setCurrentTitle(event.target.value);
   }
 
+  const updateTitleData = async () => {
+    try {
+      const dataToUpdate = {
+        currentTitle: currentTitle,
+        studyNoteId: studyNoteId,
+      };
+
+      const response = await fetch(
+        "http://localhost:3001/api/study-notes/update",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToUpdate),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const responseData = await response.json();
+      console.log("Update successful:", responseData);
+    } catch (err) {
+      console.error("Error updating data:", err);
+    }
+  };
 
   if (!notesDataInitial || !studyNote) {
-    return (
-      <h1> loading bruh! </h1>
-    )
+    return <h1> loading bruh! </h1>;
   }
 
   return (
@@ -90,7 +128,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
         <button onClick={() => save()}> Save! </button>
         <div className="w-full mt-12 px-8 md:px-20 lg:px-40">
           <div>
-            <h1 className="text-center mt-20"> {studyNote[0].title} </h1>
+            <h1 className="text-center mt-20"> {studyNote[0].title}</h1>
           </div>
         </div>
 
@@ -103,10 +141,11 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
         />
         <Separator className="w-3/5 mx-auto h-[3px]" />
         <div className="flex justify-end mr-40 gap-2">
-          <button className="border-2 border-[#d9dde8] rounded-md" onClick={() => router.push(`./${studyNoteId}/quiz`)}>
-            <div className="py-1.5 px-3 text-[#586380]">
-              Answer Quiz
-            </div>
+          <button
+            className="border-2 border-[#d9dde8] rounded-md"
+            onClick={() => router.push(`./${studyNoteId}/quiz`)}
+          >
+            <div className="py-1.5 px-3 text-[#586380]">Answer Quiz</div>
           </button>
           <div className="border-2 border-[#d9dde8] rounded-md ">
             <Dialog>
@@ -119,10 +158,11 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
                   <DialogDescription className="h-28">
                     <p className="text-black">Invitation Code: </p>
                     <Input
-                      className={`p-2 border-0 ${isFocused
+                      className={`p-2 border-0 ${
+                        isFocused
                           ? "focus-visible:border-b-2 focus-visible:border-black focus-visible:ring-0 rounded-none focus-visible:ring-transparent"
                           : ""
-                        }`}
+                      }`}
                       type="text"
                       value={`study-notes/${studyNoteId}`}
                       onFocus={() => setFocused(true)}
@@ -153,12 +193,17 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
                     </Label>
                     <Input
                       id="name"
+                      placeholder={"New title"}
+                      value={currentTitle}
+                      onChange={handleChangeTitle}
                       className="col-span-3 border-green-500 border-2 focus-visible:border-none "
                     />
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit">Save changes</Button>
+                  <Button type="submit" onClick={() => updateTitleData()}>
+                    Save changes
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
