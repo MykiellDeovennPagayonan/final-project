@@ -48,6 +48,8 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   const [quizItems, setQuizItems] = useState<Array<QuizItem>>([]);
   const [isFocused, setFocused] = useState(false);
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
+  const [title, setTitle] = useState<string>("")
+  const [titleInitial, setTitleInitial] = useState<string>("")
 
   useEffect(() => {
     if (quizzesDataInitial) {
@@ -63,6 +65,12 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
       setQuizItems(quizItemsInitial);
     }
   }, [quizzesDataInitial]);
+
+  useEffect(() => {
+    if (notesData) {
+      setTitle(studyNote[0].title)
+    }
+  }, [notesData])
 
   useEffect(() => {
     if (notesDataInitial) {
@@ -106,13 +114,17 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
     )
   }
 
+  function saveNewTitle() {
+    setTitle(titleInitial)
+  }
+
   return (
     <div className="flex flex-col h-screen w-screen bg-gray-200">
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <Navbar />
         <div className="w-full mt-12 px-8 md:px-20 lg:px-40">
           <div>
-            <h1 className="text-center mt-20"> {studyNote[0].title} </h1>
+            <h1 className="text-center mt-20"> {title} </h1>
           </div>
         </div>
 
@@ -176,11 +188,12 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
                     <Input
                       id="name"
                       className="col-span-3 border-green-500 border-2 focus-visible:border-none "
+                      onChange={(e) => setTitleInitial(e.target.value)}
                     />
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit">Save changes</Button>
+                  <Button type="submit" onClick={() => saveNewTitle()}>Save changes</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>

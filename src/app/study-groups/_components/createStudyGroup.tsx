@@ -39,7 +39,14 @@ export const StudyGroupCreate: FC = () => {
           userId: userId
         }),
       });
-      console.log(response);
+      if (!response.ok && response.status === 401) {
+        router.push("/login");
+      }
+
+      const responseBody = await response.json();
+      const studyGroupId = responseBody.body
+
+      router.push(`/study-groups/${studyGroupId}`)
     } catch (err) {
       console.log(err);
     }
