@@ -67,7 +67,7 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
     if (isMember) {
       const token = localStorage.getItem("token");
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/leave`, {
-        method: "POST",
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
