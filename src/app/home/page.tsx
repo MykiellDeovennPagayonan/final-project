@@ -1,6 +1,5 @@
 "use client"
 import { FC, useState } from "react";
-import UserCard from "../../components/UserCard"
 import Navbar from "../../components/Navbar";
 import * as React from "react"
 import { useRouter } from "next/navigation";
