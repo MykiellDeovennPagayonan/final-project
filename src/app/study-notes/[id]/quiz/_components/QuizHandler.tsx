@@ -14,7 +14,7 @@ interface StudyNoteProps {
 
 const HandleQuiz: FC<StudyNoteProps> = ({ studyNoteId }) => {
   const { data: quizItems, error } = useFetchData(
-    `http://localhost:3001/api/study-notes/quizzes/${studyNoteId}`
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`
   );
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [correctScore, setCorrectScore] = useState<number>(0);

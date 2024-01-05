@@ -21,7 +21,7 @@ interface NotesCardNewProps {
 }
 
 const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
-  const { data: topics, error } = useFetchData("http://localhost:3001/api/topics")
+  const { data: topics, error } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/topics`)
   const [isPublic, setIsPublic] = useState<boolean>(false)
   const [titleInitial, setTitleInitial] = useState<string>('')
   const [topicSelected, setTopicSelected] = useState<Topic>(null)
@@ -52,9 +52,11 @@ const NotesCardNew: FC<NotesCardNewProps> = ({ setStudyNotes, studyNotes }) => {
     }
 
     try {
+      const token: string = localStorage.getItem("token");
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/new`, {
         method: 'POST',
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(information)
