@@ -19,7 +19,7 @@ export default function LoginCard({ router }) {
 
   async function handleSubmit() {
     try {
-      const response = await fetch("http://localhost:3001/api/auth/login", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export default function LoginCard({ router }) {
         }),
       })
 
-      if (!response.ok && response.status === 401) {
+      if (!response.ok || response.status === 401) {
         alert("email or password is incorrect")
       } else {
         const responseBody = await response.json()
