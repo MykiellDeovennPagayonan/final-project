@@ -8,66 +8,68 @@ export default function useFetchData(url: string, forUser?: boolean) {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token: string = localStorage.getItem("token");
     if (!token) {
-      router.push("/login")
+      router.push("/login");
     } else {
-      getData(token)
+      getData(token);
     }
   }, []);
 
-  async function getData(token) {
-    console.log(url)
+  async function getData(token: string) {
+    console.log(url);
+
     if (forUser) {
-      const userInfo = getUserInfo()
-      const userId = userInfo.id
+      const userInfo = getUserInfo();
+      const userId = userInfo.id;
 
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ userId })
-      })
-        .then((res) => res.json())
-        .catch((err) => {
-          console.log(err);
-          setError(err);
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId }),
         });
 
-      console.log(response)
+        if (!response.ok && response.status === 401) {
+          router.push("/login");
+        }
 
-      if (!response?.authenticated) {
-        router.push("/login");
+        const responseBody = await response.json();
+
+        console.log(responseBody.body);
+
+        const dataInitial = responseBody.body;
+        setData(dataInitial);
+      } catch (error) {
+        console.log(error);
+        setError(error);
       }
-
-      console.log(response.body);
-
-      const dataInitial = response.body;
-      setData(dataInitial);
-
     } else {
-      const response = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .catch((err) => {
-          console.log(err);
-          setError(err);
-        });
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
 
-      if (!response?.authenticated) {
-        router.push("/login");
+        if (!response.ok && response.status === 401) {
+          router.push("/login");
+        }
+        
+        const responseBody = await response.json();
+
+        console.log(responseBody.body);
+
+        const dataInitial = responseBody.body;
+        setData(dataInitial);
+      } catch (error) {
+        console.log(error);
+        setError(error);
       }
-
-      console.log(response.body);
-
-      const dataInitial = response.body;
-      setData(dataInitial);
     }
   }
 

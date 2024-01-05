@@ -29,11 +29,12 @@ export default function RegisterCard({ router }) {
           email: email,
           password: password
         })
-      }).then((res) => res.json())
+      })
       console.log(response)
 
-      if (response?.token){
-        localStorage.setItem('token', response.token)
+      if (response.ok && response.status === 201) {
+        const responseBody = await response.json()
+        localStorage.setItem('token', responseBody.body.token)
         router.push("/home")
       }
     } catch (error) {
