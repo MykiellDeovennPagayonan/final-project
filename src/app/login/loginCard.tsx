@@ -15,9 +15,45 @@ import Link from "next/link";
 
 export default function LoginCard({ router }) {
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [password, setPassword] = useState<string>("")
+  const [displayEmailInvalid, setDisplayEmailInvalid] = useState<boolean>(false)
+  const [displayEnterPassword, setDisplayEnterPassword] = useState<boolean>(false)
+  const [incorrectCridentials, setIncorrectCridentials] = useState<boolean>(false)
+
+  function isValidEmail() {
+    const atIndex = email.indexOf('@');
+    const dotIndex = email.lastIndexOf('.')
+
+    if (atIndex && dotIndex) {
+      if (dotIndex > atIndex) {
+        return true
+      }
+    }
+
+    return false
+  }
 
   async function handleSubmit() {
+    let valid = true
+
+    if (!isValidEmail()) {
+      setDisplayEmailInvalid(true)
+      valid = false
+    } else {
+      setDisplayEmailInvalid(false)
+    }
+
+    if (password.length === 0) {
+      setDisplayEnterPassword(true)
+      valid = false
+    } else {
+      setDisplayEnterPassword(false)
+    }
+
+    if (!valid) {
+      return
+    }
+
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login`, {
         method: "POST",
@@ -31,7 +67,7 @@ export default function LoginCard({ router }) {
       })
 
       if (!response.ok || response.status === 401) {
-        alert("email or password is incorrect")
+        setIncorrectCridentials(true)
       } else {
         const responseBody = await response.json()
         localStorage.setItem('token', responseBody.body.token)
@@ -59,6 +95,7 @@ export default function LoginCard({ router }) {
                 className="focus-visible:ring-emerald-400"
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {displayEmailInvalid && <p className="text-xs text-red-500 mr-1 my-2">Enter a valid email</p>}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
@@ -69,9 +106,13 @@ export default function LoginCard({ router }) {
                 className="focus-visible:ring-emerald-400"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {displayEnterPassword && <p className="text-xs text-red-500 mr-1 my-2">Enter your password</p>}
             </div>
           </div>
         </form>
+        <div className="w-full flex">
+          {incorrectCridentials && <p className="text-xs text-red-500 mx-auto mt-2">Password or username is incorrect</p>}
+        </div>
       </CardContent>
       <div className="flex justify-center mb-2">
         <p className="text-xs mr-1">Don't have an account? </p>
@@ -82,7 +123,7 @@ export default function LoginCard({ router }) {
           Register
         </Link>
       </div>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex flex-col justify-between">
         <Button className="w-full bg-emerald-400 hover:bg-emerald-600" onClick={() => handleSubmit()}>
           Log In
         </Button>
