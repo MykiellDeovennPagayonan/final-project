@@ -30,6 +30,7 @@ const NotesEditor: FC<NotesProps> = ({ setNotesData, setEditorInstance, notesDat
         onChange: () => {
           editor.save().then((outputData) => {
             setNotesData(outputData)
+            console.log(outputData)
           });
         },
         inlineToolbar: false

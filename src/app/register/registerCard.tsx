@@ -13,19 +13,64 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
 export default function RegisterCard({ router }) {
-  const [userName, setUserName] = useState<string>("");
+  const [username, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [displayEmailInvalid, setDisplayEmailInvalid] = useState<boolean>(false)
+  const [displayEnterPassword, setDisplayEnterPassword] = useState<boolean>(false)
+  const [displayEnterUsername, setDisplayEnterUsername] = useState<boolean>(false)
+
+  function isValidEmail() {
+    const atIndex = email.indexOf('@');
+    const dotIndex = email.lastIndexOf('.')
+
+    if (atIndex && dotIndex) {
+      if (dotIndex > atIndex) {
+        return true
+      }
+    }
+
+    return false
+  }
+
+
 
   async function handleSubmit() {
+    let valid = true
+
+    if (!isValidEmail()) {
+      setDisplayEmailInvalid(true)
+      valid = false
+    } else {
+      setDisplayEmailInvalid(false)
+    }
+
+    if (password.length === 0) {
+      setDisplayEnterPassword(true)
+      valid = false
+    } else {
+      setDisplayEnterPassword(false)
+    }
+
+    if (username.length === 0) {
+      setDisplayEnterUsername(true)
+      valid = false
+    } else {
+      setDisplayEnterUsername(false)
+    }
+
+    if (!valid) {
+      return
+    }
+
     try {
-      const response : any = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/register`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/register`, {
         method: 'POST',      
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userName: userName,
+          userName: username,
           email: email,
           password: password
         })
@@ -58,6 +103,7 @@ export default function RegisterCard({ router }) {
                 className="focus-visible:ring-emerald-400"
                 onChange={(e) => setUserName(e.target.value)}
               />
+              {displayEnterUsername && <p className="text-xs text-red-500 mr-1 my-2">Enter a username</p>}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="email">Email</Label>
@@ -67,6 +113,7 @@ export default function RegisterCard({ router }) {
                 className="focus-visible:ring-emerald-400"
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {displayEmailInvalid && <p className="text-xs text-red-500 mr-1 my-2">Enter a valid email</p>}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
@@ -78,6 +125,7 @@ export default function RegisterCard({ router }) {
                 className="focus-visible:ring-emerald-400"
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {displayEnterPassword && <p className="text-xs text-red-500 mr-1 my-2">Enter a password</p>}
             </div>
           </div>
         </form>

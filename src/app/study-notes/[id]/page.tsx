@@ -11,6 +11,7 @@ import useFetchData from "@/hooks/useFetchData";
 import toSaveNotes from "@/utils/saveStudyNotes";
 import DeleteStudyNoteButton from "@/app/study-notes/_components/deleteStudyNoteButton";
 import Navbar from "@/components/Navbar";
+import compareStudyNoteDataChanges from "@/utils/compareStudyNoteDataChanges";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -43,8 +44,10 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
     `${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-notes/quizzes/${studyNoteId}`
   );
   const [notesData, setNotesData] = useState<OutputData>();
+  const [lastSavedNotesData, setLastSavedNotesData] = useState<OutputData>()
   const [quizItems, setQuizItems] = useState<Array<QuizItem>>([]);
   const [isFocused, setFocused] = useState(false);
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (quizzesDataInitial) {
@@ -63,19 +66,39 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
 
   useEffect(() => {
     if (notesDataInitial) {
-      const data = toNotesData(notesDataInitial);
-      setNotesData(data);
+      const data = toNotesData(notesDataInitial)
+      setLastSavedNotesData(data)
+      setNotesData(data)
     }
   }, [notesDataInitial]);
 
   async function save() {
-    toSaveNotes(studyNoteId, notesData);
+    const changes : StudyNoteChanges = compareStudyNoteDataChanges(lastSavedNotesData, notesData)
+    console.log(changes)
+    setLastSavedNotesData(notesData)
+    toSaveNotes(studyNoteId, changes)
   }
 
-  function changeTitle() {
+  useEffect(() => {
+    const handleVariableChange = () => {
 
-  }
+      if (timer) {
+        clearTimeout(timer);
+      }
 
+      const newTimer = setTimeout(() => {
+        save()
+        console.log("save!")
+      }, 3000);
+
+      setTimer(newTimer);
+    }
+
+    if (notesData) {
+      handleVariableChange()
+    }
+
+  }, [notesData])
 
   if (!notesDataInitial || !studyNote) {
     return (
@@ -87,7 +110,6 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
     <div className="flex flex-col h-screen w-screen bg-gray-200">
       <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
         <Navbar />
-        <button onClick={() => save()}> Save! </button>
         <div className="w-full mt-12 px-8 md:px-20 lg:px-40">
           <div>
             <h1 className="text-center mt-20"> {studyNote[0].title} </h1>
