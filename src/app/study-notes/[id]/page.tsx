@@ -67,10 +67,10 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   }, [quizzesDataInitial]);
 
   useEffect(() => {
-    if (notesData) {
+    if (studyNote) {
       setTitle(studyNote[0].title)
     }
-  }, [notesData])
+  }, [studyNote])
 
   useEffect(() => {
     if (notesDataInitial) {
