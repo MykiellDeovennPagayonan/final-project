@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import QuizNavbar from "./QuizNavbar";
 import useFetchData from "@/hooks/useFetchData";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 interface StudyNoteProps {
   studyNoteId: number;
@@ -73,7 +74,9 @@ const HandleQuiz: FC<StudyNoteProps> = ({ studyNoteId }) => {
           <>
             <div className="flex p-5 justify-between">
               <p>Congratulations! You've completed the quiz.</p>
-              <Button className="mt-5">Try again?</Button>
+              <Link href={`../${studyNoteId}`}>
+                <Button className="mt-5">Go Back</Button>
+              </Link>
             </div>
           </>
         )}
