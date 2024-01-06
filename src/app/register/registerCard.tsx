@@ -19,6 +19,7 @@ export default function RegisterCard({ router }) {
   const [displayEmailInvalid, setDisplayEmailInvalid] = useState<boolean>(false)
   const [displayEnterPassword, setDisplayEnterPassword] = useState<boolean>(false)
   const [displayEnterUsername, setDisplayEnterUsername] = useState<boolean>(false)
+  const [displayEmailInUse, setDisplayEmailInUse] = useState<boolean>(false)
 
   function isValidEmail() {
     const atIndex = email.indexOf('@');
@@ -77,7 +78,9 @@ export default function RegisterCard({ router }) {
       })
       console.log(response)
 
-      if (response.ok && response.status === 201) {
+      if (response.status === 409) {
+        setDisplayEmailInUse(true)
+      } else if (response.ok && response.status === 201) {
         const responseBody = await response.json()
         localStorage.setItem('token', responseBody.body.token)
         router.push("/home")
@@ -114,6 +117,7 @@ export default function RegisterCard({ router }) {
                 onChange={(e) => setEmail(e.target.value)}
               />
               {displayEmailInvalid && <p className="text-xs text-red-500 mr-1 my-2">Enter a valid email</p>}
+              {displayEmailInUse && <p className="text-xs text-red-500 mr-1 my-2">Email is already in use</p>}
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
