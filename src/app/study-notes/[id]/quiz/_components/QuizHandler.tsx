@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import QuizNavbar from "./QuizNavbar";
 import useFetchData from "@/hooks/useFetchData";
+import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 
 interface StudyNoteProps {
@@ -46,7 +47,7 @@ const HandleQuiz: FC<StudyNoteProps> = ({ studyNoteId }) => {
   };
 
   if (!quizItems) {
-    return <div> I am waiting </div>;
+    return <Skeleton className="w-5/6 h-full"/>;
   }
 
   return (
