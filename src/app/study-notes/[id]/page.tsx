@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface StudyNotePageProps {
   params: {
@@ -81,7 +82,7 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
   }, [notesDataInitial]);
 
   async function save() {
-    const changes : StudyNoteChanges = compareStudyNoteDataChanges(lastSavedNotesData, notesData)
+    const changes: StudyNoteChanges = compareStudyNoteDataChanges(lastSavedNotesData, notesData)
     console.log(changes)
     setLastSavedNotesData(notesData)
     toSaveNotes(studyNoteId, changes)
@@ -108,15 +109,24 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
 
   }, [notesData])
 
-  if (!notesDataInitial || !studyNote) {
-    return (
-      <h1> loading bruh! </h1>
-    )
-  }
-
   function saveNewTitle() {
     setTitle(titleInitial)
   }
+
+  if (!notesDataInitial || !studyNote || !quizzesDataInitial) {
+    return (
+      <div className="flex flex-col h-screen w-screen bg-gray-200">
+        <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
+          <Navbar />
+          <div className="w-full mt-12 px-8 md:px-20 lg:px-40 ">
+            <Skeleton className="w-80 mx-auto h-8 mt-20"/>
+        </div>
+          <Skeleton className="w-5/6 mx-auto h-[1200px] mt-20"/>
+        </div>
+      </div>
+    )
+  }
+
 
   return (
     <div className="flex flex-col h-screen w-screen bg-gray-200">
@@ -154,8 +164,8 @@ const StudyNotePage: FC<StudyNotePageProps> = ({ params }) => {
                     <p className="text-black">Invitation Code: </p>
                     <Input
                       className={`p-2 border-0 ${isFocused
-                          ? "focus-visible:border-b-2 focus-visible:border-black focus-visible:ring-0 rounded-none focus-visible:ring-transparent"
-                          : ""
+                        ? "focus-visible:border-b-2 focus-visible:border-black focus-visible:ring-0 rounded-none focus-visible:ring-transparent"
+                        : ""
                         }`}
                       type="text"
                       value={`study-notes/${studyNoteId}`}

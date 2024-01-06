@@ -6,6 +6,7 @@ import { Separator } from "../../../components/ui/separator";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import useFetchData from "@/hooks/useFetchData";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const StudyGroups: FC = () => {
   const { data: studyGroupsInitial, error } = useFetchData(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups`, true)
@@ -16,6 +17,28 @@ export const StudyGroups: FC = () => {
       setStudyGroups(studyGroupsInitial)
     }
   }, [studyGroupsInitial]);
+
+  if (!studyGroupsInitial) {
+    return (
+      <div className="flex flex-col h-screen w-screen bg-gray-200">
+      <Navbar />
+      <div className="flex justify-center ">
+        <div className="flex flex-col w-full max-w-screen-xl">
+          <div className="flex justify-end mr-3 mb-5">
+            <Skeleton className="mt-12 w-52 h-8" />
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-5 xl:grid-cols-4 ">
+            <Skeleton className="min-w-80 md:h-36 my-2 p-4 "/>
+            <Skeleton className="min-w-80 md:h-36 my-2 p-4 "/>
+            <Skeleton className="min-w-80 md:h-36 my-2 p-4 "/>
+            <Skeleton className="min-w-80 md:h-36 my-2 p-4 "/>
+          </div>
+        </div>
+      </div>
+    </div>
+    )
+  }
 
   return (
     <div className="flex flex-col h-full w-full bg-gray-200">

@@ -25,12 +25,14 @@ export const StudyGroupCreate: FC = () => {
   async function createStudyGroup() {
     const userInfo = getUserInfo()
     const userId = userInfo.id
+    const token = localStorage.getItem("token");
 
     try {
       console.log("creating...");
       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/study-groups/new`, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

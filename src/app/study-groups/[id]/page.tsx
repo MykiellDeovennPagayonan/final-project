@@ -9,6 +9,7 @@ import { AddStudyNote } from "../_components/addStudyNote"
 import useFetchData from "@/hooks/useFetchData"
 import toStudyNotes from "@/utils/studyNotesAdaptor"
 import getUserInfo from "@/utils/getUserInfo"
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface StudyGroupPageProps {
   params: {
@@ -100,7 +101,27 @@ const StudyNotePage: FC<StudyGroupPageProps> = ({ params }) => {
   }
 
   if (!studyGroup || !studyNotesInitial || !members || !admins) {
-    return <div> laoding </div>
+    return (
+      <div className="flex flex-col h-screen w-screen bg-gray-200">
+      <div className="flex flex-col h-screen w-full overflow-hidden overflow-y-scroll">
+        <Navbar />
+        <div className="w-full h-48 mt-12 px-8 md:px-20 lg:px-40">
+          <Skeleton className="w-80 h-28 my-4"/>
+          <Skeleton className="w-full h-12"/>
+          <Separator className="mt-8 h-[2px] bg-gray-400" />
+          <div className="flex flex-col sm:flex-row w-full h-48 mt-8">
+            <div className="w-full sm:w-4/6 px-4 md:px-8">
+              <Skeleton className="w-full h-80"/>
+            </div>
+            <div className="w-full sm:w-2/6 sm:mt-2 px-4 md:px-8">
+              <Skeleton className="w-full h-80"/>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    )
 
   }
 
